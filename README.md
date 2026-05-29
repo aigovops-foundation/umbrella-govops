@@ -291,6 +291,22 @@ The control plane is itself a high-value target. Mitigations encoded in the repo
 
 Governance, as code, with receipts.
 
+## Testing
+
+The repo ships a four-pillar test harness:
+
+| Pillar | What it covers | Command |
+| --- | --- | --- |
+| **Unit** | `umbrella-conformance` CLI surface + JSON Schema strictness | `make test-unit` |
+| **Scale** | 100 / 1 000 / 10 000 synthetic controls with an SLA of <5 s per 1 000 | `make test-scale` (or `make test-scale-10k`) |
+| **Chaos** | Six deterministic mutations (bad YAML, bad runner, missing checks, bad ID, orphan UCID, dangling implementer) plus a random-walk session — each mutation must be caught | `make test-chaos` |
+| **E2E** | Playwright smoke tests against the live landing page (hero, framework registry size, role cards, oath ribbon, nav anchors, no fatal JS) | `make test-e2e` |
+
+Run everything with `make test-all`. The full harness also runs on every PR
+and nightly via [`.github/workflows/harness.yml`](.github/workflows/harness.yml).
+
+Full docs: [`tests/README.md`](tests/README.md).
+
 ---
 
 <sub>© 2026 AIGovOps Foundation · Apache-2.0 · Hydra Teal `#01696f` · Signal Green `#2ecc71`</sub>

@@ -1,0 +1,152 @@
+name: harness
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  schedule:
+    # Nightly at 09:17 UTC (~02:17 PT) — quiet window, well before the
+    # 14:00-UTC pre-standup briefing cron reads CI state.
+    - cron: "17 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: harness-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit:
+    name: unit + schemas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e . pytest pyyaml jsonschema click
+      - name: Run unit suite
+        run: PYTHONPATH=. python -m pytest tests/unit/ tests/conformance/ -v --junitxml=reports/harness/junit-unit.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: junit-unit
+          path: reports/harness/junit-unit.xml
+
+  scale:
+    name: scale (1k controls)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e . pytest pyyaml jsonschema click
+      - name: Run scale suite
+        run: PYTHONPATH=. python -m pytest tests/scale/ -v --junitxml=reports/harness/junit-scale.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scale-report
+          path: |
+            reports/harness/junit-scale.xml
+            reports/harness/scale.jsonl
+
+  scale-10k:
+    name: scale (10k, nightly only)
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e . pytest pyyaml jsonschema click
+      - name: Run 10k scale
+        run: SCALE_N=10000 PYTHONPATH=. python -m pytest tests/scale/ -v -k 10k --junitxml=reports/harness/junit-scale-10k.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scale-10k-report
+          path: |
+            reports/harness/junit-scale-10k.xml
+            reports/harness/scale.jsonl
+
+  chaos:
+    name: chaos monkey
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e . pytest pyyaml jsonschema click
+      - name: Run chaos suite
+        run: PYTHONPATH=. python -m pytest tests/chaos/ -v --junitxml=reports/harness/junit-chaos.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: chaos-report
+          path: |
+            reports/harness/junit-chaos.xml
+            reports/harness/chaos.jsonl
+
+  e2e:
+    name: playwright e2e
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: tests/e2e/package-lock.json
+      - name: Install Playwright deps
+        working-directory: tests/e2e
+        run: |
+          npm ci || npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Run e2e suite
+        working-directory: tests/e2e
+        run: npx playwright test --reporter=list
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: |
+            reports/harness/playwright-html
+            reports/harness/playwright.json
+            reports/harness/playwright-artifacts
+
+  harness-summary:
+    name: harness summary
+    needs: [unit, scale, chaos, e2e]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Summarize
+        run: |
+          echo "## Umbrella-GovOps harness" >> $GITHUB_STEP_SUMMARY
+          echo "- unit: ${{ needs.unit.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- scale: ${{ needs.scale.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- chaos: ${{ needs.chaos.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- e2e: ${{ needs.e2e.result }}" >> $GITHUB_STEP_SUMMARY

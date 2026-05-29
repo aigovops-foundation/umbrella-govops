@@ -13,6 +13,12 @@ dist/
 build/
 *.log
 
+# Test harness artifacts (regenerated on every run)
+reports/harness/
+tests/e2e/test-results/
+tests/e2e/playwright-report/
+tests/e2e/.playwright/
+
 # Node
 node_modules/
 *.tsbuildinfo
