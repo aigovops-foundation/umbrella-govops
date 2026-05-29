@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# Build / outputs (regeneratable)
+out/
+dist/
+build/
+*.log
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Local secrets — NEVER commit
+*.pem
+*.key
+cosign.key
+secrets.local.yaml
+
+# Evidence outputs are signed and published separately; do not commit raw working bundles
+evidence/bundles/*/
+!evidence/bundles/.gitkeep

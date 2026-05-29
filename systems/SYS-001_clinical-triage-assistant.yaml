@@ -1,0 +1,36 @@
+apiVersion: govops.aigovops.org/v1
+kind: AISystem
+metadata:
+  id: SYS-001
+  name: Clinical Triage Assistant
+  owner: "@bobrapp"
+  version: "0.1.0"
+  status: design   # design | shadow | pilot | production | retired
+
+intended_purpose: |
+  Decision-support tool for emergency-department triage nurses. Suggests
+  priority levels; final decision is always made by a licensed clinician.
+
+risk_classification:
+  eu_ai_act_tier: high           # Annex III §5 — access to essential services
+  rationale: "Health triage materially influences clinical decision-making."
+
+deployers: ["Hospital Group A"]
+modalities: ["tabular", "nlp"]
+protected_attributes: ["age", "sex", "race"]
+
+artifacts:
+  training_dataset:
+    uri: "s3://example/datasets/triage-2025q4/"
+    sha256: "TBD"
+  model:
+    uri: "oci://registry.example/triage-model@sha256:TBD"
+    signing:
+      method: openssf-model-signing
+      bundle_ref: "evidence/manifests/SYS-001-model.oms.json"
+
+human_oversight:
+  mode: "human-in-the-loop"
+  ref_controls: [HO-001, HO-002]
+
+post_market_monitoring_plan: reports/post-market-monitoring/SYS-001.yaml

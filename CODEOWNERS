@@ -1,0 +1,29 @@
+# CODEOWNERS — every governance change requires the right reviewer.
+# Syntax: <path>  <owner1> <owner2> ...
+
+# Repo-wide default
+*                                       @bobrapp
+
+# Framework catalogs — change rarely, audited heavily
+/frameworks/                            @bobrapp
+/crosswalks/                            @bobrapp
+
+# Policy enforcement layer
+/policies/                              @bobrapp
+/policies/exceptions/                   @bobrapp
+
+# Governance domains
+/domains/data-governance/               @bobrapp
+/domains/model-lifecycle/               @bobrapp
+/domains/human-oversight/               @bobrapp
+/domains/transparency-disclosure/       @bobrapp
+/domains/security-robustness/           @bobrapp
+/domains/logging-traceability/          @bobrapp
+/domains/risk-management-system/        @bobrapp
+/domains/post-market-monitoring/        @bobrapp
+/domains/incident-response/             @bobrapp
+/domains/third-party-and-supply-chain/  @bobrapp
+
+# CI/CD and signing identity
+/.github/workflows/                     @bobrapp
+/tools/                                 @bobrapp

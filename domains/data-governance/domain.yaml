@@ -1,0 +1,18 @@
+apiVersion: govops.aigovops.org/v1
+kind: GovernanceDomain
+metadata:
+  id: data-governance
+  name: Data Governance
+  owner: "@bobrapp"
+  description: |
+    Data provenance, bias evaluation, PII minimization, and dataset
+    documentation obligations across NIST AI RMF MAP/MEASURE and EU AI
+    Act Article 10 / Annex IV §2(d).
+
+risk_tier_applicability: ["high", "limited", "minimal"]
+
+slos:
+  - metric: control_pass_rate
+    target: ">= 0.95"
+  - metric: evidence_freshness_days
+    target: "<= 7"

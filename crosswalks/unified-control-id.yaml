@@ -1,0 +1,30 @@
+apiVersion: govops.aigovops.org/v1
+kind: Crosswalk
+metadata:
+  name: unified-control-id
+  description: Internal pivot mapping (UCID) → NIST AI RMF / EU AI Act / ISO 42001
+
+ucids:
+  - id: UCID-DATA-BIAS-001
+    title: Dataset bias examination
+    nist_ai_rmf: [MEASURE-2.11, MAP-2.3, MANAGE-2.3]
+    eu_ai_act:
+      articles: ["10(2)(f)", "10(3)"]
+      annex_iv: ["2(d)", "2(g)"]
+    iso_42001: ["A.7.4"]
+    implementing_controls: [DG-002]
+
+  - id: UCID-OVERSIGHT-001
+    title: Human oversight measures
+    nist_ai_rmf: [GOVERN-3.2, MANAGE-2.4]
+    eu_ai_act:
+      articles: ["14"]
+      annex_iv: ["2(e)", "3"]
+    implementing_controls: [HO-001, HO-002, HO-003]
+
+  - id: UCID-LOG-001
+    title: Automatic logging of events
+    nist_ai_rmf: [MEASURE-2.8, MANAGE-4.1]
+    eu_ai_act:
+      articles: ["12", "19"]
+    implementing_controls: [LOG-001, LOG-002]

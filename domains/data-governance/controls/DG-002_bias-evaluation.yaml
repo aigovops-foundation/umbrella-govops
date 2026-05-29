@@ -1,0 +1,72 @@
+apiVersion: govops.aigovops.org/v1
+kind: Control
+metadata:
+  id: DG-002
+  ucid: UCID-DATA-BIAS-001
+  name: Bias evaluation on training and evaluation datasets
+  owner: "@bobrapp"
+  severity: high
+  status: draft   # draft | shadow | enforced
+
+satisfies:
+  nist_ai_rmf:
+    - subcategory: MEASURE-2.11
+      coverage: full
+    - subcategory: MAP-2.3
+      coverage: partial
+  eu_ai_act:
+    - article: "10(2)(f)"
+      coverage: full
+    - article: "10(3)"
+      annex_iv_section: "2(d)"
+      coverage: full
+  iso_42001:
+    - clause: "A.7.4"
+
+applies_to:
+  risk_tier: ["high", "limited"]
+  modality: ["tabular", "vision", "nlp"]
+
+inputs:
+  - path: artifacts.training_dataset.uri
+    required: true
+  - path: artifacts.model.uri
+    required: true
+  - path: protected_attributes
+    required: true
+
+checks:
+  - id: DG-002.C1
+    name: Demographic parity ratio within threshold
+    runner: pytest
+    script: domains/data-governance/checks/bias_metrics_test.py::test_demographic_parity
+    parameters:
+      threshold_min: 0.80
+      threshold_max: 1.25
+    evidence_outputs:
+      - type: metric-report
+        path: out/bias/dp_ratio.json
+
+  - id: DG-002.C2
+    name: Disparate impact statistical test
+    runner: python
+    script: domains/data-governance/checks/bias_metrics_test.py::test_disparate_impact
+    evidence_outputs:
+      - type: metric-report
+        path: out/bias/di.json
+
+  - id: DG-002.C3
+    name: OPA policy — no protected attributes used as direct features
+    runner: opa
+    script: domains/data-governance/checks/pii_scan.rego
+    query: data.govops.data.no_direct_protected_features
+    evidence_outputs:
+      - type: opa-decision
+        path: out/bias/opa_decision.json
+
+on_fail:
+  action: block_merge
+  notify: ["#govops-alerts"]
+  open_poam: true
+
+exceptions_allowed_from: policies/exceptions/

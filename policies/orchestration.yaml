@@ -1,0 +1,60 @@
+apiVersion: govops.aigovops.org/v1
+kind: PolicyOrchestration
+metadata:
+  name: umbrella-govops-root
+  version: 2026.05.29
+  signing_identity: https://github.com/bobrapp/umbrella-govops/.github/workflows/evidence-bundle.yml@refs/heads/main
+
+defaults:
+  evidence_retention: P7Y
+  severity_on_fail: blocking
+  evidence_format: in-toto-v1.0
+
+scope:
+  systems: ["SYS-*"]
+  exclude_risk_tier: ["prohibited"]
+
+phases:
+  - id: ingest
+    description: Load framework catalogs and validate schemas
+    runs:
+      - frameworks/nist-ai-rmf-1.0/catalog.oscal.yaml
+      - frameworks/eu-ai-act/annex-iv-tech-doc.oscal.yaml
+
+  - id: classify
+    description: Determine EU AI Act risk tier per system
+    depends_on: [ingest]
+    runs:
+      - domains/risk-management-system/controls/
+
+  - id: domain-checks
+    description: Run all domain controls in parallel
+    depends_on: [classify]
+    parallel: true
+    runs:
+      - domains/data-governance/**
+      - domains/model-lifecycle/**
+      - domains/human-oversight/**
+      - domains/transparency-disclosure/**
+      - domains/security-robustness/**
+      - domains/logging-traceability/**
+
+  - id: crosswalk
+    description: Resolve every result to NIST + EU + ISO IDs
+    depends_on: [domain-checks]
+    runs:
+      - crosswalks/unified-control-id.yaml
+
+  - id: bundle
+    description: Build, sign, log, publish evidence bundle
+    depends_on: [crosswalk]
+    runs:
+      - tools/govops/attestor.py
+
+  - id: report
+    description: Render conformity + RMF profile + heatmap
+    depends_on: [bundle]
+    runs:
+      - tools/govops/reporters/oscal_ar.py
+      - tools/govops/reporters/annex_iv_pdf.py
+      - tools/govops/reporters/heatmap_html.py

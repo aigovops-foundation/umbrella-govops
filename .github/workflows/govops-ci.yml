@@ -1,0 +1,109 @@
+name: govops-ci
+
+on:
+  pull_request:
+    paths:
+      - 'domains/**'
+      - 'policies/**'
+      - 'systems/**'
+      - 'frameworks/**'
+      - 'crosswalks/**'
+      - 'tools/**'
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 6 * * *'   # Nightly drift detection
+  workflow_dispatch:
+
+permissions:
+  id-token: write         # OIDC for Sigstore keyless signing
+  contents: read
+  attestations: write     # GitHub artifact attestations
+  packages: write
+
+jobs:
+  validate-schemas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Install govops engine
+        run: pip install -e tools/govops || echo "engine stub — implementation pending"
+      - name: Validate all YAML against schemas
+        run: |
+          echo "TODO: govops validate --strict"
+          # govops validate --strict
+
+  compile-policies:
+    needs: validate-schemas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile controls → Rego + test plan
+        run: |
+          echo "TODO: govops compile --out ./out"
+          mkdir -p out && echo '{}' > out/plan.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: policy-bundle
+          path: out/
+
+  run-checks:
+    needs: compile-policies
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        domain:
+          - data-governance
+          - model-lifecycle
+          - human-oversight
+          - transparency-disclosure
+          - security-robustness
+          - logging-traceability
+          - risk-management-system
+          - post-market-monitoring
+          - incident-response
+          - third-party-and-supply-chain
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run domain checks
+        run: |
+          echo "TODO: govops run --domain ${{ matrix.domain }} --out ./results/${{ matrix.domain }}"
+          mkdir -p results/${{ matrix.domain }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: results-${{ matrix.domain }}
+          path: results/
+
+  build-evidence-bundle:
+    needs: run-checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { path: results }
+      - name: Assemble bundle
+        run: |
+          echo "TODO: govops bundle --in ./results --out evidence/bundles/${{ github.run_id }}"
+          mkdir -p evidence/bundles/${{ github.run_id }}
+          echo "stub" > evidence/bundles/${{ github.run_id }}/bundle.tar.zst
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3
+      - name: Keyless sign bundle (Sigstore)
+        run: |
+          echo "TODO: cosign sign-blob --yes --bundle ... evidence/bundles/${{ github.run_id }}/bundle.tar.zst"
+      - name: GitHub artifact attestation (SLSA provenance)
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: 'evidence/bundles/${{ github.run_id }}/bundle.tar.zst'
+
+  gate:
+    needs: build-evidence-bundle
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: OPA policy gate
+        run: |
+          echo "TODO: opa eval --bundle out/policies.tar.gz --input results/aggregate.json --fail-defined 'data.govops.ci_gate.deny[_]'"
