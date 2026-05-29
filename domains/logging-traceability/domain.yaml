@@ -1,0 +1,17 @@
+apiVersion: govops.aigovops.org/v1
+kind: GovernanceDomain
+metadata:
+  id: logging-traceability
+  code: LT
+  name: Logging & Traceability
+  owner: "@bobrapp"
+  description: |
+    Automatic event logging, retention, and supply-chain traceability. EU AI Act Article 12 / Article 19 and NIST MEASURE-2.8.
+
+risk_tier_applicability: ["high", "limited", "minimal"]
+
+slos:
+  - metric: control_pass_rate
+    target: ">= 0.95"
+  - metric: evidence_freshness_days
+    target: "<= 7"

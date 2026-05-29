@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-label="Umbrella-GovOps medallion">
+  <defs>
+    <radialGradient id="paperGrad" cx="50%" cy="46%" r="62%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="65%" stop-color="#fbfaf6"/>
+      <stop offset="100%" stop-color="#f1efe7"/>
+    </radialGradient>
+    <radialGradient id="domeGrad" cx="50%" cy="42%" r="60%">
+      <stop offset="0%" stop-color="#0a8a91"/>
+      <stop offset="60%" stop-color="#01696f"/>
+      <stop offset="100%" stop-color="#014c50"/>
+    </radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Outer parchment disc with teal hairline -->
+  <circle cx="240" cy="240" r="232" fill="url(#paperGrad)" stroke="#01696f" stroke-width="2"/>
+  <circle cx="240" cy="240" r="220" fill="none" stroke="#2ecc71" stroke-width="1.2" opacity="0.55"/>
+
+  <!-- N/S/E/W tick marks (Signal Green) -->
+  <g stroke="#2ecc71" stroke-width="2.4" opacity="0.55" stroke-linecap="round">
+    <line x1="240" y1="14"  x2="240" y2="34"/>
+    <line x1="240" y1="446" x2="240" y2="466"/>
+    <line x1="14"  y1="240" x2="34"  y2="240"/>
+    <line x1="446" y1="240" x2="466" y2="240"/>
+  </g>
+
+  <!-- Inner concentric ring framing the umbrella -->
+  <circle cx="240" cy="240" r="172" fill="none" stroke="#01696f" stroke-width="1.4" opacity="0.35"/>
+
+  <!-- ── Umbrella glyph ───────────────────────────────────────── -->
+  <!-- Canopy (dome) -->
+  <g filter="url(#soft)">
+    <path d="M88 244
+             C 88 160, 156 104, 240 104
+             C 324 104, 392 160, 392 244
+             Z"
+          fill="url(#domeGrad)"/>
+  </g>
+
+  <!-- Canopy ribs / panel separators in Signal Green -->
+  <g stroke="#2ecc71" stroke-width="1.6" opacity="0.85" fill="none" stroke-linecap="round">
+    <path d="M88 244 C 132 200, 168 178, 240 168"/>
+    <path d="M392 244 C 348 200, 312 178, 240 168"/>
+    <path d="M150 244 C 168 196, 198 172, 240 168"/>
+    <path d="M330 244 C 312 196, 282 172, 240 168"/>
+    <line x1="240" y1="104" x2="240" y2="244"/>
+  </g>
+
+  <!-- Canopy scalloped lower edge (8 panels) -->
+  <g fill="url(#domeGrad)" stroke="#2ecc71" stroke-width="1.4" opacity="0.95">
+    <path d="M88 244
+             q 19 22 38 0
+             q 19 22 38 0
+             q 19 22 38 0
+             q 19 22 38 0
+             q 19 22 38 0
+             q 19 22 38 0
+             q 19 22 38 0
+             q 19 22 38 0
+             L 392 244 Z"/>
+  </g>
+
+  <!-- Finial dot at apex -->
+  <circle cx="240" cy="100" r="6" fill="#2ecc71" stroke="#01696f" stroke-width="1.4"/>
+
+  <!-- Handle stem -->
+  <rect x="236" y="244" width="8" height="118" rx="3" fill="#01696f"/>
+
+  <!-- J-curve handle hook -->
+  <path d="M240 362
+           C 240 388, 218 398, 198 392
+           C 184 388, 178 376, 180 366"
+        fill="none" stroke="#01696f" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Falling "code" rain — small mono ticks, Signal Green -->
+  <g stroke="#2ecc71" stroke-width="2.2" stroke-linecap="round" opacity="0.85">
+    <line x1="118" y1="294" x2="118" y2="312"/>
+    <line x1="154" y1="312" x2="154" y2="332"/>
+    <line x1="320" y1="296" x2="320" y2="316"/>
+    <line x1="356" y1="316" x2="356" y2="338"/>
+    <line x1="394" y1="294" x2="394" y2="312"/>
+    <line x1="86"  y1="316" x2="86"  y2="334"/>
+  </g>
+
+  <!-- Tiny check marks inside the canopy interior, signalling "covered" -->
+  <g stroke="#2ecc71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.95">
+    <polyline points="170,216 178,224 192,208"/>
+    <polyline points="226,200 234,208 248,192"/>
+    <polyline points="282,216 290,224 304,208"/>
+  </g>
+</svg>

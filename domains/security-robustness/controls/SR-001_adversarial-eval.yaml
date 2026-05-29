@@ -1,0 +1,31 @@
+apiVersion: govops.aigovops.org/v1
+kind: Control
+metadata:
+  id: SR-001
+  ucid: UCID-SEC-ROBUST-001
+  name: Adversarial robustness evaluation
+  owner: "@bobrapp"
+  severity: high
+  status: draft
+
+satisfies:
+  nist_ai_rmf:
+    - { subcategory: MEASURE-2.7, coverage: full }
+  eu_ai_act:
+    - { article: "15", coverage: full }
+
+applies_to:
+  risk_tier: ["high"]
+
+checks:
+  - id: SR-001.C1
+    name: Adversarial accuracy floor met
+    runner: pytest
+    script: domains/security-robustness/checks/adversarial_test.py::test_adv_floor
+    parameters: { accuracy_floor: 0.70 }
+    evidence_outputs:
+      - { type: metric-report, path: out/adv/floor.json }
+
+on_fail:
+  action: block_merge
+  open_poam: true

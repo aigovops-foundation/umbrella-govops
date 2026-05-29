@@ -1,0 +1,17 @@
+apiVersion: govops.aigovops.org/v1
+kind: GovernanceDomain
+metadata:
+  id: risk-management-system
+  code: RM
+  name: Risk Management System
+  owner: "@bobrapp"
+  description: |
+    Continuous, lifecycle-wide risk management. EU AI Act Article 9 and NIST MANAGE function.
+
+risk_tier_applicability: ["high", "limited", "minimal"]
+
+slos:
+  - metric: control_pass_rate
+    target: ">= 0.95"
+  - metric: evidence_freshness_days
+    target: "<= 7"

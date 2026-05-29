@@ -1,0 +1,17 @@
+apiVersion: govops.aigovops.org/v1
+kind: GovernanceDomain
+metadata:
+  id: post-market-monitoring
+  code: PM
+  name: Post-Market Monitoring
+  owner: "@bobrapp"
+  description: |
+    Telemetry sweep, drift detection, and ongoing performance review. EU AI Act Article 72.
+
+risk_tier_applicability: ["high", "limited", "minimal"]
+
+slos:
+  - metric: control_pass_rate
+    target: ">= 0.95"
+  - metric: evidence_freshness_days
+    target: "<= 7"

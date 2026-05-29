@@ -1,0 +1,17 @@
+apiVersion: govops.aigovops.org/v1
+kind: GovernanceDomain
+metadata:
+  id: third-party-and-supply-chain
+  code: TP
+  name: Third Party & Supply Chain
+  owner: "@bobrapp"
+  description: |
+    GPAI provider obligations, SBOM, model signing, and downstream-deployer agreements.
+
+risk_tier_applicability: ["high", "limited", "minimal"]
+
+slos:
+  - metric: control_pass_rate
+    target: ">= 0.95"
+  - metric: evidence_freshness_days
+    target: "<= 7"

@@ -1,0 +1,33 @@
+# EU AI Act — Annex IV: Technical Documentation referred to in Article 11(1).
+# Source: https://artificialintelligenceact.eu/annex/4/
+# Each section becomes a required input set in the conformity-pack renderer.
+
+catalog:
+  uuid: 8b3e3c8e-0000-4000-a000-euaiact-anx4
+  metadata:
+    title: EU AI Act — Annex IV Technical Documentation
+    version: "Regulation (EU) 2024/1689"
+    oscal-version: 1.1.2
+
+  groups:
+    - id: annex-iv
+      title: Annex IV — Technical Documentation
+      controls:
+        - id: ANX4-1
+          title: General description of the AI system (intended purpose, provider, versions, integrations, hardware, UI, instructions for use).
+        - id: ANX4-2
+          title: Detailed description of the AI system and development process (methods, design choices, architecture, data, oversight, predetermined changes, validation, cybersecurity).
+        - id: ANX4-3
+          title: Monitoring, functioning, and control information — accuracy, foreseeable unintended outcomes, oversight measures, input data specifications.
+        - id: ANX4-4
+          title: Appropriateness of performance metrics for the specific AI system.
+        - id: ANX4-5
+          title: Detailed description of the risk management system (Article 9).
+        - id: ANX4-6
+          title: Description of relevant changes made by the provider to the system through its lifecycle.
+        - id: ANX4-7
+          title: List of harmonised standards applied (or detailed description of alternative solutions).
+        - id: ANX4-8
+          title: Copy of the EU declaration of conformity (Article 47).
+        - id: ANX4-9
+          title: Detailed description of the post-market monitoring plan (Article 72).

@@ -1,0 +1,17 @@
+apiVersion: govops.aigovops.org/v1
+kind: GovernanceDomain
+metadata:
+  id: transparency-disclosure
+  code: TD
+  name: Transparency & Disclosure
+  owner: "@bobrapp"
+  description: |
+    User-facing notice, watermarking of synthetic content, and deployer instructions. EU AI Act Article 13 and NIST MEASURE-2.8.
+
+risk_tier_applicability: ["high", "limited", "minimal"]
+
+slos:
+  - metric: control_pass_rate
+    target: ">= 0.95"
+  - metric: evidence_freshness_days
+    target: "<= 7"

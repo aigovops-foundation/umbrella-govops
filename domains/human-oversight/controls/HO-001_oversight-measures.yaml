@@ -1,0 +1,37 @@
+apiVersion: govops.aigovops.org/v1
+kind: Control
+metadata:
+  id: HO-001
+  ucid: UCID-OVERSIGHT-001
+  name: Human oversight measures defined and operable
+  owner: "@bobrapp"
+  severity: high
+  status: draft
+
+satisfies:
+  nist_ai_rmf:
+    - { subcategory: GOVERN-3.2, coverage: full }
+    - { subcategory: MANAGE-2.4, coverage: partial }
+  eu_ai_act:
+    - { article: "14", annex_iv_section: "2(e)", coverage: full }
+
+applies_to:
+  risk_tier: ["high"]
+
+inputs:
+  - { path: human_oversight.mode,           required: true }
+  - { path: human_oversight.override_path,  required: true }
+  - { path: human_oversight.escalation_sla, required: true }
+
+checks:
+  - id: HO-001.C1
+    name: System manifest declares oversight mode and override path
+    runner: opa
+    script: domains/human-oversight/checks/oversight_present.rego
+    query: data.govops.oversight.complete
+    evidence_outputs:
+      - { type: opa-decision, path: out/oversight/decision.json }
+
+on_fail:
+  action: block_merge
+  open_poam: true

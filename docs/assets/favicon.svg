@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="30" fill="#01696f"/>
+  <circle cx="32" cy="32" r="24" fill="none" stroke="#2ecc71" stroke-width="1.2" opacity="0.5"/>
+  <!-- mini umbrella -->
+  <path d="M14 34 C 14 22, 22 16, 32 16 C 42 16, 50 22, 50 34 Z" fill="#fbfaf6" stroke="#2ecc71" stroke-width="1.3"/>
+  <line x1="32" y1="16" x2="32" y2="34" stroke="#01696f" stroke-width="1.2" opacity="0.6"/>
+  <rect x="31" y="34" width="2" height="14" rx="1" fill="#fbfaf6"/>
+  <path d="M32 48 C 32 53, 28 54, 25 52" fill="none" stroke="#fbfaf6" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="32" cy="16" r="1.6" fill="#2ecc71"/>
+</svg>

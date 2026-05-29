@@ -1,0 +1,17 @@
+apiVersion: govops.aigovops.org/v1
+kind: GovernanceDomain
+metadata:
+  id: model-lifecycle
+  code: ML
+  name: Model Lifecycle
+  owner: "@bobrapp"
+  description: |
+    Training, evaluation, model cards, and OpenSSF Model Signing across the full lifecycle. NIST MAP-4 / MANAGE-4 and EU AI Act Annex IV \u00a72(a-c).
+
+risk_tier_applicability: ["high", "limited", "minimal"]
+
+slos:
+  - metric: control_pass_rate
+    target: ">= 0.95"
+  - metric: evidence_freshness_days
+    target: "<= 7"

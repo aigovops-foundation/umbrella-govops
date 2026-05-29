@@ -1,0 +1,32 @@
+apiVersion: govops.aigovops.org/v1
+kind: Control
+metadata:
+  id: LOG-001
+  ucid: UCID-LOG-001
+  name: Automatic event logging enabled with required retention
+  owner: "@bobrapp"
+  severity: high
+  status: draft
+
+satisfies:
+  nist_ai_rmf:
+    - { subcategory: MEASURE-2.8, coverage: full }
+    - { subcategory: MANAGE-4.1, coverage: partial }
+  eu_ai_act:
+    - { article: "12", coverage: full }
+    - { article: "19", coverage: partial }
+
+applies_to:
+  risk_tier: ["high", "limited"]
+
+checks:
+  - id: LOG-001.C1
+    name: Logging configuration declared on the system
+    runner: pytest
+    script: domains/logging-traceability/checks/logging_test.py::test_logging_declared
+    evidence_outputs:
+      - { type: metric-report, path: out/logging/declared.json }
+
+on_fail:
+  action: block_merge
+  open_poam: true
