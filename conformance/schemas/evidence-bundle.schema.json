@@ -2,6 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://umbrella-govops.dev/schemas/evidence-bundle.schema.json",
   "title": "Umbrella-GovOps Evidence Bundle Manifest",
+  "description": "An EvidenceBundle compiles automated check results and embeds the Beacon receipts that back them. The bundle is signed via DSSE / cosign sign-blob; verifiers MUST re-verify each embedded receipt independently of the outer DSSE signature.",
   "type": "object",
   "required": ["apiVersion", "kind", "metadata", "checks"],
   "properties": {
@@ -13,7 +14,12 @@
       "properties": {
         "generatedAt": { "type": "string", "format": "date-time" },
         "tool": { "type": "string" },
-        "repo": { "type": "string" }
+        "repo": { "type": "string" },
+        "commit_sha": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{7,64}$",
+          "description": "Git commit SHA the bundle was generated from. Optional but recommended."
+        }
       }
     },
     "checks": {
@@ -24,7 +30,44 @@
         "properties": {
           "name": { "type": "string" },
           "status": { "enum": ["pass", "warn", "fail"] },
-          "details": { "type": "array", "items": { "type": "string" } }
+          "details": { "type": "array", "items": { "type": "string" } },
+          "ucid": {
+            "type": "string",
+            "pattern": "^UCID-[A-Z][A-Z0-9]{1,7}(-[A-Z0-9]{1,16})*-[0-9]{3}$",
+            "description": "Optional UCID this check evidences. Used by `umbrella-conformance verify --beacon-bundle` to enforce coverage."
+          },
+          "evidence_refs": {
+            "type": "array",
+            "description": "Receipt ids (from receipts[].id) that back this check result. Empty array is permitted only when the check inherently has no runtime evidence (e.g. schema-valid).",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "receipts": {
+      "type": "array",
+      "description": "Embedded Beacon receipts (verbatim, signed) referenced by checks[].evidence_refs[]. Each receipt is one Beacon-signed JSON object. Verifiers MUST re-verify each receipt with `beacon-verify`.",
+      "items": {
+        "type": "object",
+        "required": ["id", "format", "payload"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Receipt id (matches checks[].evidence_refs[] entries). For foundation receipts this is the entry's entry_sha256; for runtime receipts it is the receipt's id field."
+          },
+          "format": {
+            "enum": ["foundation", "runtime"],
+            "description": "Beacon receipt format: 'foundation' = chained audit-log entry; 'runtime' = single-shot OVERT receipt."
+          },
+          "payload": {
+            "type": "object",
+            "description": "The verbatim Beacon receipt JSON, exactly as signed. Verifiers MUST NOT mutate before running `beacon-verify`."
+          },
+          "issued_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Receipt issuance timestamp for freshness checks."
+          }
         }
       }
     }

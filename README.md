@@ -4,12 +4,12 @@
 
 # Umbrella-GovOps
 
-### Compile every framework. Sign every claim. Cover every system.
+### The program that binds runtime evidence to AI law.
 
 **Landing page →** [bobrapp.github.io/umbrella-govops](https://bobrapp.github.io/umbrella-govops/)
-**Sister project →** [AIGovOps Beacon](https://bobrapp.github.io/aigovops-beacon/) — the discovery + attestation runtime that lives under Umbrella
+**Runtime product →** [AIGovOps Beacon](https://github.com/bobrapp/aigovops-beacon) — standalone signing + verification; Umbrella **embeds** its receipts.
 
-`COMPILE THE POLICY · SIGN THE EVIDENCE · CROSSWALK THE FRAMEWORKS · COVER EVERY SYSTEM`
+`COMPILE THE LAW · BIND THE EVIDENCE · CROSSWALK THE FRAMEWORKS · COVER EVERY SYSTEM`
 
 </div>
 
@@ -17,9 +17,22 @@
 
 ## What Umbrella-GovOps is
 
-A private (or public-by-choice) repository that turns AI-governance obligations into **executable code**. It ingests audit requirements from the [NIST AI Risk Management Framework 1.0](https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf) and the [EU AI Act Annex IV](https://artificialintelligenceact.eu/annex/4/), maps every requirement to an automated check inside a CI/CD pipeline, and emits **cryptographically signed, versioned evidence bundles** that satisfy conformity assessment, third-party audit, and post-market monitoring obligations.
+Umbrella-GovOps is the **program layer** of the AIGovOps stack. It compiles AI laws and standards into versioned, citable controls — each anchored by a [Unified Control Identifier (UCID)](UCID-REGISTRY.md) — and **binds runtime evidence**, including [Beacon](https://github.com/bobrapp/aigovops-beacon) receipts and any in-toto attestation, to those controls inside a single signed `EvidenceBundle`.
 
-Governance is not a PDF. It is a pipeline. Every control is a YAML contract. Every assertion is a test. Every audit is a signed artifact.
+It is a **framework registry**, not a control library: as new frameworks (NIST AI RMF, EU AI Act, ISO/IEC 42001, OECD, country-specific) are published, Umbrella's job is to crosswalk them onto the existing UCIDs so your runtime telemetry doesn't have to change every time a regulator does.
+
+Governance is not a PDF. It is a pipeline. Every control is a YAML contract. Every assertion is a test. Every audit is a signed artifact — and every signed artifact resolves back, by UCID, to the laws it answers to.
+
+### Beacon and Umbrella — two layers, two cadences
+
+| | **Beacon** (the product) | **Umbrella** (the program) |
+|---|---|---|
+| Role | Runtime signing + verification of evidence events | Framework registry + control catalog + evidence binder |
+| Release cadence | Slow, signed, versioned (≈ 2/year) | Fast, informational (quarterly digests, monthly framework updates) |
+| Depends on the other? | **No** — Beacon [runs alone](https://github.com/bobrapp/aigovops-beacon#beacon-runs-alone) | Yes — embeds Beacon receipts in `EvidenceBundle.receipts[]` |
+| Identifier surface | OVERT-pure receipts, no `governance` block | UCID registry (IANA-style) — see [UCID-REGISTRY.md](UCID-REGISTRY.md) |
+
+If you only need to prove *what happened*, use Beacon. If you also need to prove *which law it satisfies*, add Umbrella on top.
 
 ## Quickstart
 
