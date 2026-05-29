@@ -1,0 +1,88 @@
+name: Bug report
+description: Something in the conformance CLI, SDKs, schemas, checks, or site is broken
+title: "bug: <one-line summary>"
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug. The more specific you are,
+        the faster we can land a fix. For security issues, please **do not**
+        use this form — see [SECURITY.md](https://github.com/bobrapp/umbrella-govops/blob/main/SECURITY.md).
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Which part of the project is affected?
+      options:
+        - conformance CLI
+        - Python SDK (sdk/python)
+        - TypeScript SDK (sdk/typescript)
+        - JSON Schemas
+        - Checks (domains/**/checks)
+        - Crosswalks (crosswalks/)
+        - Test harness (tests/)
+        - GitHub Actions / CI
+        - Live site (bobrapp.github.io/umbrella-govops)
+        - Docs / README
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug, including the command you ran or the page you visited.
+      placeholder: |
+        I ran `umbrella-conformance check` on a fresh `init` repo and it crashed with…
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps. Minimal failing repo or log snippet welcome.
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version / commit
+      description: Output of `umbrella-conformance --version`, or the commit SHA you're on.
+      placeholder: "e.g. 0.1.0 or 6cbc23d"
+
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      description: OS, Python / Node version, install method.
+      placeholder: "macOS 14, Python 3.12, pip install -e ."
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / output
+      render: shell
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      options:
+        - label: I agree to follow this project's [Code of Conduct](https://github.com/bobrapp/umbrella-govops/blob/main/CODE_OF_CONDUCT.md).
+          required: true
