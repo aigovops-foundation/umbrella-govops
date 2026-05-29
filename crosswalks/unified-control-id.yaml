@@ -20,11 +20,22 @@ ucids:
     eu_ai_act:
       articles: ["14"]
       annex_iv: ["2(e)", "3"]
-    implementing_controls: [HO-001, HO-002, HO-003]
+    implementing_controls: [HO-001]
+    planned_controls: [HO-002, HO-003]
 
   - id: UCID-LOG-001
     title: Automatic logging of events
     nist_ai_rmf: [MEASURE-2.8, MANAGE-4.1]
     eu_ai_act:
       articles: ["12", "19"]
-    implementing_controls: [LOG-001, LOG-002]
+    implementing_controls: [LOG-001]
+    planned_controls: [LOG-002]
+
+  - id: UCID-SEC-ROBUST-001
+    title: Security and adversarial robustness
+    nist_ai_rmf: [MEASURE-2.7, MANAGE-2.2]
+    eu_ai_act:
+      articles: ["15"]
+      annex_iv: ["2(g)"]
+    iso_42001: ["A.8.2"]
+    implementing_controls: [SR-001]

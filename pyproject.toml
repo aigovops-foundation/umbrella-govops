@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "umbrella-conformance"
+version = "0.1.0a1"
+description = "Conformance CLI for Umbrella-GovOps repositories"
+readme = "conformance/README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "AIGovOps Foundation", email = "hello@aigovops.org" }
+]
+keywords = ["ai", "governance", "compliance", "policy-as-code", "slsa", "sigstore"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "click>=8.1",
+    "pyyaml>=6.0",
+    "jsonschema>=4.21",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4", "pytest-cov>=4.1"]
+
+[project.scripts]
+umbrella-conformance = "conformance.cli:cli"
+
+[project.urls]
+Homepage = "https://bobrapp.github.io/umbrella-govops/"
+Source = "https://github.com/bobrapp/umbrella-govops"
+
+[tool.setuptools]
+packages = ["conformance", "conformance.checks"]
+
+[tool.setuptools.package-data]
+conformance = ["schemas/*.json", "fixtures/**/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/conformance", "sdk/python/tests"]
+pythonpath = ["."]

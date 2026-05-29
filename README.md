@@ -21,6 +21,40 @@ A private (or public-by-choice) repository that turns AI-governance obligations 
 
 Governance is not a PDF. It is a pipeline. Every control is a YAML contract. Every assertion is a test. Every audit is a signed artifact.
 
+## Quickstart
+
+```bash
+# 1. Install the conformance CLI
+pipx install umbrella-conformance       # or: pip install umbrella-conformance
+
+# 2. Validate your repo
+umbrella-conformance check .
+
+# 3. Build a signable evidence bundle
+umbrella-conformance bundle --out ./out
+
+# 4. (optional) Verify a signed bundle
+umbrella-conformance verify ./out/bundle.tar.gz
+```
+
+Programmatic access (Python or TypeScript):
+
+```python
+from umbrella_sdk import umbrella
+u = umbrella()
+dg = u.controls.load().by_id("DG-002")
+ucid = u.crosswalk.load().resolve("UCID-DATA-BIAS-001")
+```
+
+```ts
+import { umbrella } from "@aigovops/umbrella-sdk";
+const u = umbrella();
+const dg = u.controls.load().byId("DG-002");
+const ucid = u.crosswalk.load().resolve("UCID-DATA-BIAS-001");
+```
+
+See [`conformance/README.md`](conformance/README.md), [`sdk/python/README.md`](sdk/python/README.md), and [`sdk/typescript/README.md`](sdk/typescript/README.md).
+
 ## How it relates to AIGovOps Beacon
 
 | | **Umbrella-GovOps** (this repo) | **AIGovOps Beacon** |

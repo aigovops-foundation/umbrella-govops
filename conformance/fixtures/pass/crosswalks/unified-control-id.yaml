@@ -1,0 +1,12 @@
+apiVersion: govops.aigovops.org/v1
+kind: Crosswalk
+metadata:
+  name: unified-control-id
+  description: Fixture crosswalk
+
+ucids:
+  - id: UCID-FIXTURE-001
+    title: Fixture UCID 001
+    nist_ai_rmf: [MEASURE-2.11]
+    iso_42001: ["A.7.4"]
+    implementing_controls: [FX-001]

@@ -5,12 +5,19 @@ __pycache__/
 .venv/
 venv/
 .env
+.pytest_cache/
 
 # Build / outputs (regeneratable)
 out/
 dist/
 build/
 *.log
+
+# Node
+node_modules/
+*.tsbuildinfo
+sdk/typescript/dist/
+sdk/typescript/node_modules/
 
 # OS / editor
 .DS_Store

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://umbrella-govops.dev/schemas/evidence-bundle.schema.json",
+  "title": "Umbrella-GovOps Evidence Bundle Manifest",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "checks"],
+  "properties": {
+    "apiVersion": { "const": "govops.aigovops.org/v1" },
+    "kind": { "const": "EvidenceBundle" },
+    "metadata": {
+      "type": "object",
+      "required": ["generatedAt", "tool"],
+      "properties": {
+        "generatedAt": { "type": "string", "format": "date-time" },
+        "tool": { "type": "string" },
+        "repo": { "type": "string" }
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "status"],
+        "properties": {
+          "name": { "type": "string" },
+          "status": { "enum": ["pass", "warn", "fail"] },
+          "details": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

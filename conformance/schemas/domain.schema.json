@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://umbrella-govops.dev/schemas/domain.schema.json",
+  "title": "Umbrella-GovOps Governance Domain",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata"],
+  "properties": {
+    "apiVersion": { "const": "govops.aigovops.org/v1" },
+    "kind": { "const": "GovernanceDomain" },
+    "metadata": {
+      "type": "object",
+      "required": ["id", "name", "owner"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]+$" },
+        "name": { "type": "string" },
+        "owner": { "type": "string", "pattern": "^@" },
+        "description": { "type": "string" }
+      }
+    },
+    "risk_tier_applicability": {
+      "type": "array",
+      "items": { "enum": ["unacceptable", "high", "limited", "minimal", "gpai"] }
+    },
+    "slos": { "type": "array" }
+  }
+}

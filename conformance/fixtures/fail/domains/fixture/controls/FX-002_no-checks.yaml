@@ -1,0 +1,13 @@
+apiVersion: govops.aigovops.org/v1
+kind: Control
+metadata:
+  id: FX-002
+  ucid: UCID-FIXTURE-001
+  name: Control with zero checks (should fail)
+  owner: "@fixture"
+  severity: medium
+  status: draft
+satisfies:
+  iso_42001:
+    - clause: "A.7.4"
+checks: []

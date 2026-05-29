@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://umbrella-govops.dev/schemas/control.schema.json",
+  "title": "Umbrella-GovOps Control",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "checks"],
+  "properties": {
+    "apiVersion": { "const": "govops.aigovops.org/v1" },
+    "kind": { "const": "Control" },
+    "metadata": {
+      "type": "object",
+      "required": ["id", "ucid", "name", "owner", "severity", "status"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Z]{2,4}-[0-9]{3}$" },
+        "ucid": { "type": "string", "pattern": "^UCID-[A-Z0-9-]+$" },
+        "name": { "type": "string", "minLength": 1 },
+        "owner": { "type": "string", "pattern": "^@" },
+        "severity": { "enum": ["low", "medium", "high", "critical"] },
+        "status": { "enum": ["draft", "shadow", "enforced", "deprecated"] }
+      }
+    },
+    "satisfies": {
+      "type": "object",
+      "minProperties": 1
+    },
+    "applies_to": { "type": "object" },
+    "inputs": { "type": "array" },
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "runner"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "runner": {
+            "enum": ["pytest", "python", "opa", "rego", "shell", "container"]
+          },
+          "script": { "type": "string" },
+          "evidence_outputs": { "type": "array" }
+        }
+      }
+    },
+    "on_fail": { "type": "object" },
+    "exceptions_allowed_from": { "type": "string" }
+  }
+}

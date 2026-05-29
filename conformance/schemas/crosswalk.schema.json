@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://umbrella-govops.dev/schemas/crosswalk.schema.json",
+  "title": "Umbrella-GovOps Crosswalk",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "ucids"],
+  "properties": {
+    "apiVersion": { "const": "govops.aigovops.org/v1" },
+    "kind": { "const": "Crosswalk" },
+    "metadata": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "ucids": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "implementing_controls"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^UCID-[A-Z0-9-]+$" },
+          "title": { "type": "string" },
+          "nist_ai_rmf": { "type": "array", "items": { "type": "string" } },
+          "eu_ai_act": { "type": "object" },
+          "iso_42001": { "type": "array", "items": { "type": "string" } },
+          "implementing_controls": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^[A-Z]{2,4}-[0-9]{3}$" }
+          }
+        }
+      }
+    }
+  }
+}

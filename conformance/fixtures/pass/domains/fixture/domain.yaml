@@ -1,0 +1,8 @@
+apiVersion: govops.aigovops.org/v1
+kind: GovernanceDomain
+metadata:
+  id: fixture
+  name: Fixture Domain
+  owner: "@fixture"
+  description: passing fixture
+risk_tier_applicability: ["limited"]

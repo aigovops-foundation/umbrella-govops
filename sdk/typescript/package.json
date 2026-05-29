@@ -1,0 +1,42 @@
+{
+  "name": "@aigovops/umbrella-sdk",
+  "version": "0.1.0-alpha.1",
+  "description": "TypeScript SDK for Umbrella-GovOps — controls, evidence, crosswalk, journeys",
+  "license": "Apache-2.0",
+  "author": "AIGovOps Foundation <hello@aigovops.org>",
+  "homepage": "https://bobrapp.github.io/umbrella-govops/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bobrapp/umbrella-govops",
+    "directory": "sdk/typescript"
+  },
+  "keywords": ["ai-governance", "compliance", "policy-as-code", "sigstore", "slsa"],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist", "src", "README.md"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "test": "node --experimental-vm-modules --test test/*.test.mjs",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.11.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": { "node": ">=18" },
+  "publishConfig": { "access": "public" }
+}

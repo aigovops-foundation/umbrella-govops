@@ -9,6 +9,10 @@ on:
       - 'frameworks/**'
       - 'crosswalks/**'
       - 'tools/**'
+      - 'conformance/**'
+      - 'sdk/**'
+      - 'tests/**'
+      - 'pyproject.toml'
   push:
     branches: [main]
   schedule:
@@ -22,18 +26,52 @@ permissions:
   packages: write
 
 jobs:
-  validate-schemas:
+  conformance:
+    name: Conformance CLI + Python SDK
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
-      - name: Install govops engine
-        run: pip install -e tools/govops || echo "engine stub — implementation pending"
-      - name: Validate all YAML against schemas
+      - name: Install umbrella-conformance + umbrella-sdk (editable)
         run: |
-          echo "TODO: govops validate --strict"
-          # govops validate --strict
+          pip install -e .
+          pip install -e sdk/python
+          pip install pytest
+      - name: pytest — conformance + sdk
+        run: pytest -v tests/conformance/ sdk/python/tests/
+      - name: umbrella-conformance check (repo self-check)
+        run: umbrella-conformance check . --format json | tee out-conformance.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: conformance-report
+          path: out-conformance.json
+
+  sdk-typescript:
+    name: TypeScript SDK build + test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: Install + build + test
+        working-directory: sdk/typescript
+        run: |
+          npm ci || npm install
+          npm run build
+          npm test
+
+  validate-schemas:
+    needs: conformance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Install conformance
+        run: pip install -e .
+      - name: Validate all YAML against JSON Schema
+        run: umbrella-conformance check . --check schema-valid --check crosswalk-resolved --check controls-have-checks
 
   compile-policies:
     needs: validate-schemas

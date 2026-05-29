@@ -1,0 +1,17 @@
+apiVersion: govops.aigovops.org/v1
+kind: Control
+metadata:
+  id: FX-001
+  ucid: UCID-FIXTURE-001
+  name: Fixture control
+  owner: "@fixture"
+  severity: low
+  status: shadow
+satisfies:
+  iso_42001:
+    - clause: "A.7.4"
+checks:
+  - id: FX-001.C1
+    name: trivial check
+    runner: pytest
+    script: tests/fixture_test.py::test_ok
