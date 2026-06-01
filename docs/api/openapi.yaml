@@ -1,0 +1,359 @@
+openapi: 3.1.0
+info:
+  title: Umbrella-GovOps Admission & Governance API
+  version: 0.0.0-draft
+  summary: DRAFT v0 contract for the planned Umbrella governance HTTP surface.
+  description: |
+    **DRAFT v0 — NOT YET IMPLEMENTED.**
+
+    Umbrella-GovOps ships as a data-contract project plus a conformance CLI; it
+    does not currently expose an HTTP service. This document publishes the
+    *planned* admission/governance API so downstream projects (notably a
+    [Beacon](https://github.com/bobrapp/aigovops-beacon) agent) have a stable
+    contract to code against ahead of implementation.
+
+    The natural surface is four endpoints:
+      * `POST /admission`  — evaluate an admission request against policy.
+      * `POST /receipts`   — submit a Beacon receipt to bind to a UCID.
+      * `GET  /policy/{id}` — fetch a compiled policy / control by id.
+      * `GET  /ucid/{id}`   — resolve a UCID to its citations + implementers.
+
+    Schemas mirror the on-disk JSON Schemas under `conformance/schemas/`. See
+    docs/api/data-model.md and docs/api/schema-catalog.md.
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  contact:
+    name: AIGovOps Foundation
+    url: https://github.com/bobrapp/umbrella-govops
+
+servers:
+  - url: https://governance.example.org/api/v1
+    description: Placeholder — no public deployment exists for DRAFT v0.
+
+tags:
+  - name: admission
+    description: Policy admission decisions for inbound AI requests.
+  - name: receipts
+    description: Bind Beacon runtime receipts to UCIDs.
+  - name: registry
+    description: Read the UCID registry and compiled policies.
+
+security:
+  - bearerAuth: []
+
+paths:
+  /admission:
+    post:
+      tags: [admission]
+      operationId: evaluateAdmission
+      summary: Evaluate an admission request against the compiled policy set.
+      description: |
+        Idempotent with respect to `idempotency_key`: replaying the same key
+        returns the original decision rather than re-evaluating.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdmissionRequest'
+      responses:
+        '200':
+          description: Decision rendered (allow or deny — both are 200).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdmissionDecision'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /receipts:
+    post:
+      tags: [receipts]
+      operationId: submitReceipt
+      summary: Submit a Beacon receipt to bind to a UCID.
+      description: |
+        The receipt payload is stored verbatim and re-verified with
+        `beacon-verify`. Idempotent on the receipt `id`: resubmitting an
+        already-stored receipt id returns `200` with the existing record.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Receipt'
+      responses:
+        '201':
+          description: Receipt stored and bound.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receipt'
+        '200':
+          description: Receipt id already present (idempotent replay).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receipt'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: Receipt id exists with a conflicting payload.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+
+  /policy/{id}:
+    get:
+      tags: [registry]
+      operationId: getPolicy
+      summary: Fetch a compiled policy / control by id.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Control id, e.g. DG-002.
+          schema:
+            type: string
+            pattern: '^[A-Z]{2,4}-[0-9]{3,6}$'
+      responses:
+        '200':
+          description: The control document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Control'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /ucid/{id}:
+    get:
+      tags: [registry]
+      operationId: getUcid
+      summary: Resolve a UCID to its citations and implementing controls.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A UCID, e.g. UCID-DATA-BIAS-001.
+          schema:
+            type: string
+            pattern: '^UCID-[A-Z0-9-]+$'
+      responses:
+        '200':
+          description: The registry entry for the UCID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ucid'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        OIDC-issued bearer token. Mirrors Beacon's deployment model: run behind
+        a proxy that injects verified OIDC claims.
+
+  parameters:
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: false
+      description: Opaque client-generated key for safe retries.
+      schema:
+        type: string
+        maxLength: 255
+
+  responses:
+    BadRequest:
+      description: Malformed request (unparseable body, missing required field).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: No such resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Body parsed but failed schema validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalError:
+      description: Unexpected server error; an errorId is returned for tracing.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Error:
+      type: object
+      required: [error, message]
+      properties:
+        error:
+          type: string
+          description: Stable machine-readable error code, e.g. missing_fields.
+        message:
+          type: string
+        errorId:
+          type: string
+          description: Correlation id a human can use to find the failure.
+
+    AdmissionRequest:
+      type: object
+      required: [subject, model]
+      properties:
+        subject:
+          type: string
+          description: Identity of the caller / request subject.
+        model:
+          type: string
+          description: Target model identifier (e.g. oci://... or vendor/model).
+        inputs_digest:
+          type: string
+          pattern: '^[0-9a-f]{64}$'
+          description: SHA-256 of the request inputs (no raw inputs are sent).
+        ucid:
+          type: string
+          pattern: '^UCID-[A-Z0-9-]+$'
+          description: Optional UCID whose admission control governs this request.
+
+    AdmissionDecision:
+      type: object
+      required: [decision, policy_id]
+      properties:
+        decision:
+          type: string
+          enum: [allow, deny]
+        policy_id:
+          type: string
+        reasons:
+          type: array
+          items:
+            type: string
+        receipt_id:
+          type: string
+          description: Id of the receipt minted for this decision.
+
+    # Mirrors crosswalks/unified-control-id.yaml → ucids[] entries.
+    Ucid:
+      type: object
+      required: [id, title, implementing_controls]
+      properties:
+        id:
+          type: string
+          pattern: '^UCID-[A-Z0-9-]+$'
+        title:
+          type: string
+        status:
+          type: string
+          enum: [provisional, stable, deprecated, superseded]
+        nist_ai_rmf:
+          type: array
+          items:
+            type: string
+        eu_ai_act:
+          type: object
+        iso_42001:
+          type: array
+          items:
+            type: string
+        implementing_controls:
+          type: array
+          items:
+            type: string
+            pattern: '^[A-Z]{2,4}-[0-9]{3,6}$'
+
+    # Mirrors conformance/schemas/control.schema.json.
+    Control:
+      type: object
+      required: [apiVersion, kind, metadata, checks]
+      properties:
+        apiVersion:
+          const: govops.aigovops.org/v1
+        kind:
+          const: Control
+        metadata:
+          type: object
+          required: [id, ucid, name, owner, severity, status]
+          properties:
+            id:
+              type: string
+              pattern: '^[A-Z]{2,4}-[0-9]{3,6}$'
+            ucid:
+              type: string
+              pattern: '^UCID-[A-Z0-9-]+$'
+            name:
+              type: string
+            owner:
+              type: string
+              pattern: '^@'
+            severity:
+              type: string
+              enum: [low, medium, high, critical]
+            status:
+              type: string
+              enum: [draft, shadow, enforced, deprecated]
+        checks:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [id, name, runner]
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              runner:
+                type: string
+                enum: [pytest, python, opa, rego, shell, container]
+
+    # Mirrors EvidenceBundle.receipts[] in evidence-bundle.schema.json.
+    Receipt:
+      type: object
+      required: [id, format, payload]
+      properties:
+        id:
+          type: string
+          description: Receipt id; for foundation receipts the entry_sha256.
+        format:
+          type: string
+          enum: [foundation, runtime]
+        payload:
+          type: object
+          description: The verbatim Beacon receipt JSON, exactly as signed.
+        issued_at:
+          type: string
+          format: date-time

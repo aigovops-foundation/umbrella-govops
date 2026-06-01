@@ -23,15 +23,15 @@ jobs:
     name: unit + schemas
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: "pip"
       - name: Install deps
         run: |
           python -m pip install --upgrade pip
-          pip install -e . pytest pyyaml jsonschema click
+          pip install -e . pytest pyyaml jsonschema click hypothesis
       - name: Run unit suite
         run: PYTHONPATH=. python -m pytest tests/unit/ tests/conformance/ -v --junitxml=reports/harness/junit-unit.xml
       - uses: actions/upload-artifact@v4
@@ -44,15 +44,15 @@ jobs:
     name: scale (1k controls)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: "pip"
       - name: Install deps
         run: |
           python -m pip install --upgrade pip
-          pip install -e . pytest pyyaml jsonschema click
+          pip install -e . pytest pyyaml jsonschema click hypothesis
       - name: Run scale suite
         run: PYTHONPATH=. python -m pytest tests/scale/ -v --junitxml=reports/harness/junit-scale.xml
       - uses: actions/upload-artifact@v4
@@ -68,15 +68,15 @@ jobs:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: "pip"
       - name: Install deps
         run: |
           python -m pip install --upgrade pip
-          pip install -e . pytest pyyaml jsonschema click
+          pip install -e . pytest pyyaml jsonschema click hypothesis
       - name: Run 10k scale
         run: SCALE_N=10000 PYTHONPATH=. python -m pytest tests/scale/ -v -k 10k --junitxml=reports/harness/junit-scale-10k.xml
       - uses: actions/upload-artifact@v4
@@ -91,15 +91,15 @@ jobs:
     name: chaos monkey
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: "pip"
       - name: Install deps
         run: |
           python -m pip install --upgrade pip
-          pip install -e . pytest pyyaml jsonschema click
+          pip install -e . pytest pyyaml jsonschema click hypothesis
       - name: Run chaos suite
         run: PYTHONPATH=. python -m pytest tests/chaos/ -v --junitxml=reports/harness/junit-chaos.xml
       - uses: actions/upload-artifact@v4
@@ -114,8 +114,8 @@ jobs:
     name: playwright e2e
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: "20"
           cache: "npm"

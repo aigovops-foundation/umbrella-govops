@@ -50,6 +50,21 @@ That runs the full four-pillar harness — unit, scale, chaos, e2e. See
       finding does this close?
 - [ ] CI is green on your branch (the `harness` and `govops-ci` workflows).
 
+## Test-pyramid expectations
+
+The repo enforces a full pyramid (see [tests/README.md](tests/README.md) and
+[docs/api/](docs/api/)). What a PR must add depends on what it changes:
+
+| If your PR adds / changes… | You must also… |
+| --- | --- |
+| A **JSON Schema** (`conformance/schemas/*.json`) | Ensure it is valid Draft 2020-12 (the `test_every_schema_is_valid_draft_2020_12` unit test covers this) and add a strict-rejection test in `tests/unit/test_schemas_strict.py` for the bad inputs it forbids. |
+| A **crosswalk / UCID** row | Keep `crosswalk-resolved` and `tests/unit/test_ucid_registry.py` green — a new UCID needs a canonical id, ≥ 1 framework citation, and real implementing controls (no dangling references). Update `docs/api/data-model.md` if you add a field. |
+| A **policy / orchestration** change | Keep `tests/integration/` green (round-trip + cross-artifact integrity). Document any new action verb in `docs/api/actions.md`. |
+| A **new validator / check** | Add a chaos mutation in `tests/chaos/test_chaos.py` (or a property in `test_property_fuzz.py`) that the new check catches, plus a filesystem-chaos case if it does I/O. |
+
+Run `make test-py` (unit + scale + chaos) locally before pushing; the scale
+layer runs in isolation with `pytest tests/scale -m scale`.
+
 ## Style
 
 - Python: PEP 8 + type hints where practical; the repo will eventually wire

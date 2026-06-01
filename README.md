@@ -310,19 +310,36 @@ Governance, as code, with receipts.
 
 ## Testing
 
-The repo ships a four-pillar test harness:
+The repo ships a full test pyramid:
 
-| Pillar | What it covers | Command |
+| Layer | What it covers | Command |
 | --- | --- | --- |
-| **Unit** | `umbrella-conformance` CLI surface + JSON Schema strictness | `make test-unit` |
-| **Scale** | 100 / 1 000 / 10 000 synthetic controls with an SLA of <5 s per 1 000 | `make test-scale` (or `make test-scale-10k`) |
-| **Chaos** | Six deterministic mutations (bad YAML, bad runner, missing checks, bad ID, orphan UCID, dangling implementer) plus a random-walk session — each mutation must be caught | `make test-chaos` |
-| **E2E** | Playwright smoke tests against the live landing page (hero, framework registry size, role cards, oath ribbon, nav anchors, no fatal JS) | `make test-e2e` |
+| **Unit** | `umbrella-conformance` CLI surface, JSON Schema strictness, UCID-registry format/uniqueness, YAML parseability of every data file | `make test-unit` |
+| **E2E (integration)** | Cross-artifact integrity — no dangling UCID ↔ control references, registry round-trip (load → validate → serialize → reload → equal), CLI against pass/fail fixtures | `PYTHONPATH=. pytest tests/integration` |
+| **Scale** | 100 / 1 000 / 10 000 synthetic controls with an SLA of <5 s per 1 000, plus a 1 000-mapping crosswalk-check under 10 s | `make test-scale` (or `make test-scale-10k`) |
+| **Chaos** | Deterministic mutations (bad YAML, bad runner, missing checks, bad ID, orphan UCID, dangling implementer) + a random walk; **property-based fuzzing** (Hypothesis) of validators against malformed UCIDs / weird Unicode / huge / missing / extra fields; **filesystem chaos** (missing files, truncated YAML, BOM, EACCES) — every break must be caught cleanly, never crash | `make test-chaos` |
 
-Run everything with `make test-all`. The full harness also runs on every PR
-and nightly via [`.github/workflows/harness.yml`](.github/workflows/harness.yml).
+Run everything with `make test-all`. The harness runs on every PR and nightly
+via [`.github/workflows/harness.yml`](.github/workflows/harness.yml); the
+unit + integration + chaos layers also run inside
+[`govops-ci.yml`](.github/workflows/govops-ci.yml), and the scale layer is
+gated to the dedicated job + weekly cron. Hypothesis is seeded
+(`HYPOTHESIS_SEED`, default `20260601`) so fuzz runs are reproducible.
 
 Full docs: [`tests/README.md`](tests/README.md).
+
+## API & Data Model
+
+Umbrella-GovOps publishes **data contracts**, not a running service. The
+[`docs/api/`](docs/api/) directory is the contract reference:
+
+| Doc | Purpose |
+| --- | --- |
+| [`data-model.md`](docs/api/data-model.md) | Field-by-field reference for every artifact (UCID, Control, GovernanceDomain, EvidenceBundle). |
+| [`schema-catalog.md`](docs/api/schema-catalog.md) | Table of every published JSON Schema with path, version, purpose. |
+| [`actions.md`](docs/api/actions.md) | The governance action vocabulary — pipeline phases, conformance checks, signing + runtime verbs. |
+| [`flows.md`](docs/api/flows.md) | Mermaid sequence diagrams: authoring → compile → validate → sign → attest → bundle → consumption by Beacon and Lantern. |
+| [`openapi.yaml`](docs/api/openapi.yaml) | **DRAFT v0** OpenAPI 3.1 contract for the planned admission/governance HTTP API, so downstream projects can code against it. |
 
 ---
 

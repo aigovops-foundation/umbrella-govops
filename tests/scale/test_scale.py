@@ -64,6 +64,25 @@ def test_scale_10k_if_requested(tmp_path: Path) -> None:
     _record_metric(target, elapsed)
 
 
+@pytest.mark.scale
+def test_crosswalk_check_1000_mappings_under_10s(tmp_path: Path) -> None:
+    """A synthetic crosswalk with 1000+ control mappings must resolve in under
+    10s. Marked `scale` so it is gated to the dedicated CI job + weekly cron.
+    Override the budget with CROSSWALK_SLA_S (default 10.0)."""
+    n = int(os.environ.get("CROSSWALK_SCALE_N", "1000"))
+    stats = generate_repo(tmp_path, n_controls=n, seed=n)
+    assert stats["n_controls"] >= 1000
+
+    t0 = time.perf_counter()
+    result = check_crosswalk_resolved(tmp_path)
+    elapsed = time.perf_counter() - t0
+
+    assert result.status == "pass", result.details[:5]
+    sla = float(os.environ.get("CROSSWALK_SLA_S", "10.0"))
+    assert elapsed < sla, f"crosswalk-check@{n} took {elapsed:.2f}s, SLA {sla:.2f}s"
+    _record_metric(n, elapsed)
+
+
 def _record_metric(n: int, elapsed: float) -> None:
     report = Path(__file__).resolve().parents[2] / "reports" / "harness" / "scale.jsonl"
     report.parent.mkdir(parents=True, exist_ok=True)

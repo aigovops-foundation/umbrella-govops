@@ -28,7 +28,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=7.4", "pytest-cov>=4.1"]
+dev = ["pytest>=7.4", "pytest-cov>=4.1", "hypothesis>=6.100"]
 
 [project.scripts]
 umbrella-conformance = "conformance.cli:cli"
@@ -46,3 +46,6 @@ conformance = ["schemas/*.json", "fixtures/**/*"]
 [tool.pytest.ini_options]
 testpaths = ["tests/conformance", "sdk/python/tests"]
 pythonpath = ["."]
+markers = [
+    "scale: heavy throughput tests; gated to the dedicated CI job + weekly cron",
+]
