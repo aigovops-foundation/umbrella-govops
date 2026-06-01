@@ -34,6 +34,7 @@
       <a class="nav-link" href="#founders">Founders</a>
       <a class="nav-link" href="#community">Community</a>
       <a class="nav-link" href="#specs">Specs</a>
+      <a class="nav-link" href="#companions">Companions</a>
       <a class="btn-primary btn-sm" href="https://github.com/bobrapp/umbrella-govops" target="_blank" rel="noopener">View on GitHub ↗</a>
     </nav>
   </div>
@@ -68,7 +69,9 @@
         <p class="hero-fineprint">
           Umbrella is the governance compiler.
           <a href="https://bobrapp.github.io/aigovops-beacon/">AIGovOps Beacon</a>
-          is the discovery + attestation runtime that lives under it. Both are open source under the
+          signs the evidence.
+          <a href="https://github.com/bobrapp/aigovops-lantern">AIGovOps Lantern</a>
+          reads it for humans. All three are open source under the
           AIGovOps Foundation 501(c)(3).
         </p>
       </div>
@@ -756,7 +759,37 @@ npx umbrella-conformance test \
     </div>
 
     <p style="margin-top: var(--space-6); font-size: var(--text-sm); color: var(--muted);">
-      Architecture: <a href="architecture.md">docs/architecture.md</a> · Crosswalk source: <a href="https://github.com/bobrapp/umbrella-govops/blob/main/crosswalks/unified-control-id.yaml" target="_blank" rel="noopener">crosswalks/unified-control-id.yaml</a> · Conformance schemas: <a href="https://github.com/bobrapp/umbrella-govops/tree/main/conformance/schemas" target="_blank" rel="noopener">conformance/schemas/</a> · Beacon repo: <a href="https://github.com/bobrapp/aigovops-beacon" target="_blank" rel="noopener">github.com/bobrapp/aigovops-beacon</a>
+      Architecture: <a href="architecture.md">docs/architecture.md</a> · Crosswalk source: <a href="https://github.com/bobrapp/umbrella-govops/blob/main/crosswalks/unified-control-id.yaml" target="_blank" rel="noopener">crosswalks/unified-control-id.yaml</a> · Conformance schemas: <a href="https://github.com/bobrapp/umbrella-govops/tree/main/conformance/schemas" target="_blank" rel="noopener">conformance/schemas/</a> · Beacon repo: <a href="https://github.com/bobrapp/aigovops-beacon" target="_blank" rel="noopener">github.com/bobrapp/aigovops-beacon</a> · Lantern repo: <a href="https://github.com/bobrapp/aigovops-lantern" target="_blank" rel="noopener">github.com/bobrapp/aigovops-lantern</a>
+    </p>
+  </div>
+</section>
+
+<!-- ── Section 8c · Companion projects: Beacon + Lantern (added 2026-06-01) -->
+<section id="companions" class="tint" aria-labelledby="cp-h">
+  <div class="shell">
+    <div class="head">
+      <div class="kicker">Companion projects</div>
+      <h2 id="cp-h">Beacon signs. Lantern reads.</h2>
+      <p>Umbrella is the framework. Two paired-light projects live under it: <strong>Beacon</strong>, the always-on policy-as-code runtime that signs and attests, and <strong>Lantern</strong>, the human-carried companion that reads those artifacts and illuminates conformance for the people doing the work.</p>
+    </div>
+
+    <div class="cards two">
+      <a class="card" href="https://bobrapp.github.io/aigovops-beacon/" target="_blank" rel="noopener">
+        <span class="ico">🔦</span>
+        <h3>AIGovOps Beacon™</h3>
+        <p><strong>The spotlight.</strong> Machine-facing. Signs, attests, and emits machine-verifiable evidence bundles. Always-on infrastructure. Sigstore keyless · in-toto v1.0 · SLSA L3 target.</p>
+        <p style="font-size: var(--text-sm); color: var(--muted); margin-top: var(--space-2);">github.com/bobrapp/aigovops-beacon ↗</p>
+      </a>
+      <a class="card" href="https://github.com/bobrapp/aigovops-lantern" target="_blank" rel="noopener">
+        <span class="ico">🏮</span>
+        <h3>AIGovOps Lantern™</h3>
+        <p><strong>The carried light.</strong> Human-facing. Reads Beacon-signed bundles and renders them as role-targeted narratives for engineers, compliance leads, auditors, and regulators. Local-first. No telemetry.</p>
+        <p style="font-size: var(--text-sm); color: var(--muted); margin-top: var(--space-2);">github.com/bobrapp/aigovops-lantern ↗ · v0.0 — scoping</p>
+      </a>
+    </div>
+
+    <p style="margin-top: var(--space-6); font-size: var(--text-sm); color: var(--muted);">
+      Both companion projects must always appear in their compound <code>AIGovOps</code> form in product branding, package names, and domain names. See the <a href="https://github.com/bobrapp/umbrella-govops/blob/main/TRADEMARK.md" target="_blank" rel="noopener">Foundation Trademark Policy</a> &sect; 7.
     </p>
   </div>
 </section>
@@ -831,6 +864,7 @@ npx umbrella-conformance test \
         <ul>
           <li><a href="https://aigovopsfoundation.org">AIGovOps Foundation</a></li>
           <li><a href="https://bobrapp.github.io/aigovops-beacon/">AIGovOps Beacon</a></li>
+          <li><a href="https://github.com/bobrapp/aigovops-lantern">AIGovOps Lantern</a></li>
           <li><a href="https://github.com/bobrapp/umbrella-govops">github.com/bobrapp/umbrella-govops</a></li>
         </ul>
       </div>
