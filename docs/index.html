@@ -33,6 +33,7 @@
       <a class="nav-link" href="#domains">Domains</a>
       <a class="nav-link" href="#founders">Founders</a>
       <a class="nav-link" href="#community">Community</a>
+      <a class="nav-link" href="#specs">Specs</a>
       <a class="btn-primary btn-sm" href="https://github.com/bobrapp/umbrella-govops" target="_blank" rel="noopener">View on GitHub ↗</a>
     </nav>
   </div>
@@ -128,7 +129,7 @@
     <div class="telemetry">
       <div class="telemetry-head">
         <span class="live">Live evidence — Sigstore keyless · in-toto v1.0</span>
-        <span>workflow: evidence-bundle.yml@main</span>
+        <span>workflow: govops-ci.yml@main</span>
       </div>
       <div class="telemetry-body">
         <div class="row"><span class="ts">09:21:14Z</span><span class="ev">bundle <strong>v2026.05.29-1430</strong> compiled · 147 controls · NIST 94% · EU 91% · ISO 42001 88% · Korea AI Framework 76%</span><span class="ok">✓</span></div>
@@ -684,7 +685,7 @@ npx umbrella-conformance test \
             <span class="wg-deliverable">Certification curriculum · exam bank · capstone requirements · bi-weekly</span>
           </li>
         </ul>
-        <a class="btn-ghost btn-sm" style="margin-top: var(--space-4);" href="https://github.com/bobrapp/umbrella-govops/tree/main/working-groups" target="_blank" rel="noopener">Join a working group →</a>
+        <a class="btn-ghost btn-sm" style="margin-top: var(--space-4);" href="https://github.com/bobrapp/umbrella-govops/issues/new?labels=working-group" target="_blank" rel="noopener">Join a working group →</a>
       </div>
 
       <div>
@@ -706,9 +707,57 @@ npx umbrella-conformance test \
             <p>Can architect a governance pipeline for an enterprise. Writes new UCID crosswalk rows. Builds Umbrella plugins.</p>
           </div>
         </div>
-        <a class="btn-indigo btn-sm" style="margin-top: var(--space-4);" href="https://github.com/bobrapp/umbrella-govops/tree/main/certifications" target="_blank" rel="noopener">Start with Umbrella-Aware →</a>
+        <a class="btn-indigo btn-sm" style="margin-top: var(--space-4);" href="https://github.com/bobrapp/umbrella-govops/issues/new?labels=certification" target="_blank" rel="noopener">Start with Umbrella-Aware →</a>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ── Section 8b · Foundation & Specs (added 2026-06-01) ────── -->
+<section id="specs" aria-labelledby="sp-h">
+  <div class="shell">
+    <div class="head">
+      <div class="kicker">Foundation &amp; specs</div>
+      <h2 id="sp-h">The documents under the program.</h2>
+      <p>Umbrella is more than a website. It is a Foundation specification: a versioned UCID registry, a ratified threat model, a published release calendar, and a 41-item vendor checklist anyone can use to evaluate Policy-as-Code claims — including ours.</p>
+    </div>
+
+    <div class="cards two">
+      <a class="card" href="policy-as-code-vendor-and-approach-checklist-v3.html">
+        <span class="ico">📋</span>
+        <h3>Policy-as-Code Vendor &amp; Approach Checklist v.3</h3>
+        <p>41 questions across 6 sections. Two disqualifying. Self-score your vendor or your own approach against framework-grade AI governance.</p>
+      </a>
+      <a class="card" href="https://github.com/bobrapp/umbrella-govops/blob/main/UCID-REGISTRY.md" target="_blank" rel="noopener">
+        <span class="ico">🆔</span>
+        <h3>UCID Registry</h3>
+        <p>IANA-style registry of Unified Control IDs. Four lifecycle statuses (provisional · stable · deprecated · superseded). Designated Expert review process.</p>
+      </a>
+      <a class="card" href="https://github.com/bobrapp/umbrella-govops/blob/main/foundation/THREAT-MODEL.md" target="_blank" rel="noopener">
+        <span class="ico">🛡️</span>
+        <h3>Threat Model</h3>
+        <p>STRIDE-style threat model for the governance pipeline: 6 assets, 5 adversary classes, scoped threats and mitigations.</p>
+      </a>
+      <a class="card" href="https://github.com/bobrapp/umbrella-govops/blob/main/foundation/POLICY-POSITIONS.md" target="_blank" rel="noopener">
+        <span class="ico">📜</span>
+        <h3>Policy Positions</h3>
+        <p>P1–P7 ratified Foundation positions on signing, neutrality, evidence binding, and crosswalk integrity. P8–P9 in draft.</p>
+      </a>
+      <a class="card" href="https://github.com/bobrapp/umbrella-govops/blob/main/foundation/RELEASE-CALENDAR.md" target="_blank" rel="noopener">
+        <span class="ico">🗓️</span>
+        <h3>Release Calendar</h3>
+        <p>Beacon v0.1.0 → v1.0.0 and Umbrella v0.1 → v1.0 cadence. Beacon is slow and signed (~2 stable releases/year); Umbrella moves with the frameworks.</p>
+      </a>
+      <a class="card" href="https://github.com/bobrapp/umbrella-govops/blob/main/foundation/GLOSSARY.md" target="_blank" rel="noopener">
+        <span class="ico">📖</span>
+        <h3>Glossary</h3>
+        <p>Authoritative definitions for UCID, evidence bundle, receipt, crosswalk, conformance, and the Beacon ↔ Umbrella boundary.</p>
+      </a>
+    </div>
+
+    <p style="margin-top: var(--space-6); font-size: var(--text-sm); color: var(--muted);">
+      Architecture: <a href="architecture.md">docs/architecture.md</a> · Crosswalk source: <a href="https://github.com/bobrapp/umbrella-govops/blob/main/crosswalks/unified-control-id.yaml" target="_blank" rel="noopener">crosswalks/unified-control-id.yaml</a> · Conformance schemas: <a href="https://github.com/bobrapp/umbrella-govops/tree/main/conformance/schemas" target="_blank" rel="noopener">conformance/schemas/</a> · Beacon repo: <a href="https://github.com/bobrapp/aigovops-beacon" target="_blank" rel="noopener">github.com/bobrapp/aigovops-beacon</a>
+    </p>
   </div>
 </section>
 
@@ -813,7 +862,7 @@ npx umbrella-conformance test \
           <li><a href="#community">Umbrella-Aware (Free)</a></li>
           <li><a href="#community">Umbrella Certified Practitioner</a></li>
           <li><a href="#community">Umbrella Certified Engineer</a></li>
-          <li><a href="https://github.com/bobrapp/umbrella-govops/tree/main/certifications">Verify a credential</a></li>
+          <li><a href="https://github.com/bobrapp/umbrella-govops/issues/new?labels=certification">Verify a credential</a></li>
         </ul>
       </div>
       <div>

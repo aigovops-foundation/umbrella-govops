@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Policy-as-Code: Vendor and Approach Checklist — v.3 — Umbrella-GovOps</title>
+  <meta name="description" content="41-item Policy-as-Code vendor and self-assessment checklist. Open, neutral, framework-grade. Apache-2.0." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/site.css" />
+  <style>
+    .doc-shell { max-width: 860px; margin: 0 auto; padding: var(--space-12) var(--space-6); }
+    .doc-shell h2 { font-size: var(--text-2xl); margin-top: var(--space-10); padding-top: var(--space-6); border-top: 1px solid var(--rule); }
+    .doc-shell h2:first-of-type { border-top: 0; padding-top: 0; }
+    .doc-shell h3 { font-size: var(--text-xl); margin-top: var(--space-8); color: var(--indigo); }
+    .doc-shell h4 { font-size: var(--text-lg); margin-top: var(--space-6); }
+    .doc-shell p, .doc-shell li { font-size: var(--text-base); line-height: 1.65; }
+    .doc-shell ul, .doc-shell ol { padding-left: 1.4rem; margin: var(--space-3) 0 var(--space-4); }
+    .doc-shell li { margin: var(--space-2) 0; }
+    .doc-shell code { font-family: 'DM Mono', ui-monospace, monospace; background: var(--tint); padding: 0.1em 0.4em; border-radius: 4px; font-size: 0.92em; }
+    .doc-shell pre { background: var(--tint); padding: var(--space-4); border-radius: 8px; overflow-x: auto; font-size: 0.9em; }
+    .doc-shell blockquote { border-left: 3px solid var(--indigo); padding: var(--space-2) var(--space-5); margin: var(--space-5) 0; color: var(--muted); }
+    .doc-shell table { width: 100%; border-collapse: collapse; margin: var(--space-5) 0; font-size: var(--text-sm); }
+    .doc-shell th, .doc-shell td { border: 1px solid var(--rule); padding: var(--space-2) var(--space-3); text-align: left; vertical-align: top; }
+    .doc-shell th { background: var(--tint); font-weight: 600; }
+    .doc-shell hr { border: 0; border-top: 1px solid var(--rule); margin: var(--space-8) 0; }
+    .doc-hero { background: var(--ink); color: #fff; padding: var(--space-12) 0 var(--space-10); }
+    .doc-hero .shell { max-width: 860px; margin: 0 auto; padding: 0 var(--space-6); }
+    .doc-hero .kicker { color: #9fd4d7; font-family: 'DM Mono', monospace; font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.08em; }
+    .doc-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin: var(--space-3) 0 var(--space-4); line-height: 1.15; max-width: 22ch; }
+    .doc-hero p { color: #cdd6dd; font-size: var(--text-lg); max-width: 70ch; }
+    .doc-hero .meta { margin-top: var(--space-5); display: flex; gap: var(--space-4); flex-wrap: wrap; font-size: var(--text-sm); color: #9fd4d7; }
+    .doc-hero .meta span { font-family: 'DM Mono', monospace; }
+  </style>
+</head>
+<body>
+
+<header class="site-header" id="top">
+  <div class="shell">
+    <a href="./" class="brand" aria-label="Umbrella-GovOps home">
+      <span class="brand-mark" role="img" aria-label="Umbrella-GovOps medallion"></span>
+      <span class="brand-text">
+        <span class="brand-name">Umbrella-GovOps
+          <span class="foundation">AIGovOps Foundation</span>
+        </span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a class="nav-link" href="./#frameworks">Frameworks</a>
+      <a class="nav-link" href="./#journeys">Journeys</a>
+      <a class="nav-link" href="./#domains">Domains</a>
+      <a class="nav-link" href="./#community">Community</a>
+      <a class="btn-primary btn-sm" href="https://github.com/bobrapp/umbrella-govops" target="_blank" rel="noopener">View on GitHub ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="doc-hero">
+  <div class="shell">
+    <div class="kicker">Foundation specification · v.3 · ratified</div>
+    <h1>Policy-as-Code: Vendor and Approach Checklist — v.3</h1>
+    <p>The 41 questions every Policy-as-Code vendor and every internal team must answer to claim framework-grade AI governance. Six sections. Two disqualifying. Self-scored, open, neutral.</p>
+    <div class="meta">
+      <span>Apache-2.0</span>
+      <span>41 items · 6 sections</span>
+      <span>AIGovOps Foundation 501(c)(3)</span>
+      <span><a href="https://github.com/bobrapp/umbrella-govops/blob/main/docs/policy-as-code-vendor-and-approach-checklist-v3.md" style="color:#9fd4d7;">Source on GitHub ↗</a></span>
+    </div>
+  </div>
+</section>
+
+<article class="doc-shell">
+
+<p><strong>Maintainer:</strong> AIGovOps Foundation (501c3) — <a href="https://github.com/bobrapp/umbrella-govops">umbrella-govops</a>
+<strong>Companion runtime product:</strong> <a href="https://github.com/bobrapp/aigovops-beacon">AIGovOps Beacon</a>
+<strong>Status:</strong> v.3 — 2026-06-01. Supersedes v.2 (2026-Q1).
+<strong>Audience:</strong> AI/ML platform leads, GRC architects, procurement, and notified-body assessors evaluating "Policy-as-Code" (PaC) offerings for AI governance.</p>
+<blockquote>
+<p>Use this checklist before signing a Policy-as-Code contract, adopting an internal framework, or letting a vendor sticker your AI system as "compliant." A vendor that cannot produce signed runtime evidence is selling you a slideshow.</p>
+</blockquote>
+<hr />
+<h2 id="what-changed-in-v3">What changed in v.3</h2>
+<p>Compared with the v.2 checklist that emphasized control coverage and crosswalk tables, v.3 reflects the <strong>Beacon ↔ Umbrella split</strong> ratified by the Foundation:</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>v.2 emphasis</th>
+<th>v.3 emphasis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identifiers</td>
+<td>Vendor's proprietary control IDs</td>
+<td><a href="../UCID-REGISTRY.md">Unified Control Identifiers (UCIDs)</a> — IANA-style governance</td>
+</tr>
+<tr>
+<td>Evidence</td>
+<td>Documentation + screenshots</td>
+<td>Signed runtime receipts (OVERT-pure, Ed25519) bound to UCIDs</td>
+</tr>
+<tr>
+<td>Bundles</td>
+<td>PDF reports</td>
+<td>DSSE / in-toto Statement v1 envelopes (<code>predicateType: https://aigovops.org/attestations/govops-evidence/v1</code>)</td>
+</tr>
+<tr>
+<td>Verification</td>
+<td>Vendor portal</td>
+<td>Offline, third-party, with <code>beacon-verify</code> + <code>umbrella-conformance verify --ucid-coverage</code></td>
+</tr>
+<tr>
+<td>Standards posture</td>
+<td>"Aligned with NIST AI RMF"</td>
+<td>Standards-first (<a href="https://overt.is/">OVERT 1.0</a>, in-toto, SLSA, DSSE); frameworks cite standards, not the reverse</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="how-to-use-this-checklist">How to use this checklist</h2>
+<ol>
+<li>Score each item <strong>Pass / Warn / Fail / N/A</strong> in your evaluation spreadsheet.</li>
+<li><strong>Any <code>Fail</code> in Section A or Section B is disqualifying.</strong> No amount of documentation overcomes a missing signature.</li>
+<li>Sections C–F establish the gap you would have to backfill if you adopt the vendor.</li>
+<li>Save the completed checklist alongside your procurement package — the procurement record itself becomes part of the audit trail.</li>
+</ol>
+<hr />
+<h2 id="section-a-cryptographic-evidence-disqualifying-if-any-fail">Section A — Cryptographic evidence (disqualifying if any Fail)</h2>
+<p>The non-negotiables. A "Policy-as-Code" vendor that cannot satisfy Section A is selling governance theater.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Requirement</th>
+<th>Test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1</td>
+<td><strong>Every claimed control emits a signed runtime receipt.</strong> No screenshots, no portal-only attestation.</td>
+<td>Ask for 3 receipts from the last 24 h. Verify their signatures <strong>offline</strong> with a tool the vendor did not author.</td>
+</tr>
+<tr>
+<td>A2</td>
+<td><strong>Signed receipts use a published, open algorithm</strong> (Ed25519 or P-256). RSA-PKCS1v15 is not acceptable for new deployments.</td>
+<td><code>openssl asn1parse</code> / <code>beacon-verify</code> round-trips.</td>
+</tr>
+<tr>
+<td>A3</td>
+<td><strong>Public key is fingerprinted and pinnable</strong> by the verifier — not just "trust the vendor's HTTPS endpoint."</td>
+<td>Vendor publishes <code>key_fingerprint</code>. You verify by fingerprint, not URL.</td>
+</tr>
+<tr>
+<td>A4</td>
+<td><strong>Receipts are tamper-evident</strong> — chained (foundation format) or individually self-contained (runtime / OVERT format) with explicit <code>prev_*_sha256</code> link or signed canonical form.</td>
+<td>Mutate a byte in a copy of one receipt; verifier must reject.</td>
+</tr>
+<tr>
+<td>A5</td>
+<td><strong>Aggregate evidence bundles are wrapped in DSSE / in-toto Statement v1</strong> (<code>payloadType: application/vnd.in-toto+json</code>) with a fixed <code>predicateType</code>.</td>
+<td>Inspect a sample bundle. <code>_type</code> must be <code>https://in-toto.io/Statement/v1</code>.</td>
+</tr>
+<tr>
+<td>A6</td>
+<td><strong>Bundles are signable via keyless OIDC</strong> (Sigstore / Fulcio / Rekor) and verifiable without proprietary tooling.</td>
+<td><code>cosign verify-blob</code> works with no vendor SDK.</td>
+</tr>
+<tr>
+<td>A7</td>
+<td><strong>Every embedded receipt is independently re-verifiable</strong> — the outer DSSE signature does <strong>not</strong> substitute for receipt-level verification.</td>
+<td>Strip the outer DSSE; verifier must still validate the inner receipts.</td>
+</tr>
+<tr>
+<td>A8</td>
+<td><strong>Long-term archival path exists.</strong> Either Rekor entries or an equivalent transparency log; keys rotate without breaking historical evidence.</td>
+<td>Vendor publishes their key-rotation runbook.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Implementation pointer:</strong> the AIGovOps stack satisfies A1–A8 via <a href="https://github.com/bobrapp/aigovops-beacon">Beacon</a> (signing) + <a href="https://github.com/bobrapp/umbrella-govops">Umbrella</a> <code>EvidenceBundle.receipts[]</code> (embedding) + <code>cosign sign-blob</code> keyless (outer envelope). See the <a href="../foundation/THREAT-MODEL.md">threat model</a> for the attacks each item defends against.</p>
+<hr />
+<h2 id="section-b-identifier-governance-disqualifying-if-any-fail">Section B — Identifier governance (disqualifying if any Fail)</h2>
+<p>If a vendor's control IDs are branding, you will pay the migration tax forever. Identifiers must be <strong>infrastructure</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Requirement</th>
+<th>Test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B1</td>
+<td><strong>Identifiers are versioned, never reused, and never silently renamed.</strong> Once an ID is allocated, that string maps to that concept forever.</td>
+<td>Ask for the vendor's deprecation policy. Read it.</td>
+</tr>
+<tr>
+<td>B2</td>
+<td><strong>A formal status lifecycle exists</strong> — at minimum: provisional, stable, deprecated, superseded.</td>
+<td>Vendor produces a registry document with statuses per identifier.</td>
+</tr>
+<tr>
+<td>B3</td>
+<td><strong>Named Designated Expert(s) review every addition and change</strong>, with a published term, conflict-of-interest rules, and recusal procedure.</td>
+<td>"Our compliance team" is not an answer. You want a name and a term.</td>
+</tr>
+<tr>
+<td>B4</td>
+<td><strong>Changes happen by public pull request</strong> against a versioned registry file. No silent edits.</td>
+<td><code>git log</code> on the registry file shows reviewed PRs.</td>
+</tr>
+<tr>
+<td>B5</td>
+<td><strong>Identifier syntax is regex-checkable</strong> and documented.</td>
+<td>A schema file enforces it (e.g. <code>^UCID-[A-Z][A-Z0-9]{1,7}(-[A-Z0-9]{1,16})*-[0-9]{3}$</code>).</td>
+</tr>
+<tr>
+<td>B6</td>
+<td><strong>Framework citations are pinned to a specific framework version.</strong> When NIST AI RMF or the EU AI Act publishes a revision, the registry adds a row — it does not silently rewrite citations.</td>
+<td>Vendor's crosswalk file shows pinned versions (e.g. <code>NIST AI RMF 1.0</code>, not "NIST AI RMF").</td>
+</tr>
+<tr>
+<td>B7</td>
+<td><strong>Split / merge / retire procedures are documented.</strong> What happens when one obligation becomes two, or two collapse into one?</td>
+<td>Read the procedure. If it is absent, assume nothing happens — silently.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Implementation pointer:</strong> the AIGovOps <a href="../UCID-REGISTRY.md">UCID Registry</a> and <a href="../crosswalks/unified-control-id.yaml">crosswalks/unified-control-id.yaml</a> are modeled on <a href="https://www.iana.org/protocols">IANA protocol registries</a> and RFC 8126.</p>
+<hr />
+<h2 id="section-c-architectural-posture">Section C — Architectural posture</h2>
+<p>Sections C–F are not disqualifying individually, but a vendor failing most of them will be expensive to absorb.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Requirement</th>
+<th>Test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C1</td>
+<td><strong>The runtime evidence layer is independently usable</strong> — i.e. a project can adopt the receipt format without adopting the rest of the vendor's stack.</td>
+<td>Can you sign and verify with just the open-source receipt library, no SaaS account?</td>
+</tr>
+<tr>
+<td>C2</td>
+<td><strong>Asymmetric integration:</strong> the lower layer (runtime) does not depend on the upper layer (program / control catalog). Identifier coupling lives in the upper layer only.</td>
+<td>Inspect the receipt schema. If it has a <code>governance</code> block referencing the vendor's control catalog, that is coupling — and a Section C1 violation.</td>
+</tr>
+<tr>
+<td>C3</td>
+<td><strong>Receipts are OVERT-pure</strong> (or equivalent open standard). No vendor-proprietary fields in the signed payload.</td>
+<td>Compare receipts to the OVERT 1.0 spec.</td>
+</tr>
+<tr>
+<td>C4</td>
+<td><strong>Two distinct release cadences</strong> — slow + signed for the runtime; fast + informational for the program / framework registry.</td>
+<td>Vendor publishes a release calendar showing both.</td>
+</tr>
+<tr>
+<td>C5</td>
+<td><strong>Deprecation window ≥ 24 months</strong> for any field removed from the runtime schema.</td>
+<td>Read the vendor's published deprecation policy.</td>
+</tr>
+<tr>
+<td>C6</td>
+<td><strong>Build provenance for the vendor's own tools</strong> is published (SLSA Level ≥ 3 or in-toto attestations on the CLI binaries).</td>
+<td><code>cosign verify-attestation</code> against a vendor-published binary.</td>
+</tr>
+<tr>
+<td>C7</td>
+<td><strong>No "enterprise edition"</strong> of the verifier. Verification logic is open source.</td>
+<td>Find the verifier source. If you cannot, this is a Section A1 violation in disguise.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Implementation pointer:</strong> the <a href="https://github.com/bobrapp/aigovops-beacon#beacon-runs-alone">Beacon README</a> and the Umbrella <a href="../README.md#beacon-and-umbrella--two-layers-two-cadences">README cadence table</a> make C1–C5 explicit. <a href="../foundation/POLICY-POSITIONS.md">Policy positions P3, P5, P7</a> bind the Foundation to this posture publicly.</p>
+<hr />
+<h2 id="section-d-standards-alignment">Section D — Standards alignment</h2>
+<p>Frameworks update on regulatory clocks (years); standards update on engineering clocks (months). Pin to standards.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Requirement</th>
+<th>Test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D1</td>
+<td><strong>Signed receipt format conforms to an open standard</strong> (<a href="https://overt.is/">OVERT 1.0</a>, <a href="https://www.rfc-editor.org/rfc/rfc9052">COSE</a>, <a href="https://www.rfc-editor.org/rfc/rfc7515">JOSE</a>, or equivalent).</td>
+<td>Vendor names the spec and the version.</td>
+</tr>
+<tr>
+<td>D2</td>
+<td><strong>Attestation envelopes conform to <a href="https://github.com/in-toto/attestation/tree/main/spec/v1">in-toto Statement v1</a></strong> with a documented, vendor-controlled <code>predicateType</code>.</td>
+<td><code>_type</code> and <code>predicateType</code> are present and stable.</td>
+</tr>
+<tr>
+<td>D3</td>
+<td><strong>Outer signatures conform to <a href="https://github.com/secure-systems-lab/dsse">DSSE</a></strong> with a <code>payloadType</code> of <code>application/vnd.in-toto+json</code>.</td>
+<td>Inspect a sample envelope.</td>
+</tr>
+<tr>
+<td>D4</td>
+<td><strong>Build provenance conforms to <a href="https://slsa.dev/">SLSA</a></strong> Level ≥ 3 for the vendor's own production binaries.</td>
+<td>Vendor publishes the SLSA level + attestation.</td>
+</tr>
+<tr>
+<td>D5</td>
+<td><strong>Canonical JSON</strong> form is documented (RFC 8785 or equivalent) so signatures survive serialization round-trips across languages.</td>
+<td>Vendor names the canonicalization spec.</td>
+</tr>
+<tr>
+<td>D6</td>
+<td><strong>Transparency log usage</strong> (<a href="https://docs.sigstore.dev/logging/overview/">Rekor</a> or <a href="https://www.sigsum.org/">Sigsum</a>) is documented for production signatures.</td>
+<td>Vendor's CI workflow publishes log entries; you can fetch one.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Implementation pointer:</strong> the <a href="../foundation/POLICY-POSITIONS.md">policy position P3 "standards first, frameworks second"</a> commits the Foundation to D1–D6 publicly.</p>
+<hr />
+<h2 id="section-e-crosswalk-integrity">Section E — Crosswalk integrity</h2>
+<p>Crosswalks are how policy survives regulator churn. Verify they are not just marketing tables.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Requirement</th>
+<th>Test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E1</td>
+<td><strong>The crosswalk is a versioned YAML/JSON file</strong>, not a PDF, not a portal table.</td>
+<td>Find it in git.</td>
+</tr>
+<tr>
+<td>E2</td>
+<td><strong>Citations are specific to the framework version.</strong> E.g., not "NIST AI RMF" but "NIST AI RMF 1.0, MEASURE-2.11."</td>
+<td>Open the file. Specificity is visible per row.</td>
+</tr>
+<tr>
+<td>E3</td>
+<td><strong>An automated check verifies that every cited framework reference exists</strong> in the corresponding framework registry.</td>
+<td>The vendor's CI runs this check on every PR.</td>
+</tr>
+<tr>
+<td>E4</td>
+<td><strong>A second automated check verifies that every identifier has at least one implementing control</strong> in <code>enforced</code> status (not draft, not shadow).</td>
+<td>Same; this is the difference between a claim and a control.</td>
+</tr>
+<tr>
+<td>E5</td>
+<td><strong>A third automated check verifies that every <code>enforced</code> control with runtime-evidence requirements has matching receipt evidence</strong> in produced bundles.</td>
+<td>Vendor's <code>verify --ucid-coverage</code> (or equivalent) gate runs in CI.</td>
+</tr>
+<tr>
+<td>E6</td>
+<td><strong>The crosswalk's commit SHA is recorded in every evidence bundle</strong> so future auditors can reproduce the mapping that was in force at the time.</td>
+<td>Inspect a bundle's <code>metadata.commit_sha</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Implementation pointer:</strong> the Umbrella CLI implements <code>schema-valid</code>, <code>crosswalk-resolved</code>, <code>controls-have-checks</code> checks plus <code>umbrella-conformance verify --ucid-coverage</code> for E5; the bundle records <code>metadata.commit_sha</code> for E6.</p>
+<hr />
+<h2 id="section-f-process-governance-and-conflict-of-interest">Section F — Process, governance, and conflict of interest</h2>
+<p>A vendor that profits from issuing compliance certificates has a structural incentive to lower the bar.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Requirement</th>
+<th>Test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F1</td>
+<td><strong>The vendor does not issue compliance certificates or conformity assessments</strong> for its own platform.</td>
+<td>"AIGovOps-Certified" stamps are a Section F1 failure.</td>
+</tr>
+<tr>
+<td>F2</td>
+<td><strong>Open source license</strong> on the runtime, the verifier, the schemas, and the registry. Apache-2.0 or MIT preferred.</td>
+<td>Read the LICENSE files.</td>
+</tr>
+<tr>
+<td>F3</td>
+<td><strong>Public threat model</strong> scoped to the evidence pipeline.</td>
+<td>Vendor publishes one. (See <a href="../foundation/THREAT-MODEL.md">our seed</a>.)</td>
+</tr>
+<tr>
+<td>F4</td>
+<td><strong>Public policy positions</strong> the vendor will defend in regulatory comment letters and standards work.</td>
+<td>Vendor publishes a positions document and tracks open questions. (See <a href="../foundation/POLICY-POSITIONS.md">ours</a>.)</td>
+</tr>
+<tr>
+<td>F5</td>
+<td><strong>Public glossary</strong> with one authoritative definition per term, cited from every other doc.</td>
+<td>Find it. Spot-check one term across multiple vendor docs.</td>
+</tr>
+<tr>
+<td>F6</td>
+<td><strong>Forward-looking release calendar</strong> with both committed (tagged releases) and target dates.</td>
+<td>Read it. (See <a href="../foundation/RELEASE-CALENDAR.md">ours</a>.)</td>
+</tr>
+<tr>
+<td>F7</td>
+<td><strong>The vendor's own CI publishes signed evidence bundles</strong> for its own releases — i.e. the vendor eats its own dogfood.</td>
+<td>Find the latest release. Verify its bundle with the verifier from F2.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="scoring-template-copy-into-your-evaluation-spreadsheet">Scoring template (copy into your evaluation spreadsheet)</h2>
+<pre><code>A. Cryptographic evidence     [ ] A1 [ ] A2 [ ] A3 [ ] A4 [ ] A5 [ ] A6 [ ] A7 [ ] A8
+B. Identifier governance      [ ] B1 [ ] B2 [ ] B3 [ ] B4 [ ] B5 [ ] B6 [ ] B7
+C. Architectural posture      [ ] C1 [ ] C2 [ ] C3 [ ] C4 [ ] C5 [ ] C6 [ ] C7
+D. Standards alignment        [ ] D1 [ ] D2 [ ] D3 [ ] D4 [ ] D5 [ ] D6
+E. Crosswalk integrity        [ ] E1 [ ] E2 [ ] E3 [ ] E4 [ ] E5 [ ] E6
+F. Governance / COI           [ ] F1 [ ] F2 [ ] F3 [ ] F4 [ ] F5 [ ] F6 [ ] F7
+
+Disqualifying gates:
+  Any Fail in A or B  →  reject
+  ≥ 3 Fails in C+D    →  high integration risk; require remediation plan before signing
+  Any Fail in F1      →  conflict-of-interest disqualification regardless of other scores
+</code></pre>
+<hr />
+<h2 id="how-aigovops-measures-itself-against-this-checklist">How AIGovOps measures itself against this checklist</h2>
+<p>We publish this so we can be held to it. As of 2026-06-01, the AIGovOps stack (Beacon + Umbrella) scores:</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Score</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A. Cryptographic evidence</td>
+<td><strong>8/8</strong></td>
+<td>Ed25519 receipts (A1–A4), DSSE envelope (A5), <code>cosign sign-blob</code> keyless (A6), independent receipt re-verification (A7); Rekor + 24-month rotation policy at Beacon v0.2.0 (A8).</td>
+</tr>
+<tr>
+<td>B. Identifier governance</td>
+<td><strong>7/7</strong></td>
+<td><a href="../UCID-REGISTRY.md">UCID-REGISTRY.md</a> covers B1–B7.</td>
+</tr>
+<tr>
+<td>C. Architectural posture</td>
+<td><strong>7/7</strong></td>
+<td>Beacon runs alone (C1); asymmetric integration via <code>EvidenceBundle.receipts[]</code> (C2); OVERT-pure receipts (C3); two-cadence release model (C4); 24-month deprecation (C5); SLSA-attested CLI builds (C6); open-source verifier (C7).</td>
+</tr>
+<tr>
+<td>D. Standards alignment</td>
+<td><strong>6/6</strong></td>
+<td>OVERT 1.0 (D1); in-toto Statement v1 (D2); DSSE (D3); SLSA L3 in CI (D4); RFC 8785 canonicalization (D5); Rekor in CI (D6).</td>
+</tr>
+<tr>
+<td>E. Crosswalk integrity</td>
+<td><strong>6/6</strong></td>
+<td>YAML crosswalk in git (E1); pinned framework versions (E2); <code>crosswalk-resolved</code> check (E3); <code>controls-have-checks</code> check (E4); <code>verify --ucid-coverage</code> (E5); <code>metadata.commit_sha</code> in bundles (E6).</td>
+</tr>
+<tr>
+<td>F. Governance / COI</td>
+<td><strong>7/7</strong></td>
+<td>No certification program (F1); Apache-2.0 (F2); <a href="../foundation/THREAT-MODEL.md">threat model</a> (F3); <a href="../foundation/POLICY-POSITIONS.md">policy positions</a> (F4); <a href="../foundation/GLOSSARY.md">glossary</a> (F5); <a href="../foundation/RELEASE-CALENDAR.md">release calendar</a> (F6); self-signed releases (F7).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total: 41 / 41.</strong> If you find a gap, <a href="https://github.com/bobrapp/umbrella-govops/issues/new/choose">open an issue</a>.</p>
+<hr />
+<h2 id="changelog">Changelog</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v.1</td>
+<td>2025-Q3</td>
+<td>Initial checklist — control coverage and framework crosswalks only.</td>
+</tr>
+<tr>
+<td>v.2</td>
+<td>2026-Q1</td>
+<td>Added basic signing requirements; introduced control catalogs as a category.</td>
+</tr>
+<tr>
+<td><strong>v.3</strong></td>
+<td><strong>2026-06-01</strong></td>
+<td>Reorganized around the Beacon/Umbrella split. Added disqualifying gates in Sections A and B. Added Sections C–F. Added vendor-scoring template and self-scoring table.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="citing-this-checklist">Citing this checklist</h2>
+<blockquote>
+<p>AIGovOps Foundation, <em>Policy-as-Code: Vendor and Approach Checklist v.3</em>,
+<a href="https://bobrapp.github.io/umbrella-govops/policy-as-code-vendor-and-approach-checklist-v3.html">bobrapp.github.io/umbrella-govops/policy-as-code-vendor-and-approach-checklist-v3</a>,
+2026-06-01.</p>
+</blockquote>
+<p>Pin to a specific commit SHA when citing in regulator-facing documents, not <code>main</code>.</p>
+</article>
+
+</main>
+
+<footer class="site-footer" aria-label="Site footer">
+  <div class="shell">
+    <div class="colophon">
+      <span>© 2026 AIGovOps Foundation · Apache-2.0</span>
+      <span>Compile the world · Sign the evidence · Crosswalk the frameworks · Govern every builder</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
