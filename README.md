@@ -34,6 +34,10 @@ Governance is not a PDF. It is a pipeline. Every control is a YAML contract. Eve
 
 If you only need to prove *what happened*, use Beacon. If you also need to prove *which law it satisfies*, add Umbrella on top.
 
+### Evaluating a vendor or your own approach?
+
+Use the [Policy-as-Code Vendor & Approach Checklist v.3](docs/policy-as-code-vendor-and-approach-checklist-v3.md) — 41 items across cryptographic evidence, identifier governance, architectural posture, standards alignment, crosswalk integrity, and conflict-of-interest. Sections A and B are disqualifying gates.
+
 ## Quickstart
 
 ```bash
