@@ -29,7 +29,7 @@
           "iso_42001": { "type": "array", "items": { "type": "string" } },
           "implementing_controls": {
             "type": "array",
-            "items": { "type": "string", "pattern": "^[A-Z]{2,4}-[0-9]{3}$" }
+            "items": { "type": "string", "pattern": "^[A-Z]{2,4}-[0-9]{3,6}$" }
           }
         }
       }
