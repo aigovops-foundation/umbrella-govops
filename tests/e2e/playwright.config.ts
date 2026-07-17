@@ -7,7 +7,7 @@ import { defineConfig, devices } from "@playwright/test";
  * Override to point at a preview build:
  *   BASE_URL=http://localhost:8080 npx playwright test
  */
-const BASE_URL = process.env.BASE_URL || "https://bobrapp.github.io/umbrella-govops/";
+const BASE_URL = process.env.BASE_URL || "https://aigovops-foundation.github.io/umbrella-govops/";
 
 export default defineConfig({
   testDir: ".",

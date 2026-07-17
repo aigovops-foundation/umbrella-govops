@@ -8,9 +8,18 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- M9 garden-warm skin (aigovops-july-2026 shared system) -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Source+Sans+3:ital,wght@0,300..800;1,300..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/site.css" />
   <style>
+    :root {
+      /* vars this page consumes — resolved to garden tokens */
+      --rule: var(--garden-line);
+      --tint: var(--garden-deep-cream);
+      --muted: var(--garden-ink-soft);
+      --space-5: 1.25rem;
+      --space-10: 2.5rem;
+    }
     .doc-shell { max-width: 860px; margin: 0 auto; padding: var(--space-12) var(--space-6); }
     .doc-shell h2 { font-size: var(--text-2xl); margin-top: var(--space-10); padding-top: var(--space-6); border-top: 1px solid var(--rule); }
     .doc-shell h2:first-of-type { border-top: 0; padding-top: 0; }
@@ -23,16 +32,25 @@
     .doc-shell pre { background: var(--tint); padding: var(--space-4); border-radius: 8px; overflow-x: auto; font-size: 0.9em; }
     .doc-shell blockquote { border-left: 3px solid var(--indigo); padding: var(--space-2) var(--space-5); margin: var(--space-5) 0; color: var(--muted); }
     .doc-shell table { width: 100%; border-collapse: collapse; margin: var(--space-5) 0; font-size: var(--text-sm); }
+    /* wide tables scroll inside their own box — the page never scrolls sideways */
+    @media (max-width: 960px) {
+      .doc-shell table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    }
     .doc-shell th, .doc-shell td { border: 1px solid var(--rule); padding: var(--space-2) var(--space-3); text-align: left; vertical-align: top; }
     .doc-shell th { background: var(--tint); font-weight: 600; }
     .doc-shell hr { border: 0; border-top: 1px solid var(--rule); margin: var(--space-8) 0; }
-    .doc-hero { background: var(--ink); color: #fff; padding: var(--space-12) 0 var(--space-10); }
-    .doc-hero .shell { max-width: 860px; margin: 0 auto; padding: 0 var(--space-6); }
-    .doc-hero .kicker { color: #9fd4d7; font-family: 'DM Mono', monospace; font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.08em; }
-    .doc-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin: var(--space-3) 0 var(--space-4); line-height: 1.15; max-width: 22ch; }
-    .doc-hero p { color: #cdd6dd; font-size: var(--text-lg); max-width: 70ch; }
-    .doc-hero .meta { margin-top: var(--space-5); display: flex; gap: var(--space-4); flex-wrap: wrap; font-size: var(--text-sm); color: #9fd4d7; }
+    .doc-hero { background: var(--garden-deep-cream); color: var(--garden-charcoal); padding: var(--space-12) 0 var(--space-10); position: relative; overflow: hidden; }
+    .doc-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(480px 220px at 10% 115%, rgba(232,181,74,.28), transparent 70%),
+                  radial-gradient(460px 220px at 92% -15%, rgba(46,125,79,.16), transparent 70%); }
+    .doc-hero .shell { max-width: 860px; margin: 0 auto; padding: 0 var(--space-6); position: relative; }
+    .doc-hero .kicker { color: var(--garden-green-ink); font-family: 'DM Mono', monospace; font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.08em; }
+    .doc-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; margin: var(--space-3) 0 var(--space-4); line-height: 1.15; max-width: 22ch; }
+    .doc-hero p { color: var(--garden-ink-soft); font-size: var(--text-lg); max-width: 70ch; }
+    .doc-hero .meta { margin-top: var(--space-5); display: flex; gap: var(--space-4); flex-wrap: wrap; font-size: var(--text-sm); color: var(--garden-green-ink); }
     .doc-hero .meta span { font-family: 'DM Mono', monospace; }
+    /* the "Source on GitHub" link carries an inline dark-hero color — re-ink it (inline styles stay untouched) */
+    .doc-hero .meta a[style] { color: var(--garden-green-ink) !important; }
   </style>
 </head>
 <body>
@@ -524,6 +542,7 @@ Disqualifying gates:
 
 <footer class="site-footer" aria-label="Site footer">
   <div class="shell">
+    <p class="footer-creed">Ship safe AI — never unsafe AI: get to yes, stay at yes, recover to yes, and keep the garden of humanity growing.</p>
     <div class="colophon">
       <span>© 2026 AIGovOps Foundation · Apache-2.0</span>
       <span>Compile the world · Sign the evidence · Crosswalk the frameworks · Govern every builder</span>

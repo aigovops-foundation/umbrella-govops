@@ -2,13 +2,13 @@
   <defs>
     <radialGradient id="paperGrad" cx="50%" cy="46%" r="62%">
       <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="65%" stop-color="#fbfaf6"/>
-      <stop offset="100%" stop-color="#f1efe7"/>
+      <stop offset="65%" stop-color="#FAF7F0"/>
+      <stop offset="100%" stop-color="#F1EAD8"/>
     </radialGradient>
     <radialGradient id="domeGrad" cx="50%" cy="42%" r="60%">
-      <stop offset="0%" stop-color="#0a8a91"/>
-      <stop offset="60%" stop-color="#01696f"/>
-      <stop offset="100%" stop-color="#014c50"/>
+      <stop offset="0%" stop-color="#2E7D4F"/>
+      <stop offset="60%" stop-color="#1F5E3A"/>
+      <stop offset="100%" stop-color="#0F4A2C"/>
     </radialGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="0.6"/>
@@ -16,11 +16,11 @@
   </defs>
 
   <!-- Outer parchment disc with teal hairline -->
-  <circle cx="240" cy="240" r="232" fill="url(#paperGrad)" stroke="#01696f" stroke-width="2"/>
-  <circle cx="240" cy="240" r="220" fill="none" stroke="#2ecc71" stroke-width="1.2" opacity="0.55"/>
+  <circle cx="240" cy="240" r="232" fill="url(#paperGrad)" stroke="#1F5E3A" stroke-width="2"/>
+  <circle cx="240" cy="240" r="220" fill="none" stroke="#2E7D4F" stroke-width="1.2" opacity="0.55"/>
 
   <!-- N/S/E/W tick marks (Signal Green) -->
-  <g stroke="#2ecc71" stroke-width="2.4" opacity="0.55" stroke-linecap="round">
+  <g stroke="#2E7D4F" stroke-width="2.4" opacity="0.55" stroke-linecap="round">
     <line x1="240" y1="14"  x2="240" y2="34"/>
     <line x1="240" y1="446" x2="240" y2="466"/>
     <line x1="14"  y1="240" x2="34"  y2="240"/>
@@ -28,7 +28,7 @@
   </g>
 
   <!-- Inner concentric ring framing the umbrella -->
-  <circle cx="240" cy="240" r="172" fill="none" stroke="#01696f" stroke-width="1.4" opacity="0.35"/>
+  <circle cx="240" cy="240" r="172" fill="none" stroke="#1F5E3A" stroke-width="1.4" opacity="0.35"/>
 
   <!-- ── Umbrella glyph (canopy = globe-arc) ──────────────────── -->
   <!-- Canopy (dome) -->
@@ -41,7 +41,7 @@
   </g>
 
   <!-- Latitude arcs ON the canopy — read as both ribs AND globe -->
-  <g stroke="#2ecc71" stroke-width="1.5" opacity="0.85" fill="none" stroke-linecap="round">
+  <g stroke="#2E7D4F" stroke-width="1.5" opacity="0.85" fill="none" stroke-linecap="round">
     <!-- equatorial axis through globe center -->
     <line x1="240" y1="104" x2="240" y2="244"/>
     <!-- meridian sweeps (rib lines also reading as longitudes) -->
@@ -52,7 +52,7 @@
   </g>
 
   <!-- Globe latitude arcs (3 arcs) — these are NEW: make canopy read as globe hemisphere -->
-  <g stroke="#d8ecee" stroke-width="1.6" opacity="0.9" fill="none" stroke-linecap="round">
+  <g stroke="#E9DFC6" stroke-width="1.6" opacity="0.9" fill="none" stroke-linecap="round">
     <!-- upper latitude arc -->
     <path d="M148 154 C 198 132, 282 132, 332 154"/>
     <!-- mid latitude arc -->
@@ -62,7 +62,7 @@
   </g>
 
   <!-- Canopy scalloped lower edge (8 panels) -->
-  <g fill="url(#domeGrad)" stroke="#2ecc71" stroke-width="1.4" opacity="0.95">
+  <g fill="url(#domeGrad)" stroke="#2E7D4F" stroke-width="1.4" opacity="0.95">
     <path d="M88 244
              q 19 22 38 0
              q 19 22 38 0
@@ -76,39 +76,39 @@
   </g>
 
   <!-- Finial dot at apex -->
-  <circle cx="240" cy="100" r="6" fill="#2ecc71" stroke="#01696f" stroke-width="1.4"/>
+  <circle cx="240" cy="100" r="6" fill="#2E7D4F" stroke="#1F5E3A" stroke-width="1.4"/>
 
   <!-- Handle stem (shortened to make room for three figures) -->
-  <rect x="236" y="244" width="8" height="78" rx="3" fill="#01696f"/>
+  <rect x="236" y="244" width="8" height="78" rx="3" fill="#1F5E3A"/>
 
   <!-- J-curve handle hook -->
   <path d="M240 322
            C 240 348, 218 358, 198 352
            C 184 348, 178 336, 180 326"
-        fill="none" stroke="#01696f" stroke-width="7" stroke-linecap="round"/>
+        fill="none" stroke="#1F5E3A" stroke-width="7" stroke-linecap="round"/>
 
   <!-- ── Three practitioner figures under the canopy ─────────── -->
   <!-- Each figure ~22px tall (~4.6% of medallion). Positions: left, center, right. -->
   <!-- Figure 1 — Signal Green (representing one builder) -->
   <g>
-    <circle cx="178" cy="372" r="6" fill="#2ecc71" stroke="#01696f" stroke-width="1"/>
-    <path d="M170 386 L 170 402 L 186 402 L 186 386 Z" fill="#2ecc71" stroke="#01696f" stroke-width="1"/>
+    <circle cx="178" cy="372" r="6" fill="#2E7D4F" stroke="#1F5E3A" stroke-width="1"/>
+    <path d="M170 386 L 170 402 L 186 402 L 186 386 Z" fill="#2E7D4F" stroke="#1F5E3A" stroke-width="1"/>
   </g>
   <!-- Figure 2 — Sahara Amber (global / Global South cue) -->
   <g>
-    <circle cx="208" cy="368" r="6.5" fill="#E8A020" stroke="#01696f" stroke-width="1"/>
-    <path d="M200 383 L 200 402 L 216 402 L 216 383 Z" fill="#E8A020" stroke="#01696f" stroke-width="1"/>
+    <circle cx="208" cy="368" r="6.5" fill="#E07A2A" stroke="#1F5E3A" stroke-width="1"/>
+    <path d="M200 383 L 200 402 L 216 402 L 216 383 Z" fill="#E07A2A" stroke="#1F5E3A" stroke-width="1"/>
   </g>
   <!-- Figure 3 — Practitioner Indigo (credentialed practitioner) -->
   <g>
-    <circle cx="238" cy="370" r="6" fill="#3B2F8F" stroke="#01696f" stroke-width="1"/>
-    <path d="M230 384 L 230 402 L 246 402 L 246 384 Z" fill="#3B2F8F" stroke="#01696f" stroke-width="1"/>
+    <circle cx="238" cy="370" r="6" fill="#9C4E12" stroke="#1F5E3A" stroke-width="1"/>
+    <path d="M230 384 L 230 402 L 246 402 L 246 384 Z" fill="#9C4E12" stroke="#1F5E3A" stroke-width="1"/>
   </g>
   <!-- Ground line beneath figures -->
-  <line x1="162" y1="404" x2="262" y2="404" stroke="#01696f" stroke-width="1.2" opacity="0.4" stroke-linecap="round"/>
+  <line x1="162" y1="404" x2="262" y2="404" stroke="#1F5E3A" stroke-width="1.2" opacity="0.4" stroke-linecap="round"/>
 
   <!-- Falling "code" rain — small mono ticks, Signal Green -->
-  <g stroke="#2ecc71" stroke-width="2.2" stroke-linecap="round" opacity="0.85">
+  <g stroke="#2E7D4F" stroke-width="2.2" stroke-linecap="round" opacity="0.85">
     <line x1="118" y1="294" x2="118" y2="312"/>
     <line x1="154" y1="312" x2="154" y2="332"/>
     <line x1="320" y1="296" x2="320" y2="316"/>
@@ -118,7 +118,7 @@
   </g>
 
   <!-- Tiny check marks inside the canopy interior, signalling "covered" -->
-  <g stroke="#2ecc71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.95">
+  <g stroke="#2E7D4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.95">
     <polyline points="170,216 178,224 192,208"/>
     <polyline points="226,200 234,208 248,192"/>
     <polyline points="282,216 290,224 304,208"/>
