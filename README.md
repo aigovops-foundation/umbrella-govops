@@ -7,7 +7,7 @@
 ### The program that binds runtime evidence to AI law.
 
 **Landing page →** [bobrapp.github.io/umbrella-govops](https://bobrapp.github.io/umbrella-govops/)
-**Runtime product →** [AIGovOps Beacon](https://github.com/bobrapp/aigovops-beacon) — standalone signing + verification; Umbrella **embeds** its receipts.
+**Runtime product →** [AiGovOps Beacon](https://github.com/bobrapp/aigovops-beacon) — standalone signing + verification; Umbrella **embeds** its receipts.
 
 `COMPILE THE LAW · BIND THE EVIDENCE · CROSSWALK THE FRAMEWORKS · COVER EVERY SYSTEM`
 
@@ -17,7 +17,7 @@
 
 ## What Umbrella-GovOps is
 
-Umbrella-GovOps is the **program layer** of the AIGovOps stack. It compiles AI laws and standards into versioned, citable controls — each anchored by a [Unified Control Identifier (UCID)](UCID-REGISTRY.md) — and **binds runtime evidence**, including [Beacon](https://github.com/bobrapp/aigovops-beacon) receipts and any in-toto attestation, to those controls inside a single signed `EvidenceBundle`.
+Umbrella-GovOps is the **program layer** of the AiGovOps stack. It compiles AI laws and standards into versioned, citable controls — each anchored by a [Unified Control Identifier (UCID)](UCID-REGISTRY.md) — and **binds runtime evidence**, including [Beacon](https://github.com/bobrapp/aigovops-beacon) receipts and any in-toto attestation, to those controls inside a single signed `EvidenceBundle`.
 
 It is a **framework registry**, not a control library: as new frameworks (NIST AI RMF, EU AI Act, ISO/IEC 42001, OECD, country-specific) are published, Umbrella's job is to crosswalk them onto the existing UCIDs so your runtime telemetry doesn't have to change every time a regulator does.
 
@@ -72,16 +72,16 @@ const ucid = u.crosswalk.load().resolve("UCID-DATA-BIAS-001");
 
 See [`conformance/README.md`](conformance/README.md), [`sdk/python/README.md`](sdk/python/README.md), and [`sdk/typescript/README.md`](sdk/typescript/README.md).
 
-## How it relates to AIGovOps Beacon
+## How it relates to AiGovOps Beacon
 
-| | **Umbrella-GovOps** (this repo) | **AIGovOps Beacon** |
+| | **Umbrella-GovOps** (this repo) | **AiGovOps Beacon** |
 |---|---|---|
 | Role | Governance **compiler** — rules engine | **Runtime** — discovery + attestation |
 | Inputs | OSCAL framework catalogs, YAML controls | Live network, models, prompts, artifacts |
 | Outputs | Compiled policy bundle, signed evidence, OSCAL AR | Live receipts, signed bundle for the auditor |
 | Question it answers | *What must be true?* | *Is it true right now?* |
 
-Umbrella defines the rules. Beacon proves them in production. Both share the Hydra palette and the AIGovOps Foundation oath.
+Umbrella defines the rules. Beacon proves them in production. Both share the Hydra palette and the AiGovOps Foundation oath.
 
 ## The four standards Umbrella stands on
 
@@ -343,7 +343,7 @@ Umbrella-GovOps publishes **data contracts**, not a running service. The
 
 ---
 
-<sub>© 2026 AIGovOps Foundation · Apache-2.0 · Hydra Teal `#01696f` · Signal Green `#2ecc71`</sub>
+<sub>© 2026 AiGovOps Foundation · Apache-2.0 · Hydra Teal `#01696f` · Signal Green `#2ecc71`</sub>
 
 ## Related Foundation work
 

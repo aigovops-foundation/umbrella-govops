@@ -2,7 +2,7 @@
 
 ## Our Pledge
 
-We — contributors, maintainers, and the AIGovOps Foundation — pledge to make
+We — contributors, maintainers, and the AiGovOps Foundation — pledge to make
 participation in this project a harassment-free experience for everyone,
 regardless of age, body size, visible or invisible disability, ethnicity, sex
 characteristics, gender identity and expression, level of experience,

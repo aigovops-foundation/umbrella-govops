@@ -24,7 +24,7 @@ info:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
   contact:
-    name: AIGovOps Foundation
+    name: AiGovOps Foundation
     url: https://github.com/bobrapp/umbrella-govops
 
 servers:

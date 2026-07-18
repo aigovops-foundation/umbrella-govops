@@ -1,8 +1,8 @@
 # Trademark Policy
 
-**Umbrella-GovOps™**, **UCID™**, **AIGovOps Foundation™**, **AIGovOps
-Beacon™**, and **AIGovOps Lantern™** are unregistered trademarks of the
-AIGovOps Foundation, a U.S. 501(c)(3) nonprofit. This policy describes
+**Umbrella-GovOps™**, **UCID™**, **AiGovOps Foundation™**, **AiGovOps
+Beacon™**, and **AiGovOps Lantern™** are unregistered trademarks of the
+AiGovOps Foundation, a U.S. 501(c)(3) nonprofit. This policy describes
 how the marks may be used.
 
 > **Status:** v0.1. A formal trademark policy will be ratified by the
@@ -18,7 +18,7 @@ how the marks may be used.
   documentation — including critical, comparative, and review contexts.
 - **Use the marks in factually accurate descriptions** such as
   "compliant with Umbrella-GovOps v1.0", "uses the UCID crosswalk",
-  "verified with AIGovOps Beacon", "read with AIGovOps Lantern", or
+  "verified with AiGovOps Beacon", "read with AiGovOps Lantern", or
   "ships an Umbrella-GovOps evidence bundle" — provided your claim is
   true and verifiable against the published conformance suite.
 - **Distribute the unmodified source code** of Umbrella-GovOps, Beacon,
@@ -31,12 +31,12 @@ how the marks may be used.
 
 - **Selling a commercial product, service, certification, or training
   course under a name that incorporates "Umbrella-GovOps", "UCID",
-  "AIGovOps Beacon", "AIGovOps Lantern", or a confusingly similar
+  "AiGovOps Beacon", "AiGovOps Lantern", or a confusingly similar
   variant.**
 - **Claiming Foundation endorsement, certification, or partnership** for
   any product, service, training, or person — including
   "Umbrella-Certified", "Beacon-Certified", "Lantern-Certified",
-  "AIGovOps-Approved", or similar.
+  "AiGovOps-Approved", or similar.
 - **Using the marks as part of a domain name, app name, package name on
   a registry (PyPI, npm, crates.io, etc.), or repository name** when the
   name suggests official affiliation. For your own work that builds on
@@ -83,19 +83,19 @@ This policy is amended by board ratification of a PR with
 The Foundation maintains a paired-light naming convention for its
 technical projects:
 
-- **AIGovOps Beacon™** — the always-on policy-as-code runtime that
+- **AiGovOps Beacon™** — the always-on policy-as-code runtime that
   signs, attests, and emits machine-verifiable artifacts. Repository:
   `bobrapp/aigovops-beacon`.
-- **AIGovOps Lantern™** — the human-carried companion that reads,
+- **AiGovOps Lantern™** — the human-carried companion that reads,
   interprets, and illuminates conformance for the people doing the
   work. Repository: `bobrapp/aigovops-lantern`.
 
 The shorthand is **"Beacon signs. Lantern reads."** Both names must
-always appear in their compound `AIGovOps` form in product branding,
+always appear in their compound `AiGovOps` form in product branding,
 package names, and domain names. Bare "Beacon" and bare "Lantern"
 are not Foundation marks and should not be used to refer to these
 projects.
 
 ---
 
-*AIGovOps Foundation · trademark@aigovopsfoundation.org · v0.1 · 2026-06-01*
+*AiGovOps Foundation · trademark@aigovopsfoundation.org · v0.1 · 2026-06-01*

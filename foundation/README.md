@@ -1,6 +1,6 @@
 # Umbrella Foundation Documents
 
-The `foundation/` directory holds the **cross-project program documents** that span Umbrella, Beacon, and any future AIGovOps Foundation project. These are intentionally separate from the Umbrella code/control catalog — they describe **why** the program exists, **what threats** it addresses, **what positions** the Foundation takes publicly, and **when** things ship.
+The `foundation/` directory holds the **cross-project program documents** that span Umbrella, Beacon, and any future AiGovOps Foundation project. These are intentionally separate from the Umbrella code/control catalog — they describe **why** the program exists, **what threats** it addresses, **what positions** the Foundation takes publicly, and **when** things ship.
 
 | File | Purpose |
 |------|---------|

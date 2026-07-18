@@ -1,8 +1,8 @@
-# Glossary — AIGovOps program terms
+# Glossary — AiGovOps program terms
 
-**Scope:** This is the **authoritative** glossary for Umbrella, Beacon, and any AIGovOps Foundation project. When the same word appears in any project's docs, it MUST mean what is written here. PRs that introduce a new term anywhere in the program must update this file in the same PR.
+**Scope:** This is the **authoritative** glossary for Umbrella, Beacon, and any AiGovOps Foundation project. When the same word appears in any project's docs, it MUST mean what is written here. PRs that introduce a new term anywhere in the program must update this file in the same PR.
 
-**Maintained by:** AIGovOps Foundation board.
+**Maintained by:** AiGovOps Foundation board.
 
 ---
 

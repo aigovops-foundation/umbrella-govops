@@ -1,6 +1,6 @@
 # Governance
 
-Umbrella-GovOps is a project of the **AIGovOps Foundation**, a U.S. 501(c)(3) nonprofit.
+Umbrella-GovOps is a project of the **AiGovOps Foundation**, a U.S. 501(c)(3) nonprofit.
 This document describes how the project is governed: who decides, how decisions are made,
 and how the community participates.
 
@@ -72,4 +72,4 @@ label, after a 30-day public comment window.
 
 ---
 
-*Apache-2.0 · AIGovOps Foundation · contact: governance@aigovopsfoundation.org*
+*Apache-2.0 · AiGovOps Foundation · contact: governance@aigovopsfoundation.org*
