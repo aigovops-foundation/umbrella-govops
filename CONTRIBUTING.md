@@ -1,7 +1,7 @@
 # Contributing to Umbrella-GovOps
 
 Thanks for your interest in contributing. Umbrella-GovOps is an open-source
-project of the [AIGovOps Foundation](https://aigovops.org) (a US 501(c)(3)
+project of the [AiGovOps Foundation](https://aigovops.org) (a US 501(c)(3)
 non-profit). All contributions — code, controls, crosswalks, docs, issues —
 are welcome under the project's [Apache-2.0 license](LICENSE).
 

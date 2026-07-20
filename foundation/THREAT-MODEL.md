@@ -1,6 +1,6 @@
-# AIGovOps Threat Model
+# AiGovOps Threat Model
 
-**Scope:** what the AIGovOps program — Beacon (the product) and Umbrella (the program layer) — is engineered to prevent. This model is intentionally **narrow**: we model attacks against *the evidence pipeline*, not against the AI systems being governed.
+**Scope:** what the AiGovOps program — Beacon (the product) and Umbrella (the program layer) — is engineered to prevent. This model is intentionally **narrow**: we model attacks against *the evidence pipeline*, not against the AI systems being governed.
 
 **Status:** Seed v0.1 — to be reviewed at every Umbrella release.
 
@@ -69,7 +69,7 @@
    (telemetry true)              (signing key safe)            (citations true)
 ```
 
-* **Trust line 1** — Application owner. AIGovOps cannot validate.
+* **Trust line 1** — Application owner. AiGovOps cannot validate.
 * **Trust line 2** — Beacon. Validated by `beacon-verify` against a pinned public key.
 * **Trust line 3** — Umbrella. Validated by `umbrella-conformance verify` against the UCID + framework registries pinned at the bundle's commit SHA.
 

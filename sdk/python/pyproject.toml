@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "Apache-2.0" }
 authors = [
-    { name = "AIGovOps Foundation", email = "hello@aigovops.org" }
+    { name = "AiGovOps Foundation", email = "hello@aigovops.org" }
 ]
 keywords = ["ai-governance", "compliance", "policy-as-code"]
 classifiers = [

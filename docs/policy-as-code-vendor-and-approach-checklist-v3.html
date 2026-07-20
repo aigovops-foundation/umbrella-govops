@@ -61,7 +61,7 @@
       <span class="brand-mark" role="img" aria-label="Umbrella-GovOps medallion"></span>
       <span class="brand-text">
         <span class="brand-name">Umbrella-GovOps
-          <span class="foundation">AIGovOps Foundation</span>
+          <span class="foundation">AiGovOps Foundation</span>
         </span>
       </span>
     </a>
@@ -85,7 +85,7 @@
     <div class="meta">
       <span>Apache-2.0</span>
       <span>41 items · 6 sections</span>
-      <span>AIGovOps Foundation 501(c)(3)</span>
+      <span>AiGovOps Foundation 501(c)(3)</span>
       <span><a href="https://github.com/bobrapp/umbrella-govops/blob/main/docs/policy-as-code-vendor-and-approach-checklist-v3.md" style="color:#9fd4d7;">Source on GitHub ↗</a></span>
     </div>
   </div>
@@ -93,8 +93,8 @@
 
 <article class="doc-shell">
 
-<p><strong>Maintainer:</strong> AIGovOps Foundation (501c3) — <a href="https://github.com/bobrapp/umbrella-govops">umbrella-govops</a>
-<strong>Companion runtime product:</strong> <a href="https://github.com/bobrapp/aigovops-beacon">AIGovOps Beacon</a>
+<p><strong>Maintainer:</strong> AiGovOps Foundation (501c3) — <a href="https://github.com/bobrapp/umbrella-govops">umbrella-govops</a>
+<strong>Companion runtime product:</strong> <a href="https://github.com/bobrapp/aigovops-beacon">AiGovOps Beacon</a>
 <strong>Status:</strong> v.3 — 2026-06-01. Supersedes v.2 (2026-Q1).
 <strong>Audience:</strong> AI/ML platform leads, GRC architects, procurement, and notified-body assessors evaluating "Policy-as-Code" (PaC) offerings for AI governance.</p>
 <blockquote>
@@ -201,7 +201,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Implementation pointer:</strong> the AIGovOps stack satisfies A1–A8 via <a href="https://github.com/bobrapp/aigovops-beacon">Beacon</a> (signing) + <a href="https://github.com/bobrapp/umbrella-govops">Umbrella</a> <code>EvidenceBundle.receipts[]</code> (embedding) + <code>cosign sign-blob</code> keyless (outer envelope). See the <a href="../foundation/THREAT-MODEL.md">threat model</a> for the attacks each item defends against.</p>
+<p><strong>Implementation pointer:</strong> the AiGovOps stack satisfies A1–A8 via <a href="https://github.com/bobrapp/aigovops-beacon">Beacon</a> (signing) + <a href="https://github.com/bobrapp/umbrella-govops">Umbrella</a> <code>EvidenceBundle.receipts[]</code> (embedding) + <code>cosign sign-blob</code> keyless (outer envelope). See the <a href="../foundation/THREAT-MODEL.md">threat model</a> for the attacks each item defends against.</p>
 <hr />
 <h2 id="section-b-identifier-governance-disqualifying-if-any-fail">Section B — Identifier governance (disqualifying if any Fail)</h2>
 <p>If a vendor's control IDs are branding, you will pay the migration tax forever. Identifiers must be <strong>infrastructure</strong>.</p>
@@ -251,7 +251,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Implementation pointer:</strong> the AIGovOps <a href="../UCID-REGISTRY.md">UCID Registry</a> and <a href="../crosswalks/unified-control-id.yaml">crosswalks/unified-control-id.yaml</a> are modeled on <a href="https://www.iana.org/protocols">IANA protocol registries</a> and RFC 8126.</p>
+<p><strong>Implementation pointer:</strong> the AiGovOps <a href="../UCID-REGISTRY.md">UCID Registry</a> and <a href="../crosswalks/unified-control-id.yaml">crosswalks/unified-control-id.yaml</a> are modeled on <a href="https://www.iana.org/protocols">IANA protocol registries</a> and RFC 8126.</p>
 <hr />
 <h2 id="section-c-architectural-posture">Section C — Architectural posture</h2>
 <p>Sections C–F are not disqualifying individually, but a vendor failing most of them will be expensive to absorb.</p>
@@ -407,7 +407,7 @@
 <tr>
 <td>F1</td>
 <td><strong>The vendor does not issue compliance certificates or conformity assessments</strong> for its own platform.</td>
-<td>"AIGovOps-Certified" stamps are a Section F1 failure.</td>
+<td>"AiGovOps-Certified" stamps are a Section F1 failure.</td>
 </tr>
 <tr>
 <td>F2</td>
@@ -456,8 +456,8 @@ Disqualifying gates:
   Any Fail in F1      →  conflict-of-interest disqualification regardless of other scores
 </code></pre>
 <hr />
-<h2 id="how-aigovops-measures-itself-against-this-checklist">How AIGovOps measures itself against this checklist</h2>
-<p>We publish this so we can be held to it. As of 2026-06-01, the AIGovOps stack (Beacon + Umbrella) scores:</p>
+<h2 id="how-aigovops-measures-itself-against-this-checklist">How AiGovOps measures itself against this checklist</h2>
+<p>We publish this so we can be held to it. As of 2026-06-01, the AiGovOps stack (Beacon + Umbrella) scores:</p>
 <table>
 <thead>
 <tr>
@@ -531,8 +531,8 @@ Disqualifying gates:
 <hr />
 <h2 id="citing-this-checklist">Citing this checklist</h2>
 <blockquote>
-<p>AIGovOps Foundation, <em>Policy-as-Code: Vendor and Approach Checklist v.3</em>,
-<a href="https://bobrapp.github.io/umbrella-govops/policy-as-code-vendor-and-approach-checklist-v3.html">bobrapp.github.io/umbrella-govops/policy-as-code-vendor-and-approach-checklist-v3</a>,
+<p>AiGovOps Foundation, <em>Policy-as-Code: Vendor and Approach Checklist v.3</em>,
+<a href="https://aigovops-foundation.github.io/umbrella-govops/policy-as-code-vendor-and-approach-checklist-v3.html">aigovops-foundation.github.io/umbrella-govops/policy-as-code-vendor-and-approach-checklist-v3</a>,
 2026-06-01.</p>
 </blockquote>
 <p>Pin to a specific commit SHA when citing in regulator-facing documents, not <code>main</code>.</p>
@@ -544,7 +544,7 @@ Disqualifying gates:
   <div class="shell">
     <p class="footer-creed">Ship safe AI — never unsafe AI: get to yes, stay at yes, recover to yes, and keep the garden of humanity growing.</p>
     <div class="colophon">
-      <span>© 2026 AIGovOps Foundation · Apache-2.0</span>
+      <span>© 2026 AiGovOps Foundation · Apache-2.0</span>
       <span>Compile the world · Sign the evidence · Crosswalk the frameworks · Govern every builder</span>
     </div>
   </div>

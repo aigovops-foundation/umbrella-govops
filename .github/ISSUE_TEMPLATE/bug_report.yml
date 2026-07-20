@@ -24,7 +24,7 @@ body:
         - Crosswalks (crosswalks/)
         - Test harness (tests/)
         - GitHub Actions / CI
-        - Live site (bobrapp.github.io/umbrella-govops)
+        - Live site (aigovops-foundation.github.io/umbrella-govops)
         - Docs / README
         - Other
     validations:

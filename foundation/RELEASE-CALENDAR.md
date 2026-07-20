@@ -1,6 +1,6 @@
-# AIGovOps Release Calendar
+# AiGovOps Release Calendar
 
-**Scope:** Forward-looking dates for releases across the AIGovOps program. Keep two cadences clearly separate:
+**Scope:** Forward-looking dates for releases across the AiGovOps program. Keep two cadences clearly separate:
 
 * **Beacon** — the product. Slow, signed, versioned. **≈ 2 releases/year.** Releases are signed, tagged, and shipped with a SBOM + benchmark refresh.
 * **Umbrella** — the program. Fast, informational. **Quarterly digests** + **monthly framework-registry refresh**.
@@ -59,7 +59,7 @@ All dates use UTC. Times shown as `T00:00Z` are "by end of that day UTC."
 ## How to consume this calendar
 
 * Auditors and downstream integrators SHOULD subscribe to the GitHub releases feed on both repos.
-* Quarterly digests will additionally be cross-posted to the AIGovOps Foundation site.
+* Quarterly digests will additionally be cross-posted to the AiGovOps Foundation site.
 * Dates in this document are **targets**, not commitments — only tagged Beacon releases are commitments under the deprecation policy.
 
 ## Updates to this document

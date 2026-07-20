@@ -1,7 +1,7 @@
 # Policy-as-Code: Vendor and Approach Checklist — v.3
 
-**Maintainer:** AIGovOps Foundation (501c3) — [umbrella-govops](https://github.com/bobrapp/umbrella-govops)
-**Companion runtime product:** [AIGovOps Beacon](https://github.com/bobrapp/aigovops-beacon)
+**Maintainer:** AiGovOps Foundation (501c3) — [umbrella-govops](https://github.com/bobrapp/umbrella-govops)
+**Companion runtime product:** [AiGovOps Beacon](https://github.com/bobrapp/aigovops-beacon)
 **Status:** v.3 — 2026-06-01. Supersedes v.2 (2026-Q1).
 **Audience:** AI/ML platform leads, GRC architects, procurement, and notified-body assessors evaluating "Policy-as-Code" (PaC) offerings for AI governance.
 
@@ -47,7 +47,7 @@ The non-negotiables. A "Policy-as-Code" vendor that cannot satisfy Section A is 
 | A7 | **Every embedded receipt is independently re-verifiable** — the outer DSSE signature does **not** substitute for receipt-level verification. | Strip the outer DSSE; verifier must still validate the inner receipts. |
 | A8 | **Long-term archival path exists.** Either Rekor entries or an equivalent transparency log; keys rotate without breaking historical evidence. | Vendor publishes their key-rotation runbook. |
 
-**Implementation pointer:** the AIGovOps stack satisfies A1–A8 via [Beacon](https://github.com/bobrapp/aigovops-beacon) (signing) + [Umbrella](https://github.com/bobrapp/umbrella-govops) `EvidenceBundle.receipts[]` (embedding) + `cosign sign-blob` keyless (outer envelope). See the [threat model](../foundation/THREAT-MODEL.md) for the attacks each item defends against.
+**Implementation pointer:** the AiGovOps stack satisfies A1–A8 via [Beacon](https://github.com/bobrapp/aigovops-beacon) (signing) + [Umbrella](https://github.com/bobrapp/umbrella-govops) `EvidenceBundle.receipts[]` (embedding) + `cosign sign-blob` keyless (outer envelope). See the [threat model](../foundation/THREAT-MODEL.md) for the attacks each item defends against.
 
 ---
 
@@ -65,7 +65,7 @@ If a vendor's control IDs are branding, you will pay the migration tax forever. 
 | B6 | **Framework citations are pinned to a specific framework version.** When NIST AI RMF or the EU AI Act publishes a revision, the registry adds a row — it does not silently rewrite citations. | Vendor's crosswalk file shows pinned versions (e.g. `NIST AI RMF 1.0`, not "NIST AI RMF"). |
 | B7 | **Split / merge / retire procedures are documented.** What happens when one obligation becomes two, or two collapse into one? | Read the procedure. If it is absent, assume nothing happens — silently. |
 
-**Implementation pointer:** the AIGovOps [UCID Registry](../UCID-REGISTRY.md) and [crosswalks/unified-control-id.yaml](../crosswalks/unified-control-id.yaml) are modeled on [IANA protocol registries](https://www.iana.org/protocols) and RFC 8126.
+**Implementation pointer:** the AiGovOps [UCID Registry](../UCID-REGISTRY.md) and [crosswalks/unified-control-id.yaml](../crosswalks/unified-control-id.yaml) are modeled on [IANA protocol registries](https://www.iana.org/protocols) and RFC 8126.
 
 ---
 
@@ -127,7 +127,7 @@ A vendor that profits from issuing compliance certificates has a structural ince
 
 | # | Requirement | Test |
 |---|---|---|
-| F1 | **The vendor does not issue compliance certificates or conformity assessments** for its own platform. | "AIGovOps-Certified" stamps are a Section F1 failure. |
+| F1 | **The vendor does not issue compliance certificates or conformity assessments** for its own platform. | "AiGovOps-Certified" stamps are a Section F1 failure. |
 | F2 | **Open source license** on the runtime, the verifier, the schemas, and the registry. Apache-2.0 or MIT preferred. | Read the LICENSE files. |
 | F3 | **Public threat model** scoped to the evidence pipeline. | Vendor publishes one. (See [our seed](../foundation/THREAT-MODEL.md).) |
 | F4 | **Public policy positions** the vendor will defend in regulatory comment letters and standards work. | Vendor publishes a positions document and tracks open questions. (See [ours](../foundation/POLICY-POSITIONS.md).) |
@@ -155,9 +155,9 @@ Disqualifying gates:
 
 ---
 
-## How AIGovOps measures itself against this checklist
+## How AiGovOps measures itself against this checklist
 
-We publish this so we can be held to it. As of 2026-06-01, the AIGovOps stack (Beacon + Umbrella) scores:
+We publish this so we can be held to it. As of 2026-06-01, the AiGovOps stack (Beacon + Umbrella) scores:
 
 | Section | Score | Evidence |
 |---|---|---|
@@ -184,8 +184,8 @@ We publish this so we can be held to it. As of 2026-06-01, the AIGovOps stack (B
 
 ## Citing this checklist
 
-> AIGovOps Foundation, *Policy-as-Code: Vendor and Approach Checklist v.3*,
-> [bobrapp.github.io/umbrella-govops/policy-as-code-vendor-and-approach-checklist-v3](https://bobrapp.github.io/umbrella-govops/policy-as-code-vendor-and-approach-checklist-v3.html),
+> AiGovOps Foundation, *Policy-as-Code: Vendor and Approach Checklist v.3*,
+> [aigovops-foundation.github.io/umbrella-govops/policy-as-code-vendor-and-approach-checklist-v3](https://aigovops-foundation.github.io/umbrella-govops/policy-as-code-vendor-and-approach-checklist-v3.html),
 > 2026-06-01.
 
 Pin to a specific commit SHA when citing in regulator-facing documents, not `main`.

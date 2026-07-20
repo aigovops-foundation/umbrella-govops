@@ -1,6 +1,6 @@
 # Governance
 
-Umbrella-GovOps is a project of the **AIGovOps Foundation**, a U.S. 501(c)(3) nonprofit.
+Umbrella-GovOps is a project of the **AiGovOps Foundation**, a U.S. 501(c)(3) nonprofit.
 This document describes how the project is governed: who decides, how decisions are made,
 and how the community participates.
 
@@ -19,7 +19,7 @@ and how the community participates.
    framework registry, the UCID Registry, or the vendor checklist.
 3. **Verifiable.** Every released artifact (evidence bundle, conformance run,
    spec PDF) is cryptographically signed and independently verifiable. See
-   [Beacon](https://bobrapp.github.io/aigovops-beacon/).
+   [Beacon](https://aigovops-foundation.github.io/aigovops-beacon/).
 4. **Conflicts disclosed.** All maintainers and Designated Experts publish
    conflicts of interest. See [foundation/POLICY-POSITIONS.md](foundation/POLICY-POSITIONS.md).
 
@@ -72,4 +72,4 @@ label, after a 30-day public comment window.
 
 ---
 
-*Apache-2.0 · AIGovOps Foundation · contact: governance@aigovopsfoundation.org*
+*Apache-2.0 · AiGovOps Foundation · contact: governance@aigovopsfoundation.org*

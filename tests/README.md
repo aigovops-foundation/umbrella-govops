@@ -99,7 +99,7 @@ Per-mutation outcomes are appended to `reports/harness/chaos.jsonl`.
 
 ### 4. E2E — `tests/e2e/`
 
-Playwright smoke tests against `https://bobrapp.github.io/umbrella-govops/`
+Playwright smoke tests against `https://aigovops-foundation.github.io/umbrella-govops/`
 (override with `BASE_URL=...`). Ten tests cover:
 
 - Hero h1 still carries the core promise.

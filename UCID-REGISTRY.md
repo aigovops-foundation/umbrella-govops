@@ -1,8 +1,8 @@
 # Umbrella Unified Control Identifier (UCID) Registry
 
 **Status:** Living document
-**Maintained by:** AIGovOps Foundation (501c3)
-**Designated Expert:** Bob Rapp (`@bobrapp`) — Co-founder, AIGovOps Foundation
+**Maintained by:** AiGovOps Foundation (501c3)
+**Designated Expert:** Bob Rapp (`@bobrapp`) — Co-founder, AiGovOps Foundation
 **Backup Expert:** *vacant — Foundation board to designate by 2026-Q3*
 **Registry source of truth:** [`crosswalks/unified-control-id.yaml`](crosswalks/unified-control-id.yaml)
 **Companion runtime product:** [Beacon](https://github.com/bobrapp/aigovops-beacon) (binds receipts to UCIDs via `evidence_refs`)
@@ -85,7 +85,7 @@ All registry changes happen by **public pull request** against
    * `id`, `title`, `status: provisional`, at least one of `nist_ai_rmf` / `eu_ai_act` / `iso_42001`, `created`, `proposer`.
 2. Add a row to §8 below with status `provisional`.
 3. Designated Expert reviews within **14 calendar days**. If silent past 14 days, the proposer
-   may escalate to the AIGovOps Foundation board via `governance@aigovops.org`.
+   may escalate to the AiGovOps Foundation board via `governance@aigovops.org`.
 4. PR merges with two approving reviews (Designated Expert + one Foundation member).
 
 ### 4.2 Promotion `provisional → stable`
@@ -127,7 +127,7 @@ The Designated Expert is responsible for:
 * Approving status transitions.
 * Maintaining this document.
 
-The Designated Expert serves a **two-year term**, renewable, appointed by the AIGovOps Foundation
+The Designated Expert serves a **two-year term**, renewable, appointed by the AiGovOps Foundation
 board. Conflicts of interest (employer paying the expert to push a specific UCID) MUST be
 declared and recused for that PR.
 
@@ -199,7 +199,7 @@ implementing controls reach `status: enforced` and CI checks pass. See
   Tracked in [#TBD](https://github.com/bobrapp/umbrella-govops/issues).
 * OECD AI Principles citations are not yet in scope; pending a separate framework-registry PR.
 * Once ≥ 25 UCIDs are registered, this document migrates to a published site under
-  [bobrapp.github.io/umbrella-govops/registry/](https://bobrapp.github.io/umbrella-govops/registry/).
+  [aigovops-foundation.github.io/umbrella-govops/registry/](https://aigovops-foundation.github.io/umbrella-govops/registry/).
 
 ---
 
@@ -207,7 +207,7 @@ implementing controls reach `status: enforced` and CI checks pass. See
 
 In external documents, cite a UCID as:
 
-> AIGovOps UCID-OVERSIGHT-001, *Human oversight measures*, Umbrella-GovOps registry
+> AiGovOps UCID-OVERSIGHT-001, *Human oversight measures*, Umbrella-GovOps registry
 > (`https://github.com/bobrapp/umbrella-govops/blob/main/UCID-REGISTRY.md`), accessed YYYY-MM-DD.
 
 Tools consuming the YAML registry SHOULD pin to a specific commit SHA, not `main`.

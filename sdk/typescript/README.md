@@ -1,6 +1,6 @@
 # @aigovops/umbrella-sdk
 
-TypeScript SDK for [Umbrella-GovOps](https://bobrapp.github.io/umbrella-govops/).
+TypeScript SDK for [Umbrella-GovOps](https://aigovops-foundation.github.io/umbrella-govops/).
 
 ```bash
 npm install @aigovops/umbrella-sdk
