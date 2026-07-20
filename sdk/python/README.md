@@ -1,6 +1,6 @@
 # umbrella-sdk (Python)
 
-Python SDK for [Umbrella-GovOps](https://bobrapp.github.io/umbrella-govops/). Mirrors the
+Python SDK for [Umbrella-GovOps](https://aigovops-foundation.github.io/umbrella-govops/). Mirrors the
 [`@aigovops/umbrella-sdk`](../typescript/README.md) TypeScript surface.
 
 ```bash

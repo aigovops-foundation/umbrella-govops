@@ -6,7 +6,7 @@
 
 ### The program that binds runtime evidence to AI law.
 
-**Landing page →** [bobrapp.github.io/umbrella-govops](https://bobrapp.github.io/umbrella-govops/)
+**Landing page →** [aigovops-foundation.github.io/umbrella-govops](https://aigovops-foundation.github.io/umbrella-govops/)
 **Runtime product →** [AiGovOps Beacon](https://github.com/bobrapp/aigovops-beacon) — standalone signing + verification; Umbrella **embeds** its receipts.
 
 `COMPILE THE LAW · BIND THE EVIDENCE · CROSSWALK THE FRAMEWORKS · COVER EVERY SYSTEM`
@@ -40,9 +40,15 @@ Use the [Policy-as-Code Vendor & Approach Checklist v.3](docs/policy-as-code-ven
 
 ## Quickstart
 
+> **Not on PyPI yet.** `pipx install umbrella-conformance` was the first instruction in this
+> README and it fails — the name has never been published, so anyone following the quickstart
+> hit a 404 on step one. The CLI itself is real and lives in this repo; install it from source
+> until a release is cut. (Found 2026-07-20 in the estate credibility pass.)
+
 ```bash
-# 1. Install the conformance CLI
-pipx install umbrella-conformance       # or: pip install umbrella-conformance
+# 1. Install the conformance CLI — from source, until the first PyPI release
+pipx install git+https://github.com/aigovops-foundation/umbrella-govops
+# or, from a clone:  pip install .
 
 # 2. Validate your repo
 umbrella-conformance check .

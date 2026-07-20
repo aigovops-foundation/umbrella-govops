@@ -19,7 +19,7 @@ and how the community participates.
    framework registry, the UCID Registry, or the vendor checklist.
 3. **Verifiable.** Every released artifact (evidence bundle, conformance run,
    spec PDF) is cryptographically signed and independently verifiable. See
-   [Beacon](https://bobrapp.github.io/aigovops-beacon/).
+   [Beacon](https://aigovops-foundation.github.io/aigovops-beacon/).
 4. **Conflicts disclosed.** All maintainers and Designated Experts publish
    conflicts of interest. See [foundation/POLICY-POSITIONS.md](foundation/POLICY-POSITIONS.md).
 

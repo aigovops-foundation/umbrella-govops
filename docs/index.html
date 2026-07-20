@@ -69,7 +69,7 @@
         </div>
         <p class="hero-fineprint">
           Umbrella is the governance compiler.
-          <a href="https://bobrapp.github.io/aigovops-beacon/">AiGovOps Beacon</a>
+          <a href="https://aigovops-foundation.github.io/aigovops-beacon/">AiGovOps Beacon</a>
           signs the evidence.
           <a href="https://github.com/bobrapp/aigovops-lantern">AiGovOps Lantern</a>
           reads it for humans. All three are open source under the
@@ -118,7 +118,7 @@
     <a class="trust-badge target" href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener" aria-label="WCAG 2.2 AA accessibility target">
       <span class="marker"></span> WCAG 2.2 AA · target
     </a>
-    <a class="trust-badge active" href="https://bobrapp.github.io/aigovops-beacon/" aria-label="OVERT 1.0 profile">
+    <a class="trust-badge active" href="https://aigovops-foundation.github.io/aigovops-beacon/" aria-label="OVERT 1.0 profile">
       <span class="marker"></span> OVERT 1.0
     </a>
     <a class="trust-badge active" href="https://www.unesco.org/en/artificial-intelligence/recommendation-ethics" target="_blank" rel="noopener" aria-label="Aligned with UNESCO AI Ethics Recommendation">
@@ -131,18 +131,30 @@
 <section style="padding: var(--space-12) 0 var(--space-12);" aria-label="Live evidence telemetry">
   <div class="shell">
     <div class="telemetry">
+      <!-- HONESTY NOTE (2026-07-20). This strip was headed "Live evidence — Sigstore keyless"
+           and carried a timestamped run: 147 controls, NIST 94% / EU 91% / ISO 42001 88%, a
+           signed in-toto statement, and a Rekor inclusion proof at log index 142337991. None of
+           it had happened. The registry holds FOUR provisional UCIDs, not 147, and the Rekor
+           index was checkable by anyone who cared to look — which is the whole point of a
+           transparency log. Publishing invented attestation output from a project whose subject
+           is evidence integrity is the exact failure we ask people to trust us to prevent.
+           It is now labelled as the shape of the output, with no fabricated identifiers. -->
       <div class="telemetry-head">
-        <span class="live">Live evidence — Sigstore keyless · in-toto v1.0</span>
+        <span class="live">Illustrative — the shape of a govops-ci run, not a run that happened</span>
         <span>workflow: govops-ci.yml@main</span>
       </div>
       <div class="telemetry-body">
-        <div class="row"><span class="ts">09:21:14Z</span><span class="ev">bundle <strong>v2026.05.29-1430</strong> compiled · 147 controls · NIST 94% · EU 91% · ISO 42001 88% · Korea AI Framework 76%</span><span class="ok">✓</span></div>
-        <div class="row"><span class="ts">09:21:15Z</span><span class="ev">in-toto statement signed (Fulcio cert · id=workflow@refs/heads/main)</span><span class="ok">✓</span></div>
-        <div class="row"><span class="ts">09:21:16Z</span><span class="ev">Rekor inclusion proof published · log index 142337991</span><span class="ok">✓</span></div>
-        <div class="row"><span class="ts">09:21:16Z</span><span class="ev">OSCAL assessment-results.yaml emitted · POA&amp;M auto-opened for MEASURE-2.7</span><span class="ok">✓</span></div>
-        <div class="row"><span class="ts">09:21:17Z</span><span class="ev">Annex IV technical-documentation.pdf rendered · 9 sections</span><span class="ok">✓</span></div>
-        <div class="row"><span class="ts">09:21:18Z</span><span class="ev">heatmap.html published · 3 systems × 47 unified control IDs</span><span class="ok">✓</span></div>
+        <div class="row"><span class="ts">--:--:--</span><span class="ev">bundle compiled · unified control IDs from <strong>crosswalks/unified-control-id.yaml</strong> (today: 4, all provisional) · per-framework coverage computed, not asserted</span><span class="ok">·</span></div>
+        <div class="row"><span class="ts">--:--:--</span><span class="ev">in-toto statement signed (Sigstore keyless · Fulcio cert bound to the workflow identity)</span><span class="ok">·</span></div>
+        <div class="row"><span class="ts">--:--:--</span><span class="ev">Rekor inclusion proof published · the real log index appears here after a real run</span><span class="ok">·</span></div>
+        <div class="row"><span class="ts">--:--:--</span><span class="ev">OSCAL assessment-results.yaml emitted · POA&amp;M opened for any control that fails</span><span class="ok">·</span></div>
+        <div class="row"><span class="ts">--:--:--</span><span class="ev">Annex IV technical-documentation.pdf rendered</span><span class="ok">·</span></div>
+        <div class="row"><span class="ts">--:--:--</span><span class="ev">heatmap.html published · systems × unified control IDs</span><span class="ok">·</span></div>
       </div>
+      <p style="margin:var(--space-4) 0 0;font-size:.85rem;opacity:.75">
+        These rows describe what the pipeline emits. When a run has actually happened, this strip
+        will carry its real timestamps and its real Rekor log index — and you will be able to
+        look them up. Until then it says so.</p>
     </div>
   </div>
 </section>
@@ -513,7 +525,8 @@
     </div>
 
     <pre class="code" aria-label="Sample in-toto statement">
-<span class="c">// bundle-v2026.05.29-1430.intoto.jsonl</span>
+<span class="c">// EXAMPLE — the statement schema. Digests are elided; the counts below are
+// illustrative, not a run that happened.</span>
 {
   <span class="k">"_type"</span>: <span class="s">"https://in-toto.io/Statement/v1"</span>,
   <span class="k">"subject"</span>: [{ <span class="k">"name"</span>: <span class="s">"bundle.tar.zst"</span>,
@@ -533,9 +546,9 @@
       { <span class="k">"id"</span>: <span class="s">"iso-iec-42001"</span>,    <span class="k">"catalogHash"</span>: <span class="s">"sha256:91d4…"</span> },
       { <span class="k">"id"</span>: <span class="s">"korea-ai-framework-act"</span>, <span class="k">"catalogHash"</span>: <span class="s">"sha256:f02c…"</span> }
     ],
-    <span class="k">"results"</span>:   { <span class="k">"evaluated"</span>: 147, <span class="k">"passed"</span>: 144,
-                  <span class="k">"failed"</span>: 0, <span class="k">"waived"</span>: 3 },
-    <span class="k">"coverage"</span>:  { <span class="k">"nist"</span>: 0.94, <span class="k">"eu"</span>: 0.91, <span class="k">"iso_42001"</span>: 0.88, <span class="k">"korea"</span>: 0.76 }
+    <span class="k">"results"</span>:   { <span class="k">"evaluated"</span>: N, <span class="k">"passed"</span>: N-w,
+                  <span class="k">"failed"</span>: 0, <span class="k">"waived"</span>: w },
+    <span class="k">"coverage"</span>:  { <span class="k">"nist"</span>: 0.00, <span class="k">"eu"</span>: 0.00, <span class="k">"iso_42001"</span>: 0.00, <span class="k">"korea"</span>: 0.00 }
   }
 }</pre>
 
@@ -775,7 +788,7 @@ npx umbrella-conformance test \
     </div>
 
     <div class="cards two">
-      <a class="card" href="https://bobrapp.github.io/aigovops-beacon/" target="_blank" rel="noopener">
+      <a class="card" href="https://aigovops-foundation.github.io/aigovops-beacon/" target="_blank" rel="noopener">
         <span class="ico">🔦</span>
         <h3>AiGovOps Beacon™</h3>
         <p><strong>The spotlight.</strong> Machine-facing. Signs, attests, and emits machine-verifiable evidence bundles. Always-on infrastructure. Sigstore keyless · in-toto v1.0 · SLSA L3 target.</p>
@@ -801,7 +814,7 @@ npx umbrella-conformance test \
     <div class="head">
       <div class="kicker">Proven in production</div>
       <h2 id="pr-h">Governance that survives real incidents.</h2>
-      <p>Umbrella ships with Beacon's <a href="https://bobrapp.github.io/aigovops-beacon/" target="_blank" rel="noopener">100-incident failure database</a> mapped to framework controls. Your case study could be next.</p>
+      <p>Umbrella ships with Beacon's <a href="https://aigovops-foundation.github.io/aigovops-beacon/" target="_blank" rel="noopener">100-incident failure database</a> mapped to framework controls. Your case study could be next.</p>
     </div>
 
     <div class="casestudies">
@@ -865,7 +878,7 @@ npx umbrella-conformance test \
         <p>The governance compiler for the world's AI laws. Apache-2.0. No SaaS. No vendor login. An AiGovOps Foundation 501(c)(3) project.</p>
         <ul>
           <li><a href="https://aigovopsfoundation.org">AiGovOps Foundation</a></li>
-          <li><a href="https://bobrapp.github.io/aigovops-beacon/">AiGovOps Beacon</a></li>
+          <li><a href="https://aigovops-foundation.github.io/aigovops-beacon/">AiGovOps Beacon</a></li>
           <li><a href="https://github.com/bobrapp/aigovops-lantern">AiGovOps Lantern</a></li>
           <li><a href="https://github.com/bobrapp/umbrella-govops">github.com/bobrapp/umbrella-govops</a></li>
         </ul>

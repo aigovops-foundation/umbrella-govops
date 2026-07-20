@@ -199,7 +199,7 @@ implementing controls reach `status: enforced` and CI checks pass. See
   Tracked in [#TBD](https://github.com/bobrapp/umbrella-govops/issues).
 * OECD AI Principles citations are not yet in scope; pending a separate framework-registry PR.
 * Once ≥ 25 UCIDs are registered, this document migrates to a published site under
-  [bobrapp.github.io/umbrella-govops/registry/](https://bobrapp.github.io/umbrella-govops/registry/).
+  [aigovops-foundation.github.io/umbrella-govops/registry/](https://aigovops-foundation.github.io/umbrella-govops/registry/).
 
 ---
 

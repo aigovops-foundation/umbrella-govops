@@ -4,7 +4,7 @@
   "description": "TypeScript SDK for Umbrella-GovOps — controls, evidence, crosswalk, journeys",
   "license": "Apache-2.0",
   "author": "AiGovOps Foundation <hello@aigovops.org>",
-  "homepage": "https://bobrapp.github.io/umbrella-govops/",
+  "homepage": "https://aigovops-foundation.github.io/umbrella-govops/",
   "repository": {
     "type": "git",
     "url": "https://github.com/bobrapp/umbrella-govops",

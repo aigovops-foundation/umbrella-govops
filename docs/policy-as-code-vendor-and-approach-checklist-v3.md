@@ -185,7 +185,7 @@ We publish this so we can be held to it. As of 2026-06-01, the AiGovOps stack (B
 ## Citing this checklist
 
 > AiGovOps Foundation, *Policy-as-Code: Vendor and Approach Checklist v.3*,
-> [bobrapp.github.io/umbrella-govops/policy-as-code-vendor-and-approach-checklist-v3](https://bobrapp.github.io/umbrella-govops/policy-as-code-vendor-and-approach-checklist-v3.html),
+> [aigovops-foundation.github.io/umbrella-govops/policy-as-code-vendor-and-approach-checklist-v3](https://aigovops-foundation.github.io/umbrella-govops/policy-as-code-vendor-and-approach-checklist-v3.html),
 > 2026-06-01.
 
 Pin to a specific commit SHA when citing in regulator-facing documents, not `main`.
