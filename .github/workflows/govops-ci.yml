@@ -31,8 +31,8 @@ jobs:
     name: Conformance CLI + Python SDK
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with: { python-version: '3.12' }
       - name: Install umbrella-conformance + umbrella-sdk (editable)
         run: |
@@ -43,7 +43,7 @@ jobs:
         run: pytest -v tests/conformance/ sdk/python/tests/
       - name: umbrella-conformance check (repo self-check)
         run: umbrella-conformance check . --format json | tee out-conformance.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: conformance-report
           path: out-conformance.json
@@ -59,8 +59,8 @@ jobs:
           - { name: e2e, path: "tests/integration" }
           - { name: chaos, path: "tests/chaos" }
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with: { python-version: '3.12' }
       - name: Install conformance + test deps
         run: |
@@ -71,7 +71,7 @@ jobs:
           mkdir -p reports/harness
           PYTHONPATH=. python -m pytest ${{ matrix.layer.path }} -v -m "not scale" \
             --junitxml=reports/harness/junit-${{ matrix.layer.name }}.xml
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
           name: junit-${{ matrix.layer.name }}
@@ -84,8 +84,8 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 8 * * 1'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with: { python-version: '3.12' }
       - name: Install conformance + test deps
         run: |
@@ -96,7 +96,7 @@ jobs:
           mkdir -p reports/harness
           PYTHONPATH=. python -m pytest tests/scale -v \
             --junitxml=reports/harness/junit-scale.xml
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
           name: junit-scale
@@ -108,8 +108,8 @@ jobs:
     name: TypeScript SDK build + test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with: { node-version: '20' }
       - name: Install + build + test
         working-directory: sdk/typescript
@@ -122,8 +122,8 @@ jobs:
     needs: conformance
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with: { python-version: '3.12' }
       - name: Install conformance
         run: pip install -e .
@@ -134,12 +134,12 @@ jobs:
     needs: validate-schemas
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
       - name: Compile controls → Rego + test plan
         run: |
           echo "TODO: govops compile --out ./out"
           mkdir -p out && echo '{}' > out/plan.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: policy-bundle
           path: out/
@@ -162,12 +162,12 @@ jobs:
           - incident-response
           - third-party-and-supply-chain
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
       - name: Run domain checks
         run: |
           echo "TODO: govops run --domain ${{ matrix.domain }} --out ./results/${{ matrix.domain }}"
           mkdir -p results/${{ matrix.domain }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: results-${{ matrix.domain }}
           path: results/
@@ -176,8 +176,8 @@ jobs:
     needs: run-checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with: { python-version: '3.12' }
       - name: Install umbrella-conformance
         run: pip install -e .
@@ -217,10 +217,10 @@ jobs:
           umbrella-conformance verify "$OUTDIR/bundle.tar.gz" --ucid-coverage || \
             echo "verify exited non-zero — first deploy of UCID coverage may show gaps; continuing"
       - name: GitHub artifact attestation (SLSA provenance)
-        uses: actions/attest-build-provenance@v1
+        uses: actions/attest-build-provenance@ef244123eb79f2f7a7e75d99086184180e6d0018 # v1
         with:
           subject-path: 'evidence/bundles/${{ github.run_id }}/bundle.tar.gz'
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: evidence-bundle
           path: evidence/bundles/${{ github.run_id }}/
@@ -229,7 +229,7 @@ jobs:
     needs: build-evidence-bundle
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
       - name: OPA policy gate
         run: |
           echo "TODO: opa eval --bundle out/policies.tar.gz --input results/aggregate.json --fail-defined 'data.govops.ci_gate.deny[_]'"
