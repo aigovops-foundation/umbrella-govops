@@ -115,7 +115,7 @@
 <tr>
 <td>Identifiers</td>
 <td>Vendor's proprietary control IDs</td>
-<td><a href="../UCID-REGISTRY.md">Unified Control Identifiers (UCIDs)</a> — IANA-style governance</td>
+<td><a href="https://github.com/aigovops-foundation/umbrella-govops/blob/main/UCID-REGISTRY.md">Unified Control Identifiers (UCIDs)</a> — IANA-style governance</td>
 </tr>
 <tr>
 <td>Evidence</td>
@@ -201,7 +201,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Implementation pointer:</strong> the AiGovOps stack satisfies A1–A8 via <a href="https://github.com/bobrapp/aigovops-beacon">Beacon</a> (signing) + <a href="https://github.com/bobrapp/umbrella-govops">Umbrella</a> <code>EvidenceBundle.receipts[]</code> (embedding) + <code>cosign sign-blob</code> keyless (outer envelope). See the <a href="../foundation/THREAT-MODEL.md">threat model</a> for the attacks each item defends against.</p>
+<p><strong>Implementation pointer:</strong> the AiGovOps stack satisfies A1–A8 via <a href="https://github.com/bobrapp/aigovops-beacon">Beacon</a> (signing) + <a href="https://github.com/bobrapp/umbrella-govops">Umbrella</a> <code>EvidenceBundle.receipts[]</code> (embedding) + <code>cosign sign-blob</code> keyless (outer envelope). See the <a href="https://github.com/aigovops-foundation/umbrella-govops/blob/main/foundation/THREAT-MODEL.md">threat model</a> for the attacks each item defends against.</p>
 <hr />
 <h2 id="section-b-identifier-governance-disqualifying-if-any-fail">Section B — Identifier governance (disqualifying if any Fail)</h2>
 <p>If a vendor's control IDs are branding, you will pay the migration tax forever. Identifiers must be <strong>infrastructure</strong>.</p>
@@ -251,7 +251,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Implementation pointer:</strong> the AiGovOps <a href="../UCID-REGISTRY.md">UCID Registry</a> and <a href="../crosswalks/unified-control-id.yaml">crosswalks/unified-control-id.yaml</a> are modeled on <a href="https://www.iana.org/protocols">IANA protocol registries</a> and RFC 8126.</p>
+<p><strong>Implementation pointer:</strong> the AiGovOps <a href="https://github.com/aigovops-foundation/umbrella-govops/blob/main/UCID-REGISTRY.md">UCID Registry</a> and <a href="https://github.com/aigovops-foundation/umbrella-govops/blob/main/crosswalks/unified-control-id.yaml">crosswalks/unified-control-id.yaml</a> are modeled on <a href="https://www.iana.org/protocols">IANA protocol registries</a> and RFC 8126.</p>
 <hr />
 <h2 id="section-c-architectural-posture">Section C — Architectural posture</h2>
 <p>Sections C–F are not disqualifying individually, but a vendor failing most of them will be expensive to absorb.</p>
@@ -301,7 +301,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Implementation pointer:</strong> the <a href="https://github.com/bobrapp/aigovops-beacon#beacon-runs-alone">Beacon README</a> and the Umbrella <a href="../README.md#beacon-and-umbrella--two-layers-two-cadences">README cadence table</a> make C1–C5 explicit. <a href="../foundation/POLICY-POSITIONS.md">Policy positions P3, P5, P7</a> bind the Foundation to this posture publicly.</p>
+<p><strong>Implementation pointer:</strong> the <a href="https://github.com/bobrapp/aigovops-beacon#beacon-runs-alone">Beacon README</a> and the Umbrella <a href="https://github.com/aigovops-foundation/umbrella-govops/blob/main/README.md#beacon-and-umbrella--two-layers-two-cadences">README cadence table</a> make C1–C5 explicit. <a href="https://github.com/aigovops-foundation/umbrella-govops/blob/main/foundation/POLICY-POSITIONS.md">Policy positions P3, P5, P7</a> bind the Foundation to this posture publicly.</p>
 <hr />
 <h2 id="section-d-standards-alignment">Section D — Standards alignment</h2>
 <p>Frameworks update on regulatory clocks (years); standards update on engineering clocks (months). Pin to standards.</p>
@@ -346,7 +346,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Implementation pointer:</strong> the <a href="../foundation/POLICY-POSITIONS.md">policy position P3 "standards first, frameworks second"</a> commits the Foundation to D1–D6 publicly.</p>
+<p><strong>Implementation pointer:</strong> the <a href="https://github.com/aigovops-foundation/umbrella-govops/blob/main/foundation/POLICY-POSITIONS.md">policy position P3 "standards first, frameworks second"</a> commits the Foundation to D1–D6 publicly.</p>
 <hr />
 <h2 id="section-e-crosswalk-integrity">Section E — Crosswalk integrity</h2>
 <p>Crosswalks are how policy survives regulator churn. Verify they are not just marketing tables.</p>
@@ -417,12 +417,12 @@
 <tr>
 <td>F3</td>
 <td><strong>Public threat model</strong> scoped to the evidence pipeline.</td>
-<td>Vendor publishes one. (See <a href="../foundation/THREAT-MODEL.md">our seed</a>.)</td>
+<td>Vendor publishes one. (See <a href="https://github.com/aigovops-foundation/umbrella-govops/blob/main/foundation/THREAT-MODEL.md">our seed</a>.)</td>
 </tr>
 <tr>
 <td>F4</td>
 <td><strong>Public policy positions</strong> the vendor will defend in regulatory comment letters and standards work.</td>
-<td>Vendor publishes a positions document and tracks open questions. (See <a href="../foundation/POLICY-POSITIONS.md">ours</a>.)</td>
+<td>Vendor publishes a positions document and tracks open questions. (See <a href="https://github.com/aigovops-foundation/umbrella-govops/blob/main/foundation/POLICY-POSITIONS.md">ours</a>.)</td>
 </tr>
 <tr>
 <td>F5</td>
@@ -432,7 +432,7 @@
 <tr>
 <td>F6</td>
 <td><strong>Forward-looking release calendar</strong> with both committed (tagged releases) and target dates.</td>
-<td>Read it. (See <a href="../foundation/RELEASE-CALENDAR.md">ours</a>.)</td>
+<td>Read it. (See <a href="https://github.com/aigovops-foundation/umbrella-govops/blob/main/foundation/RELEASE-CALENDAR.md">ours</a>.)</td>
 </tr>
 <tr>
 <td>F7</td>
@@ -475,7 +475,7 @@ Disqualifying gates:
 <tr>
 <td>B. Identifier governance</td>
 <td><strong>7/7</strong></td>
-<td><a href="../UCID-REGISTRY.md">UCID-REGISTRY.md</a> covers B1–B7.</td>
+<td><a href="https://github.com/aigovops-foundation/umbrella-govops/blob/main/UCID-REGISTRY.md">UCID-REGISTRY.md</a> covers B1–B7.</td>
 </tr>
 <tr>
 <td>C. Architectural posture</td>
@@ -495,7 +495,7 @@ Disqualifying gates:
 <tr>
 <td>F. Governance / COI</td>
 <td><strong>7/7</strong></td>
-<td>No certification program (F1); Apache-2.0 (F2); <a href="../foundation/THREAT-MODEL.md">threat model</a> (F3); <a href="../foundation/POLICY-POSITIONS.md">policy positions</a> (F4); <a href="../foundation/GLOSSARY.md">glossary</a> (F5); <a href="../foundation/RELEASE-CALENDAR.md">release calendar</a> (F6); self-signed releases (F7).</td>
+<td>No certification program (F1); Apache-2.0 (F2); <a href="https://github.com/aigovops-foundation/umbrella-govops/blob/main/foundation/THREAT-MODEL.md">threat model</a> (F3); <a href="https://github.com/aigovops-foundation/umbrella-govops/blob/main/foundation/POLICY-POSITIONS.md">policy positions</a> (F4); <a href="https://github.com/aigovops-foundation/umbrella-govops/blob/main/foundation/GLOSSARY.md">glossary</a> (F5); <a href="https://github.com/aigovops-foundation/umbrella-govops/blob/main/foundation/RELEASE-CALENDAR.md">release calendar</a> (F6); self-signed releases (F7).</td>
 </tr>
 </tbody>
 </table>
