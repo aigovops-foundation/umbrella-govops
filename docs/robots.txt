@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aigovops-foundation.github.io/umbrella-govops/sitemap.xml
