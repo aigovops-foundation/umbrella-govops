@@ -85,7 +85,7 @@ All registry changes happen by **public pull request** against
    * `id`, `title`, `status: provisional`, at least one of `nist_ai_rmf` / `eu_ai_act` / `iso_42001`, `created`, `proposer`.
 2. Add a row to §8 below with status `provisional`.
 3. Designated Expert reviews within **14 calendar days**. If silent past 14 days, the proposer
-   may escalate to the AiGovOps Foundation board via `governance@aigovops.org`.
+   may escalate to the AiGovOps Foundation board via `governance@aigovops-foundation.com`.
 4. PR merges with two approving reviews (Designated Expert + one Foundation member).
 
 ### 4.2 Promotion `provisional → stable`

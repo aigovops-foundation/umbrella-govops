@@ -72,4 +72,4 @@ label, after a 30-day public comment window.
 
 ---
 
-*Apache-2.0 · AiGovOps Foundation · contact: governance@aigovopsfoundation.org*
+*Apache-2.0 · AiGovOps Foundation · contact: governance@aigovops-foundation.com*
