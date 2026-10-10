@@ -45,7 +45,7 @@ how the marks may be used.
 - **Modifying the medallion, word mark, or wordmark color/typography**
   beyond reasonable scaling.
 
-Request permission at `trademark@aigovopsfoundation.org`. The Foundation
+Request permission at `trademark@aigovops-foundation.com`. The Foundation
 aims to respond within 14 days.
 
 ## 3. What is never allowed
@@ -98,4 +98,4 @@ projects.
 
 ---
 
-*AiGovOps Foundation · trademark@aigovopsfoundation.org · v0.1 · 2026-06-01*
+*AiGovOps Foundation · trademark@aigovops-foundation.com · v0.1 · 2026-06-01*
