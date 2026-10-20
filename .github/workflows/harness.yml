@@ -6,9 +6,10 @@ on:
   push:
     branches: [main]
   schedule:
-    # Nightly at 09:17 UTC (~02:17 PT) — quiet window, well before the
-    # 14:00-UTC pre-standup briefing cron reads CI state.
-    - cron: "17 9 * * *"
+    # Weekly, Mondays 09:17 UTC (~02:17 PT) — quiet window, well before the
+    # 14:00-UTC pre-standup briefing cron reads CI state. Nightly until 2026-10-20;
+    # PR/push CI covers every change, so the schedule only needs to catch drift.
+    - cron: "17 9 * * 1"
   workflow_dispatch:
 
 permissions:
