@@ -16,8 +16,7 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: '0 6 * * *'   # Nightly drift detection
-    - cron: '0 8 * * 1'   # Weekly scale run (Mondays 08:00 UTC)
+    - cron: '0 8 * * 1'   # Weekly drift detection + scale run (Mondays 08:00 UTC). Nightly retired 2026-10-20: PR/push CI covers every change, so the schedule only needs to catch drift.
   workflow_dispatch:
 
 permissions:
