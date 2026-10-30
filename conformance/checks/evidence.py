@@ -1,4 +1,11 @@
-"""evidence-signed: each evidence bundle has a signature artifact."""
+"""evidence-signed: each evidence bundle has a signature artifact.
+
+A bundle directory counts as signed when it carries one of the signature
+forms `umbrella-conformance bundle` / CI produce — ``bundle.tar.gz.sig.json``
+(Ed25519, ``bundle --sign-key``) or ``bundle.tar.gz.sig`` +
+``bundle.tar.gz.pem`` (cosign keyless) — or the legacy ``signature.json``.
+Presence only: ``umbrella-conformance verify`` is what checks the signature.
+"""
 from __future__ import annotations
 
 from pathlib import Path
@@ -29,15 +36,20 @@ def check_evidence_signed(repo: Path) -> CheckResult:
     errors = 0
     for b in bundles:
         manifest = b / "manifest.json"
-        sig = b / "signature.json"
+        signed = (
+            (b / "bundle.tar.gz.sig.json").exists()
+            or ((b / "bundle.tar.gz.sig").exists() and (b / "bundle.tar.gz.pem").exists())
+            or (b / "signature.json").exists()
+        )
         if not manifest.exists():
             errors += 1
             details.append(f"{b.relative_to(repo)}: missing manifest.json")
-        if not sig.exists():
+        if not signed:
             errors += 1
             details.append(
-                f"{b.relative_to(repo)}: missing signature.json "
-                "(sign with cosign or `umbrella-conformance verify`)"
+                f"{b.relative_to(repo)}: unsigned — no bundle.tar.gz.sig.json, "
+                "bundle.tar.gz.sig + .pem, or signature.json "
+                "(sign with `bundle --sign-key` or `cosign sign-blob`)"
             )
 
     if errors > 0:

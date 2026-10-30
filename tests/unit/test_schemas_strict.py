@@ -97,8 +97,42 @@ def test_crosswalk_schema_rejects_bad_ucid_pattern() -> None:
     assert errors
 
 
+def _policy() -> dict:
+    return {
+        "policy": "my-agent-v1",
+        "controls": [
+            {"action": "commitment.make", "tier": "C3", "decision": "hold", "approver_role": "owner"},
+            {"action": "payment.*", "tier": "C4", "decision": "deny", "reason": "no money"},
+        ],
+        "default": "deny",
+    }
+
+
+def test_policy_schema_accepts_minimal_policy() -> None:
+    assert not list(Draft202012Validator(load("policy.schema.json")).iter_errors(_policy()))
+
+
 @pytest.mark.parametrize(
-    "schema_file", ["control.schema.json", "crosswalk.schema.json", "domain.schema.json", "evidence-bundle.schema.json"]
+    "mutate",
+    [
+        lambda d: d.update(default="allow"),
+        lambda d: d["controls"][0].pop("approver_role"),
+        lambda d: d["controls"][1].pop("reason"),
+        lambda d: d["controls"][1].update(decision="allow"),
+        lambda d: d["controls"][0].update(tier="C7"),
+        lambda d: d.update(extra_key=True),
+    ],
+    ids=["default-allow", "hold-no-approver", "deny-no-reason", "c4-allow", "bad-tier", "unknown-key"],
+)
+def test_policy_schema_rejects_bad_policies(mutate) -> None:
+    doc = _policy()
+    mutate(doc)
+    assert list(Draft202012Validator(load("policy.schema.json")).iter_errors(doc))
+
+
+@pytest.mark.parametrize(
+    "schema_file", ["control.schema.json", "crosswalk.schema.json", "domain.schema.json", "evidence-bundle.schema.json",
+     "policy.schema.json"]
 )
 def test_all_schemas_are_valid_drafts(schema_file: str) -> None:
     schema = load(schema_file)

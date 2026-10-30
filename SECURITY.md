@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-Email `[email protected]` with details. Do not file public issues for security reports.
+Email **security@aigovops-foundation.com** with details. Do not file public issues for security reports.
 We aim to acknowledge within 2 business days.
 
 ## Signing Identity
@@ -11,17 +11,19 @@ All evidence bundles produced by this repository are signed via Sigstore keyless
 bound to the GitHub Actions OIDC identity:
 
 ```
-https://github.com/bobrapp/umbrella-govops/.github/workflows/evidence-bundle.yml@refs/heads/main
+https://github.com/aigovops-foundation/umbrella-govops/.github/workflows/govops-ci.yml@refs/heads/main
 ```
 
-Verify any bundle:
+Verify any bundle (or run `umbrella-conformance verify bundle.tar.gz`, which also
+recomputes every digest in it):
 
 ```bash
-cosign verify-attestation \
-  --type https://aigovops.org/attestations/govops-evidence/v1 \
-  --certificate-identity-regexp "https://github.com/bobrapp/umbrella-govops/.+" \
+cosign verify-blob \
+  --signature bundle.tar.gz.sig \
+  --certificate bundle.tar.gz.pem \
+  --certificate-identity-regexp "https://github.com/aigovops-foundation/umbrella-govops/.+" \
   --certificate-oidc-issuer https://token.actions.githubusercontent.com \
-  <bundle.tar.zst>
+  bundle.tar.gz
 ```
 
 ## Key Rotation

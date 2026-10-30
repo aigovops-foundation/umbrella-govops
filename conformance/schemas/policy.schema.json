@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://umbrella-govops.dev/schemas/policy.schema.json",
+  "title": "Umbrella-GovOps agent gate policy",
+  "description": "A per-agent gate policy in the gate vocabulary (tiers C0-C4, decisions allow/hold/deny). Unknown actions are denied by default. This is the shape of practice/levels/200-retrofit/policy.yaml.",
+  "type": "object",
+  "required": ["policy", "controls", "default"],
+  "additionalProperties": false,
+  "properties": {
+    "policy": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "description": { "type": "string" },
+    "applies_to": {
+      "type": "object",
+      "required": ["system"],
+      "properties": {
+        "system": { "type": "string", "minLength": 1 },
+        "agents": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "controls": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/control" }
+    },
+    "default": {
+      "const": "deny",
+      "description": "An action not in this file is not a C0: it is denied."
+    },
+    "stop_conditions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "unknown_action",
+          "policy_unavailable",
+          "hash_mismatch",
+          "budget_exhausted",
+          "key_unavailable",
+          "identity_unbound"
+        ]
+      }
+    },
+    "receipts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "required_from_tier": { "$ref": "#/$defs/tier" },
+        "chain": { "enum": ["per_session", "per_agent", "per_system"] }
+      }
+    }
+  },
+  "$defs": {
+    "tier": { "enum": ["C0", "C1", "C2", "C3", "C4"] },
+    "control": {
+      "type": "object",
+      "required": ["action", "tier", "decision"],
+      "additionalProperties": false,
+      "properties": {
+        "action": { "type": "string", "pattern": "^[a-z0-9_]+(\\.([a-z0-9_]+|\\*))*$" },
+        "tier": { "$ref": "#/$defs/tier" },
+        "decision": { "enum": ["allow", "hold", "deny"] },
+        "approver_role": { "type": "string", "minLength": 1 },
+        "reason": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "ucid": { "type": "string", "pattern": "^UCID-[A-Z0-9-]+$" },
+        "constraints": {
+          "type": "object",
+          "properties": {
+            "expiry": { "type": "string", "pattern": "^[0-9]+[smhd]$" },
+            "path_allow": { "type": "array", "items": { "type": "string" } },
+            "path_deny": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "decision": { "const": "hold" } } },
+          "then": { "required": ["approver_role"] }
+        },
+        {
+          "if": { "properties": { "decision": { "const": "deny" } } },
+          "then": { "required": ["reason"] }
+        },
+        {
+          "if": { "properties": { "tier": { "const": "C4" } } },
+          "then": { "properties": { "decision": { "const": "deny" } } }
+        },
+        {
+          "if": { "properties": { "tier": { "const": "C3" } } },
+          "then": { "properties": { "decision": { "enum": ["hold", "deny"] } } }
+        }
+      ]
+    }
+  }
+}
