@@ -1,0 +1,28 @@
+# Level 200 — your agent's policy. Template in the Umbrella schema with the gate vocabulary (PRD v1 §8).
+# Replace the three actions with your agent's own. Unknown actions are denied by default.
+policy: my-agent-v1
+applies_to:
+  system: <your-system>
+  agents: ["<your-agent>"]
+controls:
+  - action: commitment.make          # VH-022: a commitment to a customer is never made by the model alone
+    tier: C3
+    decision: hold
+    approver_role: account_owner
+    constraints:
+      expiry: 24h                    # an unreleased hold decays to deny
+  - action: document.write           # example C1
+    tier: C1
+    decision: allow
+    constraints:
+      path_allow: ["drafts/**"]
+      path_deny: ["submitted/**", "**/*.signed.*"]
+  - action: payment.*                # example C4
+    tier: C4
+    decision: deny
+    reason: "No agent in this system may move money."
+default: deny                        # an action not in this file is not a C0
+stop_conditions: [unknown_action, policy_unavailable, hash_mismatch, budget_exhausted, key_unavailable, identity_unbound]
+receipts:
+  required_from_tier: C1
+  chain: per_session

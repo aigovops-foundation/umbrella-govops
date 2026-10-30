@@ -44,6 +44,18 @@
         }
       }
     },
+    "policies": {
+      "type": "array",
+      "description": "Agent gate policy files validated by schema-valid and shipped in the bundle under policies/.",
+      "items": {
+        "type": "object",
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": { "type": "string" },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
+      }
+    },
     "receipts": {
       "type": "array",
       "description": "Embedded Beacon receipts (verbatim, signed) referenced by checks[].evidence_refs[]. Each receipt is one Beacon-signed JSON object. Verifiers MUST re-verify each receipt with `beacon-verify`.",

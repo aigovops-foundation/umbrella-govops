@@ -50,15 +50,23 @@ Use the [Policy-as-Code Vendor & Approach Checklist v.3](docs/policy-as-code-ven
 pipx install git+https://github.com/aigovops-foundation/umbrella-govops
 # or, from a clone:  pip install .
 
-# 2. Validate your repo
+# 2. Validate your repo (or a directory holding just your agent's policy.yaml).
+#    Exits non-zero on an invalid document — or when there is nothing to validate.
 umbrella-conformance check .
 
-# 3. Build a signable evidence bundle
-umbrella-conformance bundle --out ./out
+# 3. Build and sign an evidence bundle (one-time: create a signing key)
+umbrella-conformance keygen --out ./keys
+umbrella-conformance bundle --out ./out --sign-key ./keys/signing.pem
+#    add --beacon-bundle <Beacon bundle dir | receipts .ndjson> to embed Beacon receipts
 
-# 4. (optional) Verify a signed bundle
-umbrella-conformance verify ./out/bundle.tar.gz
+# 4. Verify it: every digest is recomputed, and an unsigned bundle never passes
+umbrella-conformance verify ./out/bundle.tar.gz --public-key ./keys/signing.pub.pem
 ```
+
+`./out/receipts.ndjson` holds one receipt per policy control and per check, in
+Beacon's envelope, so `lantern read ./out/receipts.ndjson` renders it. In CI the
+bundle is signed with Sigstore keyless instead (`cosign sign-blob`, see
+`.github/workflows/govops-ci.yml`), and `verify` checks it with `cosign verify-blob`.
 
 Programmatic access (Python or TypeScript):
 
