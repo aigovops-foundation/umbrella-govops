@@ -131,7 +131,9 @@ def _load_bundle_dir(d: Path) -> BeaconInput:
         )
 
     raw: list[dict] = []
-    declared: dict[str, int] = manifest.get("receipt_files") or {}
+    declared = manifest.get("receipt_files")
+    if not isinstance(declared, dict):
+        raise BeaconInputError(f"{d}: manifest.json has no receipt_files map")
     present = sorted((d / "receipts").glob("*.ndjson"))
     for f in present:
         rows = _read_lines(f)
@@ -144,6 +146,11 @@ def _load_bundle_dir(d: Path) -> BeaconInput:
     missing = sorted(set(declared) - {f.name for f in present})
     if missing:
         raise BeaconInputError(f"{d}: manifest lists receipt file(s) not present: {missing}")
+    undeclared = sorted({f.name for f in present} - set(declared))
+    if undeclared:
+        raise BeaconInputError(
+            f"{d}: receipt file(s) not listed in manifest.json receipt_files: {undeclared}"
+        )
 
     ids = {r.get("id") for r in raw}
     gate_rows: list[dict] = []

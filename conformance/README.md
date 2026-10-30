@@ -49,8 +49,16 @@ A Beacon audit bundle directory (`manifest.json`, `manifest.sha256`,
 `receipts/*.ndjson`, `public_keys/`, `gate_decisions.json`), a `.ndjson` /
 `.jsonl` receipt file, a `.json` receipt file, or a directory of receipt files.
 A Beacon bundle whose `manifest.sha256` or receipt counts do not match is
-refused. Receipt signatures are re-verified by `verify --beacon-bundle`
-(shells out to `beacon-verify`).
+refused, as is a receipt file the manifest does not list. A bundle that embeds
+Beacon receipts does not verify until they do: `verify --beacon-public-key
+<Beacon key .pem>` checks each embedded receipt's Ed25519 signature here, or
+`verify --beacon-bundle <source>` runs `beacon-verify` on the source and
+requires every embedded receipt to be in it.
+
+Sigstore: `verify` pins the signer to this repo's `govops-ci.yml` workflow and
+GitHub's OIDC issuer by default; pass `--certificate-identity-regexp` /
+`--certificate-oidc-issuer` to accept another signer. Bundles larger than
+64 MiB (compressed or expanded) are refused.
 
 ## Exit codes
 - `0` — all checks passed

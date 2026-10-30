@@ -83,7 +83,24 @@ def mutation_dangling_impl(root: Path, rng: random.Random) -> str:
     return "dangling implementing_controls"
 
 
+_LEVEL_200 = Path(__file__).resolve().parents[1] / "fixtures" / "level-200-policy.yaml"
+
+
+def mutation_weak_agent_policy(root: Path, rng: random.Random) -> str:
+    """Drop an agent policy whose default is allow (and whose C3 hold has no
+    approver) into policies/ — schema-valid must reject it."""
+    doc = yaml.safe_load(_LEVEL_200.read_text())
+    doc["default"] = "allow"
+    doc["controls"][0].pop("approver_role", None)
+    (root / "policies").mkdir(exist_ok=True)
+    (root / "policies" / f"agent-{rng.randint(0, 9999)}.policy.yaml").write_text(
+        yaml.safe_dump(doc, sort_keys=False)
+    )
+    return "weak agent policy in policies/"
+
+
 MUTATIONS: list[tuple[str, Mutator]] = [
+    ("weak_agent_policy", mutation_weak_agent_policy),
     ("break_yaml", mutation_break_yaml),
     ("invalid_runner", mutation_invalid_runner),
     ("strip_checks", mutation_strip_checks),

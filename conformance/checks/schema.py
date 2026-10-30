@@ -7,9 +7,11 @@ Two families of document are validated:
   ``frameworks/``.
 * Agent gate policies (``policy:`` + ``controls:`` + ``default: deny``) in the
   repository root, ``policies/`` and ``catalog/`` — the file a practitioner
-  writes at level 200. Any file named ``policy.yaml`` / ``*.policy.yaml`` is
-  treated as a policy even if it is malformed, so a typo cannot make the
-  gate skip it.
+  writes at level 200. In ``policies/`` and ``catalog/`` every YAML document
+  without a ``kind`` is validated as a policy; in the root, any file named
+  ``policy.yaml`` / ``*.policy.yaml`` or holding ``policy:`` / ``controls:``
+  is. A misspelled key therefore fails validation instead of making the gate
+  skip the file.
 
 The check fails when any document is invalid, when any scanned YAML does not
 parse, and when there is nothing to validate at all: a policy gate that
@@ -58,19 +60,36 @@ def _looks_like_policy(doc: Any) -> bool:
     )
 
 
-def _policy_candidates(repo: Path) -> Iterator[Path]:
-    """Root-level YAML (not recursive) plus everything under policies/ and catalog/."""
-    seen: set[Path] = set()
+def _policy_candidates(repo: Path) -> Iterator[tuple[Path, bool]]:
+    """Yield (path, in_policy_dir): root-level YAML (not recursive), then
+    every YAML under policies/ and catalog/."""
     for p in sorted(repo.iterdir()):
         if p.is_file() and p.suffix in YAML_SUFFIXES:
-            seen.add(p)
-            yield p
+            yield p, False
     for sub in POLICY_DIRS:
         d = repo / sub
         if d.is_dir():
             for p in sorted(d.rglob("*")):
-                if p.is_file() and p.suffix in YAML_SUFFIXES and p not in seen:
-                    yield p
+                if p.is_file() and p.suffix in YAML_SUFFIXES:
+                    yield p, True
+
+
+def _read_yaml(p: Path) -> tuple[Any, str | None]:
+    """Parse one YAML file; return (doc, error) and never raise on bad input."""
+    try:
+        return yaml.safe_load(p.read_text(encoding="utf-8")), None
+    except yaml.YAMLError as exc:
+        return None, f"invalid YAML — {exc}"
+    except (OSError, UnicodeDecodeError) as exc:
+        return None, f"cannot read — {type(exc).__name__}: {exc}"
+
+
+def _is_policy(p: Path, doc: Any, in_policy_dir: bool) -> bool:
+    if _is_policy_name(p) or _looks_like_policy(doc):
+        return True
+    # Under policies/ and catalog/, anything that is not a kind-ed document is
+    # a policy — so `polcy:` + `contorls:` is an invalid policy, not a skip.
+    return in_policy_dir and not (isinstance(doc, dict) and "kind" in doc) and doc is not None
 
 
 def policy_errors(doc: Any) -> list[str]:
@@ -94,12 +113,9 @@ def policy_errors(doc: Any) -> list[str]:
 def find_policies(repo: Path) -> list[tuple[Path, dict]]:
     """Return every *valid* agent gate policy in the repo (used by `bundle`)."""
     found: list[tuple[Path, dict]] = []
-    for p in _policy_candidates(repo):
-        try:
-            doc = yaml.safe_load(p.read_text())
-        except yaml.YAMLError:
-            continue
-        if (_is_policy_name(p) or _looks_like_policy(doc)) and not policy_errors(doc):
+    for p, in_dir in _policy_candidates(repo):
+        doc, err = _read_yaml(p)
+        if err is None and _is_policy(p, doc, in_dir) and not policy_errors(doc):
             found.append((p, doc))
     return found
 
@@ -122,11 +138,10 @@ def check_schema_valid(repo: Path) -> CheckResult:
             )
 
     for p in yaml_paths:
-        try:
-            doc = yaml.safe_load(p.read_text())
-        except yaml.YAMLError as exc:
+        doc, err = _read_yaml(p)
+        if err is not None:
             errors += 1
-            details.append(f"{rel(p)}: invalid YAML — {exc}")
+            details.append(f"{rel(p)}: {err}")
             continue
         if not isinstance(doc, dict):
             continue
@@ -141,14 +156,13 @@ def check_schema_valid(repo: Path) -> CheckResult:
 
     # --- agent gate policies -------------------------------------------------
     n_policies = 0
-    for p in _policy_candidates(repo):
-        try:
-            doc = yaml.safe_load(p.read_text())
-        except yaml.YAMLError as exc:
+    for p, in_dir in _policy_candidates(repo):
+        doc, err = _read_yaml(p)
+        if err is not None:
             errors += 1
-            details.append(f"{rel(p)}: invalid YAML — {exc}")
+            details.append(f"{rel(p)}: {err}")
             continue
-        if not (_is_policy_name(p) or _looks_like_policy(doc)):
+        if not _is_policy(p, doc, in_dir):
             continue
         checked += 1
         n_policies += 1

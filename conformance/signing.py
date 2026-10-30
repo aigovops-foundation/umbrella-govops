@@ -15,6 +15,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -75,14 +76,18 @@ def generate_keypair(out_dir: Path, name: str = "signing") -> tuple[Path, Path]:
     if priv_path.exists():
         raise SigningError(f"{priv_path} already exists; refusing to overwrite a key")
     key = Ed25519PrivateKey.generate()
-    priv_path.write_bytes(
-        key.private_bytes(
-            encoding=serialization.Encoding.PEM,
-            format=serialization.PrivateFormat.PKCS8,
-            encryption_algorithm=serialization.NoEncryption(),
-        )
+    pem = key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.PKCS8,
+        encryption_algorithm=serialization.NoEncryption(),
     )
-    priv_path.chmod(0o600)
+    # Created 0600 and exclusively — never readable by others, not even briefly.
+    try:
+        fd = os.open(priv_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    except FileExistsError as exc:
+        raise SigningError(f"{priv_path} already exists; refusing to overwrite a key") from exc
+    with os.fdopen(fd, "wb") as fh:
+        fh.write(pem)
     pub_path.write_bytes(
         key.public_key().public_bytes(
             encoding=serialization.Encoding.PEM,

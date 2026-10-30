@@ -133,6 +133,14 @@ UMBRELLA_RECEIPT_SCHEMA = "umbrella-receipt/1"
 SUMS_NAME = "SHA256SUMS"
 RECEIPTS_NAME = "receipts.ndjson"
 ED25519_SIG_SUFFIX = ".sig.json"
+# Verifier-side cap on bundle size, compressed and expanded (foundation/THREAT-MODEL.md D1).
+MAX_BUNDLE_BYTES = 64 * 1024 * 1024
+# Who may sign a bundle with Sigstore keyless, unless the verifier says otherwise.
+DEFAULT_CERT_IDENTITY_REGEXP = (
+    r"^https://github\.com/aigovops-foundation/umbrella-govops/"
+    r"\.github/workflows/govops-ci\.yml@refs/"
+)
+DEFAULT_CERT_OIDC_ISSUER = "https://token.actions.githubusercontent.com"
 
 
 def _sha256_hex(data: bytes) -> str:
@@ -468,8 +476,11 @@ def _verify_integrity(bp: Path) -> tuple[list[str], dict | None, bytes | None]:
     """Recompute every digest the bundle claims. Returns (errors, manifest, receipts bytes)."""
     import base64
     import tarfile
+    import zlib
 
     errors: list[str] = []
+    if bp.stat().st_size > MAX_BUNDLE_BYTES:
+        return [f"{bp.name}: larger than {MAX_BUNDLE_BYTES // (1024 * 1024)} MiB — refusing"], None, None
     bundle_bytes = bp.read_bytes()
 
     digest_file = bp.parent / "bundle.sha256"
@@ -486,15 +497,27 @@ def _verify_integrity(bp: Path) -> tuple[list[str], dict | None, bytes | None]:
             )
 
     members: dict[str, bytes] = {}
+    total = 0
     try:
         with tarfile.open(bp, "r:gz") as tf:
-            for m in tf.getmembers():
+            for m in tf:  # streamed; never more than the cap held in memory
                 if not m.isfile():
                     continue
+                if m.name in members:
+                    errors.append(f"{bp.name}: duplicate member {m.name}")
+                    return errors, None, None
                 f = tf.extractfile(m)
-                if f is not None:
-                    members[m.name] = f.read()
-    except (tarfile.TarError, OSError, EOFError) as exc:
+                if f is None:
+                    continue
+                data = f.read(MAX_BUNDLE_BYTES - total + 1)
+                total += len(data)
+                if total > MAX_BUNDLE_BYTES:
+                    errors.append(
+                        f"{bp.name}: expands past {MAX_BUNDLE_BYTES // (1024 * 1024)} MiB — refusing"
+                    )
+                    return errors, None, None
+                members[m.name] = data
+    except (tarfile.TarError, OSError, EOFError, zlib.error) as exc:
         errors.append(f"{bp.name}: cannot read tarball — {exc}")
         return errors, None, None
 
@@ -567,12 +590,28 @@ def _verify_integrity(bp: Path) -> tuple[list[str], dict | None, bytes | None]:
     default=False,
     help="Fail if any enforced control with `beacon: required` has no receipt evidence.",
 )
+@click.option(
+    "--certificate-identity-regexp",
+    "cert_identity",
+    default=DEFAULT_CERT_IDENTITY_REGEXP,
+    show_default=True,
+    help="cosign: the signer identity the certificate must match.",
+)
+@click.option(
+    "--certificate-oidc-issuer",
+    "cert_issuer",
+    default=DEFAULT_CERT_OIDC_ISSUER,
+    show_default=True,
+    help="cosign: the OIDC issuer the certificate must come from.",
+)
 def verify(
     bundle_path: str,
     public_key: str | None,
     beacon_bundle: str | None,
     beacon_public_key: str | None,
     ucid_coverage: bool,
+    cert_identity: str,
+    cert_issuer: str,
 ) -> None:
     """Verify a bundle: recompute every digest, then check its signature.
 
@@ -585,7 +624,8 @@ def verify(
     Exit codes:
       0  all checks passed
       1  integrity failure, or signature missing / invalid
-      2  embedded Beacon receipt verification failed
+      2  embedded Beacon receipts unverified (no --beacon-public-key /
+         --beacon-bundle) or failed verification
       3  UCID coverage gap (with --ucid-coverage)
     """
     import shutil
@@ -658,8 +698,8 @@ def verify(
                     cosign, "verify-blob",
                     "--certificate", str(cert),
                     "--signature", str(sig),
-                    "--certificate-identity-regexp", ".*",
-                    "--certificate-oidc-issuer-regexp", ".*",
+                    "--certificate-identity-regexp", cert_identity,
+                    "--certificate-oidc-issuer", cert_issuer,
                     str(bp),
                 ],
                 check=True,
@@ -684,24 +724,10 @@ def verify(
         )
         sys.exit(1)
 
-    # --- Stage 3: re-verify embedded Beacon receipts --------------------------
-    if beacon_bundle is not None:
-        bv = shutil.which("beacon-verify")
-        if bv is None:
-            click.secho(
-                "fail: --beacon-bundle requires `beacon-verify` on PATH",
-                fg="red",
-            )
-            sys.exit(2)
-        cmd = [bv, str(Path(beacon_bundle).resolve())]
-        if beacon_public_key:
-            cmd += ["--public-key", str(Path(beacon_public_key).resolve())]
-        try:
-            subprocess.run(cmd, check=True)
-            click.secho("✓ beacon-verify passed", fg="green")
-        except subprocess.CalledProcessError:
-            click.secho("fail: beacon-verify rejected the receipts", fg="red")
-            sys.exit(2)
+    # --- Stage 3: embedded Beacon receipts must verify too ---------------------
+    embedded = (manifest or {}).get("receipts") or []
+    if embedded or beacon_bundle is not None:
+        _verify_embedded_beacon(embedded, beacon_bundle, beacon_public_key)
 
     # --- Stage 4: UCID coverage gate ------------------------------------------
     if ucid_coverage:
@@ -723,6 +749,81 @@ def verify(
                 click.echo(f"  - {g}")
             sys.exit(3)
         click.secho("✓ UCID coverage OK", fg="green")
+
+
+def _verify_embedded_beacon(
+    embedded: list[dict], beacon_bundle: str | None, beacon_public_key: str | None
+) -> None:
+    """Embedded Beacon receipts are evidence; an unverified one is not a pass.
+
+    * --beacon-public-key: each embedded runtime receipt's Ed25519 signature is
+      checked here, natively (RFC 8785 canonical form, signature block removed).
+    * --beacon-bundle: `beacon-verify` checks the source, and every embedded
+      receipt must be byte-for-byte the one in that verified source — so what
+      was verified is what is in the bundle.
+    Neither given while the bundle embeds receipts → exit 2.
+    """
+    import shutil
+    import subprocess
+
+    from . import beacon as beacon_mod
+    from .signing import SigningError, load_public_key, verify_receipt
+
+    if beacon_public_key is None and beacon_bundle is None:
+        click.secho(
+            f"fail: bundle embeds {len(embedded)} Beacon receipt(s) — pass "
+            "--beacon-public-key (verified here) or --beacon-bundle (beacon-verify)",
+            fg="red",
+        )
+        sys.exit(2)
+
+    if beacon_public_key is not None:
+        try:
+            pub = load_public_key(Path(beacon_public_key))
+        except SigningError as exc:
+            click.secho(f"fail: {exc}", fg="red")
+            sys.exit(2)
+        bad = [
+            r["id"] for r in embedded
+            if r.get("format") != "runtime" or not verify_receipt(pub, r.get("payload") or {})
+        ]
+        if bad:
+            click.secho(
+                f"fail: {len(bad)} embedded Beacon receipt(s) do not verify with "
+                f"{Path(beacon_public_key).name} (foundation-format entries need --beacon-bundle): "
+                f"{bad[:5]}",
+                fg="red",
+            )
+            sys.exit(2)
+        click.secho(f"✓ {len(embedded)} embedded Beacon receipt signature(s) valid", fg="green")
+
+    if beacon_bundle is not None:
+        bv = shutil.which("beacon-verify")
+        if bv is None:
+            click.secho("fail: --beacon-bundle requires `beacon-verify` on PATH", fg="red")
+            sys.exit(2)
+        cmd = [bv, str(Path(beacon_bundle).resolve())]
+        if beacon_public_key:
+            cmd += ["--public-key", str(Path(beacon_public_key).resolve())]
+        try:
+            subprocess.run(cmd, check=True)
+        except subprocess.CalledProcessError:
+            click.secho("fail: beacon-verify rejected the receipts", fg="red")
+            sys.exit(2)
+        try:
+            source = {r["id"]: r["payload"] for r in beacon_mod.load(Path(beacon_bundle)).receipts}
+        except (beacon_mod.BeaconInputError, OSError, ValueError) as exc:
+            click.secho(f"fail: cannot read {beacon_bundle}: {exc}", fg="red")
+            sys.exit(2)
+        stray = [r["id"] for r in embedded if source.get(r["id"]) != r.get("payload")]
+        if stray:
+            click.secho(
+                f"fail: {len(stray)} embedded receipt(s) are not in the verified source "
+                f"{beacon_bundle}: {stray[:5]}",
+                fg="red",
+            )
+            sys.exit(2)
+        click.secho("✓ beacon-verify passed and every embedded receipt is in its source", fg="green")
 
 
 def _emit(results: list[CheckResult], out_format: str) -> None:

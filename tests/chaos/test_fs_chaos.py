@@ -101,3 +101,29 @@ def test_directory_where_file_expected_is_handled(tmp_path: Path) -> None:
     cw.mkdir()
     results = run_checks(tmp_path, [("crosswalk-resolved", check_crosswalk_resolved)])
     assert results[0].status in {"warn", "fail"}
+
+
+@pytest.mark.skipif(
+    hasattr(os, "geteuid") and os.geteuid() == 0,
+    reason="root bypasses file-permission checks",
+)
+@pytest.mark.skipif(sys.platform.startswith("win"), reason="POSIX permissions only")
+def test_unreadable_agent_policy_is_a_structured_fail(tmp_path: Path) -> None:
+    """An EACCES on policy.yaml must fail schema-valid with a reason, not crash
+    and not be skipped."""
+    fixture = Path(__file__).resolve().parents[1] / "fixtures" / "level-200-policy.yaml"
+    victim = tmp_path / "policy.yaml"
+    victim.write_text(fixture.read_text())
+    victim.chmod(0o000)
+    try:
+        r = check_schema_valid(tmp_path)
+        assert r.status == "fail"
+        assert any("cannot read" in d for d in r.details)
+    finally:
+        victim.chmod(0o644)
+
+
+def test_non_utf8_agent_policy_is_a_structured_fail(tmp_path: Path) -> None:
+    (tmp_path / "policy.yaml").write_bytes(b"policy: \xff\xfe\n")
+    r = check_schema_valid(tmp_path)
+    assert r.status == "fail"
