@@ -2,8 +2,8 @@
 
 End-to-end test harness for the Umbrella-GovOps governance compiler. The
 harness has four pillars — **unit**, **scale**, **chaos**, **e2e** — each
-runnable in isolation locally and wired into CI on every PR plus a nightly
-schedule.
+runnable in isolation locally and wired into CI on every PR plus a weekly
+(Mondays) schedule.
 
 ```
 tests/
@@ -67,7 +67,7 @@ asserts an SLA:
 | 10 000 | opt-in via `SCALE_N=10000` | <5 s / 1 000 |
 
 Throughput numbers are appended to `reports/harness/scale.jsonl` so the
-nightly run produces a long-running trend line you can graph later.
+weekly run produces a long-running trend line you can graph later.
 
 ### 3. Chaos — `tests/chaos/`
 
@@ -124,10 +124,10 @@ See `.github/workflows/harness.yml`. Jobs run on:
 
 - every PR to `main`
 - every push to `main`
-- nightly schedule at `17 9 * * *` UTC (~02:17 PT)
+- weekly schedule at `17 9 * * 1` UTC (Mondays, ~02:17 PT)
 - manual `workflow_dispatch`
 
-The 10k-control scale job runs **only** nightly or on manual dispatch — too
+The 10k-control scale job runs **only** on the weekly schedule or on manual dispatch — too
 expensive for the PR critical path.
 
 Each job uploads its own artifact bundle, and a final
