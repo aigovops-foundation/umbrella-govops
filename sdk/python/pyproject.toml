@@ -26,8 +26,8 @@ dependencies = ["pyyaml>=6.0"]
 dev = ["pytest>=7.4"]
 
 [project.urls]
-Homepage = "https://bobrapp.github.io/umbrella-govops/"
-Source = "https://github.com/bobrapp/umbrella-govops"
+Homepage = "https://aigovops-foundation.github.io/umbrella-govops/"
+Source = "https://github.com/aigovops-foundation/umbrella-govops"
 
 [tool.setuptools.packages.find]
 where = ["src"]

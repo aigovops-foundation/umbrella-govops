@@ -7,7 +7,7 @@
 ### The program that binds runtime evidence to AI law.
 
 **Landing page →** [aigovops-foundation.github.io/umbrella-govops](https://aigovops-foundation.github.io/umbrella-govops/)
-**Runtime product →** [AiGovOps Beacon](https://github.com/bobrapp/aigovops-beacon) — standalone signing + verification; Umbrella **embeds** its receipts.
+**Runtime product →** [AiGovOps Beacon](https://github.com/aigovops-foundation/aigovops-beacon) — standalone signing + verification; Umbrella **embeds** its receipts.
 
 `COMPILE THE LAW · BIND THE EVIDENCE · CROSSWALK THE FRAMEWORKS · COVER EVERY SYSTEM`
 
@@ -17,7 +17,7 @@
 
 ## What Umbrella-GovOps is
 
-Umbrella-GovOps is the **program layer** of the AiGovOps stack. It compiles AI laws and standards into versioned, citable controls — each anchored by a [Unified Control Identifier (UCID)](UCID-REGISTRY.md) — and **binds runtime evidence**, including [Beacon](https://github.com/bobrapp/aigovops-beacon) receipts and any in-toto attestation, to those controls inside a single signed `EvidenceBundle`.
+Umbrella-GovOps is the **program layer** of the AiGovOps stack. It compiles AI laws and standards into versioned, citable controls — each anchored by a [Unified Control Identifier (UCID)](UCID-REGISTRY.md) — and **binds runtime evidence**, including [Beacon](https://github.com/aigovops-foundation/aigovops-beacon) receipts and any in-toto attestation, to those controls inside a single signed `EvidenceBundle`.
 
 It is a **framework registry**, not a control library: as new frameworks (NIST AI RMF, EU AI Act, ISO/IEC 42001, OECD, country-specific) are published, Umbrella's job is to crosswalk them onto the existing UCIDs so your runtime telemetry doesn't have to change every time a regulator does.
 
@@ -29,7 +29,7 @@ Governance is not a PDF. It is a pipeline. Every control is a YAML contract. Eve
 |---|---|---|
 | Role | Runtime signing + verification of evidence events | Framework registry + control catalog + evidence binder |
 | Release cadence | Slow, signed, versioned (≈ 2/year) | Fast, informational (quarterly digests, monthly framework updates) |
-| Depends on the other? | **No** — Beacon [runs alone](https://github.com/bobrapp/aigovops-beacon#beacon-runs-alone) | Yes — embeds Beacon receipts in `EvidenceBundle.receipts[]` |
+| Depends on the other? | **No** — Beacon [runs alone](https://github.com/aigovops-foundation/aigovops-beacon#beacon-runs-alone) | Yes — embeds Beacon receipts in `EvidenceBundle.receipts[]` |
 | Identifier surface | OVERT-pure receipts, no `governance` block | UCID registry (IANA-style) — see [UCID-REGISTRY.md](UCID-REGISTRY.md) |
 
 If you only need to prove *what happened*, use Beacon. If you also need to prove *which law it satisfies*, add Umbrella on top.
@@ -258,7 +258,7 @@ The predicate carries reproducible numeric claims:
   "predicateType": "https://aigovops.org/attestations/govops-evidence/v1",
   "predicate": {
     "orchestration": {
-      "repo": "bobrapp/umbrella-govops",
+      "repo": "aigovops-foundation/umbrella-govops",
       "workflowRef": ".github/workflows/govops-ci.yml@refs/heads/main"
     },
     "scope":    { "systems": ["SYS-001", "SYS-002", "SYS-003"] },
@@ -271,11 +271,12 @@ The predicate carries reproducible numeric claims:
 Verify any bundle in one command — no Umbrella account required:
 
 ```bash
-cosign verify-attestation \
-  --type https://aigovops.org/attestations/govops-evidence/v1 \
-  --certificate-identity-regexp "https://github.com/bobrapp/umbrella-govops/.+" \
+cosign verify-blob \
+  --certificate bundle.tar.gz.pem \
+  --signature bundle.tar.gz.sig \
+  --certificate-identity https://github.com/aigovops-foundation/umbrella-govops/.github/workflows/govops-ci.yml@refs/heads/main \
   --certificate-oidc-issuer https://token.actions.githubusercontent.com \
-  bundle.tar.zst
+  bundle.tar.gz
 ```
 
 ## Cross-framework reporting

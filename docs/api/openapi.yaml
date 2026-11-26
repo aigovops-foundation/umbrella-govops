@@ -9,7 +9,7 @@ info:
     Umbrella-GovOps ships as a data-contract project plus a conformance CLI; it
     does not currently expose an HTTP service. This document publishes the
     *planned* admission/governance API so downstream projects (notably a
-    [Beacon](https://github.com/bobrapp/aigovops-beacon) agent) have a stable
+    [Beacon](https://github.com/aigovops-foundation/aigovops-beacon) agent) have a stable
     contract to code against ahead of implementation.
 
     The natural surface is four endpoints:
@@ -25,7 +25,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0
   contact:
     name: AiGovOps Foundation
-    url: https://github.com/bobrapp/umbrella-govops
+    url: https://github.com/aigovops-foundation/umbrella-govops
 
 servers:
   - url: https://governance.example.org/api/v1

@@ -11,7 +11,7 @@ By participating, you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md
 
 | If you want to… | Start here |
 | --- | --- |
-| Report a bug or missing check | [Open an issue](https://github.com/bobrapp/umbrella-govops/issues/new) with the `bug` label |
+| Report a bug or missing check | [Open an issue](https://github.com/aigovops-foundation/umbrella-govops/issues/new) with the `bug` label |
 | Propose a new framework or crosswalk row | Open an issue with the `framework` label, then submit a PR against `crosswalks/unified-control-id.yaml` |
 | Add a control to a domain | PR under `domains/<domain>/controls/` following the schema in `schemas/control.schema.json` |
 | Improve the conformance CLI or SDKs | PR against `conformance/` or `sdk/{python,typescript}/` |
@@ -90,5 +90,5 @@ Maintainers aim to triage new issues and PRs within 2 business days.
 
 ## Questions
 
-Open a [Discussion](https://github.com/bobrapp/umbrella-govops/discussions)
+Open a [Discussion](https://github.com/aigovops-foundation/umbrella-govops/discussions)
 (if enabled) or email `[email protected]`.

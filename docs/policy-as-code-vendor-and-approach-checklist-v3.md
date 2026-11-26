@@ -1,7 +1,7 @@
 # Policy-as-Code: Vendor and Approach Checklist — v.3
 
-**Maintainer:** AiGovOps Foundation (501c3) — [umbrella-govops](https://github.com/bobrapp/umbrella-govops)
-**Companion runtime product:** [AiGovOps Beacon](https://github.com/bobrapp/aigovops-beacon)
+**Maintainer:** AiGovOps Foundation (501c3) — [umbrella-govops](https://github.com/aigovops-foundation/umbrella-govops)
+**Companion runtime product:** [AiGovOps Beacon](https://github.com/aigovops-foundation/aigovops-beacon)
 **Status:** v.3 — 2026-06-01. Supersedes v.2 (2026-Q1).
 **Audience:** AI/ML platform leads, GRC architects, procurement, and notified-body assessors evaluating "Policy-as-Code" (PaC) offerings for AI governance.
 
@@ -47,7 +47,7 @@ The non-negotiables. A "Policy-as-Code" vendor that cannot satisfy Section A is 
 | A7 | **Every embedded receipt is independently re-verifiable** — the outer DSSE signature does **not** substitute for receipt-level verification. | Strip the outer DSSE; verifier must still validate the inner receipts. |
 | A8 | **Long-term archival path exists.** Either Rekor entries or an equivalent transparency log; keys rotate without breaking historical evidence. | Vendor publishes their key-rotation runbook. |
 
-**Implementation pointer:** the AiGovOps stack satisfies A1–A8 via [Beacon](https://github.com/bobrapp/aigovops-beacon) (signing) + [Umbrella](https://github.com/bobrapp/umbrella-govops) `EvidenceBundle.receipts[]` (embedding) + `cosign sign-blob` keyless (outer envelope). See the [threat model](../foundation/THREAT-MODEL.md) for the attacks each item defends against.
+**Implementation pointer:** the AiGovOps stack satisfies A1–A8 via [Beacon](https://github.com/aigovops-foundation/aigovops-beacon) (signing) + [Umbrella](https://github.com/aigovops-foundation/umbrella-govops) `EvidenceBundle.receipts[]` (embedding) + `cosign sign-blob` keyless (outer envelope). See the [threat model](../foundation/THREAT-MODEL.md) for the attacks each item defends against.
 
 ---
 
@@ -83,7 +83,7 @@ Sections C–F are not disqualifying individually, but a vendor failing most of 
 | C6 | **Build provenance for the vendor's own tools** is published (SLSA Level ≥ 3 or in-toto attestations on the CLI binaries). | `cosign verify-attestation` against a vendor-published binary. |
 | C7 | **No "enterprise edition"** of the verifier. Verification logic is open source. | Find the verifier source. If you cannot, this is a Section A1 violation in disguise. |
 
-**Implementation pointer:** the [Beacon README](https://github.com/bobrapp/aigovops-beacon#beacon-runs-alone) and the Umbrella [README cadence table](../README.md#beacon-and-umbrella--two-layers-two-cadences) make C1–C5 explicit. [Policy positions P3, P5, P7](../foundation/POLICY-POSITIONS.md) bind the Foundation to this posture publicly.
+**Implementation pointer:** the [Beacon README](https://github.com/aigovops-foundation/aigovops-beacon#beacon-runs-alone) and the Umbrella [README cadence table](../README.md#beacon-and-umbrella--two-layers-two-cadences) make C1–C5 explicit. [Policy positions P3, P5, P7](../foundation/POLICY-POSITIONS.md) bind the Foundation to this posture publicly.
 
 ---
 
@@ -168,7 +168,7 @@ We publish this so we can be held to it. As of 2026-06-01, the AiGovOps stack (B
 | E. Crosswalk integrity | **6/6** | YAML crosswalk in git (E1); pinned framework versions (E2); `crosswalk-resolved` check (E3); `controls-have-checks` check (E4); `verify --ucid-coverage` (E5); `metadata.commit_sha` in bundles (E6). |
 | F. Governance / COI | **7/7** | No certification program (F1); Apache-2.0 (F2); [threat model](../foundation/THREAT-MODEL.md) (F3); [policy positions](../foundation/POLICY-POSITIONS.md) (F4); [glossary](../foundation/GLOSSARY.md) (F5); [release calendar](../foundation/RELEASE-CALENDAR.md) (F6); self-signed releases (F7). |
 
-**Total: 41 / 41.** If you find a gap, [open an issue](https://github.com/bobrapp/umbrella-govops/issues/new/choose).
+**Total: 41 / 41.** If you find a gap, [open an issue](https://github.com/aigovops-foundation/umbrella-govops/issues/new/choose).
 
 ---
 

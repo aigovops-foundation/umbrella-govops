@@ -7,7 +7,7 @@ at runtime — in the Beacon receipts that an `EvidenceBundle` embeds.
 
 Umbrella itself is the **compiler / rules engine**; the runtime verbs
 (`inference.observed`, `admission.allowed/denied`) are emitted by
-[Beacon](https://github.com/bobrapp/aigovops-beacon) and *consumed* here as
+[Beacon](https://github.com/aigovops-foundation/aigovops-beacon) and *consumed* here as
 evidence. This reference documents both sides so downstream projects share one
 vocabulary.
 

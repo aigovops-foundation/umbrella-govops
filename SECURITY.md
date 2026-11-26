@@ -21,7 +21,7 @@ recomputes every digest in it):
 cosign verify-blob \
   --signature bundle.tar.gz.sig \
   --certificate bundle.tar.gz.pem \
-  --certificate-identity-regexp "https://github.com/aigovops-foundation/umbrella-govops/.+" \
+  --certificate-identity https://github.com/aigovops-foundation/umbrella-govops/.github/workflows/govops-ci.yml@refs/heads/main \
   --certificate-oidc-issuer https://token.actions.githubusercontent.com \
   bundle.tar.gz
 ```

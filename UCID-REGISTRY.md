@@ -5,7 +5,7 @@
 **Designated Expert:** Bob Rapp (`@bobrapp`) — Co-founder, AiGovOps Foundation
 **Backup Expert:** *vacant — Foundation board to designate by 2026-Q3*
 **Registry source of truth:** [`crosswalks/unified-control-id.yaml`](crosswalks/unified-control-id.yaml)
-**Companion runtime product:** [Beacon](https://github.com/bobrapp/aigovops-beacon) (binds receipts to UCIDs via `evidence_refs`)
+**Companion runtime product:** [Beacon](https://github.com/aigovops-foundation/aigovops-beacon) (binds receipts to UCIDs via `evidence_refs`)
 
 ---
 
@@ -196,7 +196,7 @@ implementing controls reach `status: enforced` and CI checks pass. See
 ## 10. Open questions / future work
 
 * Should `UCID-LOG-001` split into a UCID per logged event-class (input/output/decision/error)?
-  Tracked in [#TBD](https://github.com/bobrapp/umbrella-govops/issues).
+  Tracked in [#TBD](https://github.com/aigovops-foundation/umbrella-govops/issues).
 * OECD AI Principles citations are not yet in scope; pending a separate framework-registry PR.
 * Once ≥ 25 UCIDs are registered, this document migrates to a published site under
   [aigovops-foundation.github.io/umbrella-govops/registry/](https://aigovops-foundation.github.io/umbrella-govops/registry/).
@@ -208,6 +208,6 @@ implementing controls reach `status: enforced` and CI checks pass. See
 In external documents, cite a UCID as:
 
 > AiGovOps UCID-OVERSIGHT-001, *Human oversight measures*, Umbrella-GovOps registry
-> (`https://github.com/bobrapp/umbrella-govops/blob/main/UCID-REGISTRY.md`), accessed YYYY-MM-DD.
+> (`https://github.com/aigovops-foundation/umbrella-govops/blob/main/UCID-REGISTRY.md`), accessed YYYY-MM-DD.
 
 Tools consuming the YAML registry SHOULD pin to a specific commit SHA, not `main`.

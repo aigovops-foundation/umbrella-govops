@@ -24,7 +24,7 @@ with its companion products. This complements
 - A running governance HTTP **service** — the `docs/api/openapi.yaml` contract
   is DRAFT v0 and unimplemented here.
 - **Runtime** discovery, admission, and receipt *emission* — that is
-  [Beacon](https://github.com/bobrapp/aigovops-beacon)'s job; Umbrella
+  [Beacon](https://github.com/aigovops-foundation/aigovops-beacon)'s job; Umbrella
   *consumes* Beacon receipts as evidence.
 - Human-facing **rendering** of conformity views — that is Lantern's job.
 - Judging the *semantic* correctness of framework mappings — that remains a

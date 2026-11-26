@@ -8,7 +8,7 @@ body:
       value: |
         Thanks for taking the time to file a bug. The more specific you are,
         the faster we can land a fix. For security issues, please **do not**
-        use this form — see [SECURITY.md](https://github.com/bobrapp/umbrella-govops/blob/main/SECURITY.md).
+        use this form — see [SECURITY.md](https://github.com/aigovops-foundation/umbrella-govops/blob/main/SECURITY.md).
 
   - type: dropdown
     id: area
@@ -84,5 +84,5 @@ body:
     attributes:
       label: Code of Conduct
       options:
-        - label: I agree to follow this project's [Code of Conduct](https://github.com/bobrapp/umbrella-govops/blob/main/CODE_OF_CONDUCT.md).
+        - label: I agree to follow this project's [Code of Conduct](https://github.com/aigovops-foundation/umbrella-govops/blob/main/CODE_OF_CONDUCT.md).
           required: true
