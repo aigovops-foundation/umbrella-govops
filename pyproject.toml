@@ -35,8 +35,8 @@ dev = ["pytest>=7.4", "pytest-cov>=4.1", "hypothesis>=6.100"]
 umbrella-conformance = "conformance.cli:cli"
 
 [project.urls]
-Homepage = "https://bobrapp.github.io/umbrella-govops/"
-Source = "https://github.com/bobrapp/umbrella-govops"
+Homepage = "https://aigovops-foundation.github.io/umbrella-govops/"
+Source = "https://github.com/aigovops-foundation/umbrella-govops"
 
 [tool.setuptools]
 packages = ["conformance", "conformance.checks"]

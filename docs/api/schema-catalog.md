@@ -38,4 +38,4 @@ schema by its `kind` field.
 | SLSA Provenance v1 | [slsa.dev](https://slsa.dev/provenance/v1) | `predicateType` asserted by `slsa-provenance-present`. |
 | in-toto Statement v1 | [in-toto.io](https://in-toto.io/Statement/v1) | Outer envelope wrapping an EvidenceBundle for `cosign sign-blob`. |
 | OVERT predicate | `overt/umbrella-govops.v1.json` (when present) | Validated by `overt-predicate-valid`; predicate type `https://overt.dev/umbrella-govops/v1`. |
-| Beacon receipt | [aigovops-beacon](https://github.com/bobrapp/aigovops-beacon) | Embedded verbatim into `EvidenceBundle.receipts[]`; re-verified with `beacon-verify`. |
+| Beacon receipt | [aigovops-beacon](https://github.com/aigovops-foundation/aigovops-beacon) | Embedded verbatim into `EvidenceBundle.receipts[]`; re-verified with `beacon-verify`. |

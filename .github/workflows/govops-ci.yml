@@ -182,7 +182,7 @@ jobs:
         run: pip install -e .
       - name: (optional) Install beacon-verify for embedded receipt verification
         run: |
-          pip install "git+https://github.com/bobrapp/aigovops-beacon.git@main#egg=aigovops-beacon" || \
+          pip install "git+https://github.com/aigovops-foundation/aigovops-beacon.git@main#egg=aigovops-beacon" || \
             echo "beacon package not yet published — skipping receipt embedding"
       - name: Assemble bundle (in-toto Statement v1 + DSSE envelope)
         run: |

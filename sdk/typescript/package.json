@@ -7,7 +7,7 @@
   "homepage": "https://aigovops-foundation.github.io/umbrella-govops/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bobrapp/umbrella-govops",
+    "url": "https://github.com/aigovops-foundation/umbrella-govops",
     "directory": "sdk/typescript"
   },
   "keywords": ["ai-governance", "compliance", "policy-as-code", "sigstore", "slsa"],

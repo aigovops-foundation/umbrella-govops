@@ -3,7 +3,7 @@ kind: PolicyOrchestration
 metadata:
   name: umbrella-govops-root
   version: 2026.05.29
-  signing_identity: https://github.com/bobrapp/umbrella-govops/.github/workflows/evidence-bundle.yml@refs/heads/main
+  signing_identity: https://github.com/aigovops-foundation/umbrella-govops/.github/workflows/govops-ci.yml@refs/heads/main
 
 defaults:
   evidence_retention: P7Y
