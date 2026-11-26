@@ -118,6 +118,8 @@ umbrella-govops/
 ├── .github/
 │   ├── workflows/
 │   │   ├── govops-ci.yml                      # Master orchestrator (six stages)
+│   │   ├── harness.yml                        # Test harness: unit, scale, chaos, e2e
+│   │   ├── dependency-triage.yml              # Weekly dependency triage
 │   │   └── pages.yml                          # Publishes docs/ to GitHub Pages
 │   └── pull_request_template.md
 │
@@ -289,9 +291,9 @@ Three artifacts, one corpus:
 | Event | Trigger | Outcome |
 |---|---|---|
 | New AI system onboarded | New file in `systems/` | Risk classification runs; orchestration scope expands |
-| Framework update (e.g., NIST AI RMF 1.1) | `framework-sync.yml` cron | Auto-PR with diff in `frameworks/`; CODEOWNERS review required |
+| Framework update (e.g., NIST AI RMF 1.1) | *Planned* — scheduled framework sync (no workflow yet) | Auto-PR with diff in `frameworks/`; CODEOWNERS review required |
 | Control change | PR touches `domains/**/controls/*.yaml` | Shadow-mode run for 7 days before `status: enforced` |
-| Production drift | Nightly `drift-detection.yml` | Issue auto-opened; POA&M entry created |
+| Production drift | *Planned* — drift-detection workflow (no workflow yet) | Issue auto-opened; POA&M entry created |
 | Serious incident (EU AI Act Art. 73) | Webhook from runtime monitor | `incident-response` domain assembles signed disclosure pack |
 | Quarterly audit | `workflow_dispatch` | Conformity pack + RMF profile + heatmap regenerated and signed |
 
@@ -333,7 +335,7 @@ The repo ships a full test pyramid:
 | **Scale** | 100 / 1 000 / 10 000 synthetic controls with an SLA of <5 s per 1 000, plus a 1 000-mapping crosswalk-check under 10 s | `make test-scale` (or `make test-scale-10k`) |
 | **Chaos** | Deterministic mutations (bad YAML, bad runner, missing checks, bad ID, orphan UCID, dangling implementer) + a random walk; **property-based fuzzing** (Hypothesis) of validators against malformed UCIDs / weird Unicode / huge / missing / extra fields; **filesystem chaos** (missing files, truncated YAML, BOM, EACCES) — every break must be caught cleanly, never crash | `make test-chaos` |
 
-Run everything with `make test-all`. The harness runs on every PR and nightly
+Run everything with `make test-all`. The harness runs on every PR and weekly (Mondays)
 via [`.github/workflows/harness.yml`](.github/workflows/harness.yml); the
 unit + integration + chaos layers also run inside
 [`govops-ci.yml`](.github/workflows/govops-ci.yml), and the scale layer is
